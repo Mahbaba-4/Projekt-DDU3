@@ -1,11 +1,14 @@
 function readData() {
-    return JSON.parese(Deno.readTextFileSync("./movieDataBase.json"));
+    return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
 }
 
 function getGenres(request) {
     try {
         const data = readData();
         let genres = data.genre;
+
+        console.log("Genres hämtade:", genres);
+        console.log("Antal genres:", genres.length);
 
         return new Response(JSON.stringify(genres), {
             status: 200,
