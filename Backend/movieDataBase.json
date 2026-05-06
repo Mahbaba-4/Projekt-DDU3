@@ -1,8 +1,66 @@
 {
-    "movies": [
-
-    ],
+    "movies": [],
     "genre": [
+        {
+            "id": "1",
+            "name": "Action"
+        },
+        {
+            "id": "2",
+            "name": "Adventure"
+        },
+        {
+            "id": "3",
+            "name": "Comedy"
+        },
+        {
+            "id": "4",
+            "name": "Drama"
+        },
+        {
+            "id": "5",
+            "name": "Horror"
+        },
+        {
+            "id": "6",
+            "name": "Thriller"
+        },
+        {
+            "id": "7",
+            "name": "Romance"
+        },
+        {
+            "id": "8",
+            "name": "Sci-Fi"
+        },
+        {
+            "id": "9",
+            "name": "Fantasy"
+        },
+        {
+            "id": "10",
+            "name": "Crime"
+        },
+        {
+            "id": "11",
+            "name": "Animation"
+        },
+        {
+            "id": "12",
+            "name": "Documentary"
+        },
+        {
+            "id": "13",
+            "name": "Family"
+        },
+        {
+            "id": "14",
+            "name": "Musical"
+        },
+        {
+            "id": "15",
+            "name": "Mystery"
+        }
 
     ]
 }
