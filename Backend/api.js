@@ -39,14 +39,25 @@ async function createMovieReview(request) {
     try {
         const body = await request.json();
 
-        if (!body.title || !body.year || !body.genre || !body.director || !body.runtime || !body.posterUrl || !body.status) {
-            return new Response(JSON.stringify({ error: "Bad Request - Missing required fields" }), {
+        if (!body.title || !body.year || !body.genre || !body.director || !body.runtime || !body.posterUrl || !body.description || !body.status) {
+            return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*"
                 }
             });
+        }
+
+        if (body.status === "Watched" && body.rating === undefined && body.dateWatched === undefined) {
+            return new Response(JSON.stringify({}), {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+
         }
 
         const data = readData();
@@ -78,7 +89,9 @@ async function createMovieReview(request) {
             runtime: body.runtime,
             posterUrl: body.posterUrl,
             description: body.description,
-            status: body.status
+            status: body.status,
+            rating: body.rating || null,
+            dateWatched: body.dateWatched || null
         };
 
         data.movies.push(newMovie);

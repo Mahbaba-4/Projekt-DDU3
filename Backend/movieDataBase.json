@@ -2,51 +2,31 @@
   "movies": [
     {
       "id": 1,
-      "title": "Tangled",
-      "year": 2010,
-      "genreId": "11",
-      "genre": "Animation",
-      "director": "Nathan Greno, Byron Howard",
-      "runtime": 100,
-      "posterUrl": "https://example.com/tangled.jpg",
-      "description": "The magically long-haired Rapunzel has spent her entire life in a tower.",
-      "status": "Watched"
+      "title": "Titanic",
+      "year": 1997,
+      "genreId": "7",
+      "genre": "Romance",
+      "director": "James Cameron",
+      "runtime": 195,
+      "posterUrl": "https://example.com/titanic.jpg",
+      "description": "Titanic, the ship is sinking",
+      "status": "Watched",
+      "rating": 5,
+      "dateWatched": "2026-05-06"
     },
     {
       "id": 2,
-      "title": "Frozen",
-      "year": 2013,
-      "genreId": "11",
-      "genre": "Animation",
-      "director": "Chris Buck, Jennifer Lee",
-      "runtime": 102,
-      "posterUrl": "https://example.com/frozen.jpg",
-      "description": "When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain man, his playful reindeer, and a snowman to change the weather condition.",
-      "status": "Watchlist"
-    },
-    {
-      "id": 3,
-      "title": "Gladiator",
-      "year": 2000,
-      "genreId": "1",
-      "genre": "Action",
-      "director": "Ridley Scott",
-      "runtime": 155,
-      "posterUrl": "https://example.com/gladiator.jpg",
-      "description": "A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.",
-      "status": "Watched"
-    },
-    {
-      "id": 4,
-      "title": "Penguins of Madagascar",
-      "year": 2014,
-      "genreId": "11",
-      "genre": "Animation",
-      "director": "Eric Darnell, Simon J. Smith",
-      "runtime": 92,
-      "posterUrl": "https://example.com/penguins.jpg",
-      "description": "Skipper, Kowalski, Rico, and Private join forces with undercover organization The North Wind to stop the villainous Dr. Octavius Brine from destroying the world.",
-      "status": "Watchlist"
+      "title": "Avatar",
+      "year": 2009,
+      "genreId": "8",
+      "genre": "Sci-Fi",
+      "director": "James Cameron",
+      "runtime": 162,
+      "posterUrl": "https://example.com/avatar.jpg",
+      "description": "Something about the movie",
+      "status": "Watchlist",
+      "rating": null,
+      "dateWatched": null
     }
   ],
   "genre": [
