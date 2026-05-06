@@ -20,6 +20,18 @@ function handler(request) {
             headers: { "Access-Control-Allow-Orgin": "*" }
         })
     }
+
+    if (request.headers.get("Accept")!== "application/json"){
+         return new Response(JSON.stringify({}), {
+            status: 406,
+            headers: { "Access-Control-Allow-Orgin": "*" }
+        })
+    }
+
+    return new Response(JSON.stringify({}), {
+        status:404,
+        headers: { "Access-Control-Allow-Orgin": "*" }
+    })
 }
 
 Deno.serve(handler);
