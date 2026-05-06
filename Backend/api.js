@@ -1,16 +1,21 @@
 function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
+
 }
 
 //Det är enklare att använda en funktion som skriver över datan vid PATCH OCH POST :)
 function writeData(data) {
     Deno.writeTextFileSync("./movieDataBase.json", JSON.stringify(data, null, 2));
+
 }
 
 function getGenres(request) {
     try {
         const data = readData();
         let genres = data.genre;
+
+        console.log("Genres hämtade:", genres);
+        console.log("Antal genres:", genres.length);
 
         return new Response(JSON.stringify(genres), {
             status: 200,
