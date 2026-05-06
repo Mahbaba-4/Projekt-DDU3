@@ -26,7 +26,7 @@ function handler(request) {
             status: 406,
             headers: { "Access-Control-Allow-Orgin": "*" }
         })
-    }
+    } else if (request.headers.get("Content-Type") !== "application/json")
 
     if (url.pathname === "/movies/genre" && request.method === "GET") {
         return getGenres(request);
