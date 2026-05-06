@@ -81,9 +81,9 @@ async function createMovieReview(request) {
             status: body.status
         };
 
-        db.movies.push(newMovie);
+        data.movies.push(newMovie);
 
-        writeData(db);
+        writeData(data);
 
         return new Response(null, {
             status: 201,
