@@ -35,6 +35,18 @@ async function createMovieReview(request) {
     if (request.headers.get("Content-Type") == "application/json") {
         try {
             const body = await request.json();
+
+            if (!body.title || !body.year || !body.genre || !body.director || !body.runtime || !body.posterUrl || !body.description || !body.status) {
+                return new Response(JSON.stringify({ error: "Bad Request - Missing required fields" }), {
+                    status: 400,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                });
+            }
+
+
             const db = readData();
 
             let maxId = 0;
