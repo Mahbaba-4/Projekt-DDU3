@@ -1,6 +1,8 @@
 import { } from "./api.js";
 
 function handler(request) {
+    let url = new URL(request.url);
+    
     if (request.method === "OPTIONS") {
         return new Response(null, {
             headers: {
