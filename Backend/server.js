@@ -1,0 +1,24 @@
+import { } from "./api.js";
+
+function handler(request) {
+    if (request.method === "OPTIONS") {
+        return new Response(null, {
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "Authorization, Content-Type, Accept",
+                "Access-Control-Max-Age": "86400"
+            }
+        })
+    }
+
+    if (request.headers.get("Authorization") !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
+        return new Response(JSON.stringify({}), {
+            status: 401,
+            headers: { "Access-Control-Allow-Orgin": "*" }
+        })
+    }
+
+}
+
+Deno.serve(handler);
