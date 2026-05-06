@@ -18,7 +18,6 @@ function handler(request) {
             headers: { "Access-Control-Allow-Orgin": "*" }
         })
     }
-
 }
 
 Deno.serve(handler);
