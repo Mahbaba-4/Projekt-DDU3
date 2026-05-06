@@ -1,4 +1,4 @@
-import { } from "./api.js";
+import {createMovieReview} from "./api.js";
 
 function handler(request) {
     let url = new URL(request.url);
@@ -19,6 +19,10 @@ function handler(request) {
             status: 401,
             headers: { "Access-Control-Allow-Orgin": "*" }
         })
+    }
+
+    if(url.pathname == "/user/movies" && request.method == "POST") {
+        return createMovieReview(request);
     }
 }
 
