@@ -1,4 +1,4 @@
-import { } from "./api.js";
+import {getGenres} from "./api.js";
 
 function handler(request) {
     let url = new URL(request.url);
@@ -27,6 +27,10 @@ function handler(request) {
             headers: { "Access-Control-Allow-Orgin": "*" }
         })
     }
+
+    if (url.pathname === "/movies/genre" && request.method === "GET") {
+    return getGenres(request);
+  }
 
     return new Response(JSON.stringify({}), {
         status:404,
