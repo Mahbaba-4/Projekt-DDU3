@@ -1,8 +1,8 @@
-import {getGenres} from "./api.js";
+import { createMovieReview, getGenres } from "./api.js";
 
 function handler(request) {
     let url = new URL(request.url);
-    
+
     if (request.method === "OPTIONS") {
         return new Response(null, {
             headers: {
@@ -21,19 +21,23 @@ function handler(request) {
         })
     }
 
-    if (request.headers.get("Accept")!== "application/json"){
-         return new Response(JSON.stringify({}), {
+    if (request.headers.get("Accept") !== "application/json") {
+        return new Response(JSON.stringify({}), {
             status: 406,
             headers: { "Access-Control-Allow-Orgin": "*" }
         })
     }
 
     if (url.pathname === "/movies/genre" && request.method === "GET") {
-    return getGenres(request);
-  }
+        return getGenres(request);
+    }
+
+    if (url.pathname == "/user/movies" && request.method == "POST") {
+        return createMovieReview(request);
+    }
 
     return new Response(JSON.stringify({}), {
-        status:404,
+        status: 404,
         headers: { "Access-Control-Allow-Orgin": "*" }
     })
 }
