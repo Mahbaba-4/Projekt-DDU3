@@ -21,12 +21,12 @@ function handler(request) {
         })
     }
 
-    if (request.headers.get("Accept") !== "application/json") {
+    if (request.headers.get("Accept") !== "application/json" || request.headers.get("Content-Type") !== "application/json") {
         return new Response(JSON.stringify({}), {
             status: 406,
             headers: { "Access-Control-Allow-Orgin": "*" }
         })
-    } else if (request.headers.get("Content-Type") !== "application/json")
+    } 
 
     if (url.pathname === "/movies/genre" && request.method === "GET") {
         return getGenres(request);
