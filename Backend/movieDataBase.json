@@ -11,6 +11,18 @@
       "posterUrl": "https://example.com/tangled.jpg",
       "description": "The magically long-haired Rapunzel has spent her entire life in a tower.",
       "status": "Watched"
+    },
+    {
+      "id": 2,
+      "title": "Frozen",
+      "year": 2013,
+      "genreId": "11",
+      "genre": "Animation",
+      "director": "Chris Buck, Jennifer Lee",
+      "runtime": 102,
+      "posterUrl": "https://example.com/frozen.jpg",
+      "description": "When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain man, his playful reindeer, and a snowman to change the weather condition.",
+      "status": "Watchlist"
     }
   ],
   "genre": [
