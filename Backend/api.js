@@ -50,11 +50,11 @@ async function createMovieReview(request) {
             });
         }
 
-        const db = readData();
+        const data = readData();
 
         let maxId = 0;
 
-        for (let movie of db.movies) {
+        for (let movie of data.movies) {
             const id = parseInt(movie.id);
             if (id > maxId) maxId = id;
         }
@@ -62,7 +62,7 @@ async function createMovieReview(request) {
         let newId = maxId + 1;
 
         let genreId = null;
-        for (let genre of db.genre) {
+        for (let genre of data.genre) {
             if (genre.name === body.genre) {
                 genreId = genre.id;
                 break;
