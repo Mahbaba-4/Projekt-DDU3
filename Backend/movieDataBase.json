@@ -23,6 +23,18 @@
       "posterUrl": "https://example.com/frozen.jpg",
       "description": "When the newly crowned Queen Elsa accidentally uses her power to turn things into ice to curse her home in infinite winter, her sister Anna teams up with a mountain man, his playful reindeer, and a snowman to change the weather condition.",
       "status": "Watchlist"
+    },
+    {
+      "id": 3,
+      "title": "Gladiator",
+      "year": 2000,
+      "genreId": "1",
+      "genre": "Action",
+      "director": "Ridley Scott",
+      "runtime": 155,
+      "posterUrl": "https://example.com/gladiator.jpg",
+      "description": "A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.",
+      "status": "Watched"
     }
   ],
   "genre": [
