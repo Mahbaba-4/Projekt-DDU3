@@ -1,7 +1,6 @@
 function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
 }
-const data = readData();
 
 //Det är enklare att använda en funktion som skriver över datan vid PATCH OCH POST :)
 function writeData(data) {
@@ -57,6 +56,7 @@ function getMovieById(request, id) {
 
 function getGenres(request) {
     try {
+        const data = readData();
         let genres = data.genre;
 
         return new Response(JSON.stringify(genres), {
@@ -80,6 +80,7 @@ function getGenres(request) {
 
 async function createMovieReview(request) {
     try {
+        const data = readData();
         const body = await request.json();
 
         if (!body.title || !body.year || !body.genre || !body.director || !body.runtime || !body.posterUrl || !body.description || !body.status) {
@@ -129,12 +130,18 @@ async function createMovieReview(request) {
             runtime: body.runtime,
             posterUrl: body.posterUrl,
             description: body.description,
+        };
+
+        data.movies.push(newMovie);
+
+        const newListItem = {
+            movieId: newId,
             status: body.status,
             rating: body.rating || null,
             dateWatched: body.dateWatched || null
         };
 
-        data.movies.push(newMovie);
+        data.list.push(newListItem);
 
         writeData(data);
 
@@ -157,6 +164,7 @@ async function createMovieReview(request) {
 
 function deleteMovieById(request, id) {
     try {
+        const data = readData();
         let found = false;
         const newMovies = [];
 
@@ -196,6 +204,7 @@ function deleteMovieById(request, id) {
 
 function getMovies(request) {
     try {
+        const data = readData();
         let movies = data.movies;
 
         return new Response(JSON.stringify(movies), {
