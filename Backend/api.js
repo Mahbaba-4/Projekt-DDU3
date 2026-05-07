@@ -147,7 +147,7 @@ async function createMovieReview(request) {
             status: body.status,
             rating: body.rating || null,
             dateWatched: body.dateWatched || null,
-            listId: targetList
+            listId: listId
         };
 
         data.movies.push(newMovie);
