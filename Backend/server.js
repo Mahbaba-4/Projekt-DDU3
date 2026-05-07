@@ -1,4 +1,4 @@
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById } from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies } from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 
@@ -52,6 +52,10 @@ function handler(request) {
 
     if (url.pathname == "/user/movies" && request.method == "POST") {
         return createMovieReview(request);
+    }
+
+    if (url.pathname == "/user/movies/search" && request.method === "GET") {
+        return searchFilterMovies(request);
     }
 
     let movieMatch = movieByIdRoute.exec(request.url);
