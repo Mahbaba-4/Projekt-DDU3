@@ -118,122 +118,122 @@ async function createMovieReview(request) {
             }
         }
 
-            let maxId = 0;
+        let maxId = 0;
 
-            for (let movie of data.movies) {
-                const id = parseInt(movie.id);
-                if (id > maxId) maxId = id;
-            }
-
-            let newId = `${maxId + 1}`;
-
-            let genreId = null;
-            for (let genre of data.genre) {
-                if (genre.name === body.genre) {
-                    genreId = genre.id;
-                    break;
-                }
-            }
-
-            const newMovie = {
-                id: newId,
-                title: body.title,
-                year: body.year,
-                genreId: genreId,
-                genre: body.genre,
-                director: body.director,
-                runtime: body.runtime,
-                posterUrl: body.posterUrl,
-                description: body.description,
-                status: body.status,
-                rating: body.rating || null,
-                dateWatched: body.dateWatched || null,
-                listId: targetList
-            };
-
-            data.movies.push(newMovie);
-
-            writeData(data);
-
-            return new Response(null, {
-                status: 201,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-        } catch (error) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
+        for (let movie of data.movies) {
+            const id = parseInt(movie.id);
+            if (id > maxId) maxId = id;
         }
+
+        let newId = `${maxId + 1}`;
+
+        let genreId = null;
+        for (let genre of data.genre) {
+            if (genre.name === body.genre) {
+                genreId = genre.id;
+                break;
+            }
+        }
+
+        const newMovie = {
+            id: newId,
+            title: body.title,
+            year: body.year,
+            genreId: genreId,
+            genre: body.genre,
+            director: body.director,
+            runtime: body.runtime,
+            posterUrl: body.posterUrl,
+            description: body.description,
+            status: body.status,
+            rating: body.rating || null,
+            dateWatched: body.dateWatched || null,
+            listId: targetList
+        };
+
+        data.movies.push(newMovie);
+
+        writeData(data);
+
+        return new Response(null, {
+            status: 201,
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
     }
+}
 
 function deleteMovieById(request, id) {
-        try {
-            const data = readData();
-            let found = false;
-            const newMovies = [];
+    try {
+        const data = readData();
+        let found = false;
+        const newMovies = [];
 
-            for (let i = 0; i < data.movies.length; i++) {
-                if (data.movies[i].id !== id) {
-                    newMovies.push(data.movies[i]);
-                } else {
-                    found = true;
-                }
+        for (let i = 0; i < data.movies.length; i++) {
+            if (data.movies[i].id !== id) {
+                newMovies.push(data.movies[i]);
+            } else {
+                found = true;
             }
+        }
 
-            if (!found) {
-                return new Response(JSON.stringify({}), {
-                    status: 404,
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Acces-Control-Allow-Origin": "*"
-                    }
-                })
+        if (!found) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Acces-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        data.movies = newMovies;
+        writeData(data);
+
+        return new Response(null, { status: 204 })
+
+    } catch (err) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
             }
-
-            data.movies = newMovies;
-            writeData(data);
-
-            return new Response(null, { status: 204 })
-
-        } catch (err) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-        }
+        });
     }
+}
 
-    function getMovies(request) {
-        try {
-            const data = readData();
-            let movies = data.movies;
+function getMovies(request) {
+    try {
+        const data = readData();
+        let movies = data.movies;
 
-            return new Response(JSON.stringify(movies), {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-        } catch (error) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-        }
+        return new Response(JSON.stringify(movies), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
     }
+}
 
-    export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById };
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById };
 
