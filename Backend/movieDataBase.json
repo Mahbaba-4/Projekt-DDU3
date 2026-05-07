@@ -1,7 +1,7 @@
 {
   "movies": [
     {
-      "id": 1,
+      "id": "1",
       "title": "Titanic",
       "year": 1997,
       "genreId": "7",
