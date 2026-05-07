@@ -125,7 +125,6 @@ async function createMovieReview(request) {
             title: body.title,
             year: body.year,
             genreId: genreId,
-            genre: body.genre,
             director: body.director,
             runtime: body.runtime,
             posterUrl: body.posterUrl,

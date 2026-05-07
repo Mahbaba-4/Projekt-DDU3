@@ -55,6 +55,19 @@
       "status": "Watched",
       "rating": 5,
       "dateWatched": "2026-05-02"
+    },
+    {
+      "id": "6",
+      "title": "Inception",
+      "year": 2010,
+      "genreId": "8",
+      "director": "Christopher Nolan",
+      "runtime": 148,
+      "posterUrl": "https://example.com/inception.jpg",
+      "description": "A thief who steals corporate secrets.",
+      "status": "Watched",
+      "rating": 5,
+      "dateWatched": "2026-05-07"
     }
   ],
   "genre": [
