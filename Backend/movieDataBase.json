@@ -63,7 +63,18 @@
       "name": "Mystery"
     }
   ],
-  "list": [
-    
+  "lists": [
+    {
+      "id": "1",
+      "name": "Watchlist",
+      "type": "Watchlist",
+      "movieIds": []      
+    },
+    {
+      "id": "2",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []  
+    }
   ]
 }

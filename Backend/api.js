@@ -104,6 +104,16 @@ async function createMovieReview(request) {
 
         }
 
+        let tragetListId = null;
+        for (let i = 0; i < data.lists.length; i++){
+            if (data.lists[i].type === body.status){
+                tragetListId = data.lists[i].id;
+                break; 
+            }
+        }
+
+
+
         let maxId = 0;
 
         for (let movie of data.movies) {
@@ -126,23 +136,18 @@ async function createMovieReview(request) {
             title: body.title,
             year: body.year,
             genreId: genreId,
+            genre: body.genre,
             director: body.director,
             runtime: body.runtime,
             posterUrl: body.posterUrl,
             description: body.description,
-        };
-
-        data.movies.push(newMovie);
-
-        const newListItem = {
-            movieId: newId,
             status: body.status,
             rating: body.rating || null,
-            dateWatched: body.dateWatched || null
+            dateWatched: body.dateWatched || null,
+            listId: targetListId          
         };
 
-        data.list.push(newListItem);
-
+        data.movies.push(newMovie); 
         writeData(data);
 
         return new Response(null, {
