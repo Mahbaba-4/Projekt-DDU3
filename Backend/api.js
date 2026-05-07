@@ -124,15 +124,14 @@ async function createMovieReview(request) {
         let targetList = null;
         for (let i = 0; i < data.lists.length; i++) {
             if (data.lists[i].type === body.status) {
-                targetList = data.lists[i].id;
-
-                if (!targetList.movieIds) {
-                    targetList.movieIds = [];
-                }
-
-                targetList.movieIds.push(newId);
+                targetList = data.lists[i];
                 break;
             }
+        }
+
+        let listId = null;
+        if(targetList){
+            listId = targetList.id; 
         }
 
         const newMovie = {
@@ -152,6 +151,14 @@ async function createMovieReview(request) {
         };
 
         data.movies.push(newMovie);
+
+        if(targetList) {
+            if(!targetList.movieIds) {
+                targetList.movieIds = [];
+            }
+
+            targetList.movieIds.push(newId);
+        }
 
         writeData(data);
 
