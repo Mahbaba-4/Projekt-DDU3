@@ -105,20 +105,20 @@ async function createMovieReview(request) {
         }
 
         let maxId = 0;
-            for (let movie of data.movies) {
-                const id = parseInt(movie.id);
-                if (id > maxId) maxId = id;
-            }
+        for (let movie of data.movies) {
+            const id = parseInt(movie.id);
+            if (id > maxId) maxId = id;
+        }
 
-            let newId = `${maxId + 1}`;
+        let newId = `${maxId + 1}`;
 
-            let genreId = null;
-            for (let genre of data.genre) {
-                if (genre.name === body.genre) {
-                    genreId = genre.id;
-                    break;
-                }
+        let genreId = null;
+        for (let genre of data.genre) {
+            if (genre.name === body.genre) {
+                genreId = genre.id;
+                break;
             }
+        }
 
 
         let targetList = null;
@@ -131,52 +131,6 @@ async function createMovieReview(request) {
                 }
 
                 targetList.movieIds.push(newId);
-                break;
-            }
-        }
-
-            const newMovie = {
-                id: newId,
-                title: body.title,
-                year: body.year,
-                genreId: genreId,
-                genre: body.genre,
-                director: body.director,
-                runtime: body.runtime,
-                posterUrl: body.posterUrl,
-                description: body.description,
-                status: body.status,
-                rating: body.rating || null,
-                dateWatched: body.dateWatched || null,
-                listId: targetList
-            };
-
-            data.movies.push(newMovie);
-
-            writeData(data);
-
-            return new Response(null, {
-                status: 201,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-        } catch (error) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-        }
-
-        let newId = `${maxId + 1}`;
-
-        let genreId = null;
-        for (let genre of data.genre) {
-            if (genre.name === body.genre) {
-                genreId = genre.id;
                 break;
             }
         }
