@@ -40,7 +40,7 @@ function handler(request) {
         return createMovieReview(request);
     }
 
-    if (url.pathname == "/user/movies/:id" && request.method == "GET") {
+    if (url.pathname == "/user/movies/:id" && request.method == "DELETE") {
         return getMovieById(request);
     }
 

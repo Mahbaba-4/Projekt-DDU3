@@ -157,53 +157,52 @@ async function createMovieReview(request) {
     }
 }
 
-function deleteMovieById(request){
-    try{
-        const deletePattern = new URLPattern({pathname: "/user/movies/:id"})
+function deleteMovieById(request) {
+    try {
+        const deletePattern = new URLPattern({ pathname: "/user/movies/:id" })
         const match = deletePattern.exec(url);
 
-        if(match && method === "DELETE"){
-            const id = match.pathname.groups.id;
+        const id = match.pathname.groups.id;
 
-            const auth = request.headers.get("Authorization");
-            if(auth !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"){
-                return new Response(JSON.stringify({}), {
-                    status: 401,
-                    headers: {
-                        "Content-Type" : "application/json",
-                        "Acces-Control-Allow-Origin": "*"                   
-                    }
-                })
-            }
-
-            let found = false;
-            const newMovies = [];
-
-            for(let i = 0; i < data.movies.length; i++){
-                if(data.movies[i].id !== id){
-                    newMovies.push(data.movies[i]);
-                }else{
-                    found = true;
+        const auth = request.headers.get("Authorization");
+        if (auth !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Acces-Control-Allow-Origin": "*"
                 }
-            }
-
-            if(!found){
-                return new Response(JSON.stringify({}), {
-                    status : 404,
-                    headers: {
-                         "Content-Type" : "application/json",
-                        "Acces-Control-Allow-Origin": "*" 
-                    }
-                })
-            }
-
-            data.movies = newMovies;
-            writeData(data);
-
-            return new Response(null, {status: 204})
+            })
         }
-    }catch(err){
-         return new Response(JSON.stringify({}), {
+
+        let found = false;
+        const newMovies = [];
+
+        for (let i = 0; i < data.movies.length; i++) {
+            if (data.movies[i].id !== id) {
+                newMovies.push(data.movies[i]);
+            } else {
+                found = true;
+            }
+        }
+
+        if (!found) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Acces-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        data.movies = newMovies;
+        writeData(data);
+
+        return new Response(null, { status: 204 })
+
+    } catch (err) {
+        return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
@@ -214,7 +213,7 @@ function deleteMovieById(request){
 }
 
 function getMovies(request) {
-    
+
 }
 
 export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById };
