@@ -1,4 +1,4 @@
-import { createMovieReview, getGenres, getMovieById, getMovies } from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById } from "./api.js";
 
 function handler(request) {
     let url = new URL(request.url);
