@@ -159,7 +159,7 @@ async function createMovieReview(request) {
 
 function deleteMovieById(request){
     try{
-        const deletePattern = new URLPatterns({pathname: "/user/movies/:id"})
+        const deletePattern = new URLPattern({pathname: "/user/movies/:id"})
         const match = deletePattern.exec(url);
 
         if(match && method === "DELETE"){
