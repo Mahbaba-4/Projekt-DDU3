@@ -59,9 +59,6 @@ function getGenres(request) {
     try {
         let genres = data.genre;
 
-        console.log("Genres hämtade:", genres);
-        console.log("Antal genres:", genres.length);
-
         return new Response(JSON.stringify(genres), {
             status: 200,
             headers: {
@@ -200,12 +197,9 @@ function deleteMovieById(request, id) {
 
 function getMovies(request) {
     try {
-        let genres = data.movies;
+        let movies = data.movies;
 
-        console.log("Hämtade filmer:", movies);
-        console.log("Antal filmer:", movies.length);
-
-        return new Response(JSON.stringify(genres), {
+        return new Response(JSON.stringify(movies), {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
