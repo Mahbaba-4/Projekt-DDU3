@@ -1,4 +1,4 @@
-import { createMovieReview, getGenres, getMovieById } from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies } from "./api.js";
 
 function handler(request) {
     let url = new URL(request.url);
@@ -30,6 +30,10 @@ function handler(request) {
 
     if (url.pathname === "/movies/genre" && request.method === "GET") {
         return getGenres(request);
+    }
+
+    if(url.pathname == "/user/movies" && request.method === "GET") {
+        return getMovies(request);
     }
 
     if (url.pathname == "/user/movies" && request.method == "POST") {

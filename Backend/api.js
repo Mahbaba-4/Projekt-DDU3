@@ -157,5 +157,9 @@ async function createMovieReview(request) {
     }
 }
 
-export { createMovieReview, getGenres, getMovieById };
+function getMovies(request) {
+    
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies };
 
