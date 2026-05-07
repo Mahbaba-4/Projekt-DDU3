@@ -1,6 +1,5 @@
 {
   "movies": [
-    {},
     {
       "id": "1",
       "title": "Interstellar",
@@ -112,6 +111,34 @@
       "rating": 5,
       "dateWatched": "2026-05-03",
       "listId": "2"
+    },
+    {
+      "id": "9",
+      "title": "The Hobbit",
+      "year": 2012,
+      "genreId": "9",
+      "director": "Peter Jackson",
+      "runtime": 169,
+      "posterUrl": "https://example.com/hobbit.jpg",
+      "description": "A hobbit goes on an unexpected journey.",
+      "status": "Watchlist",
+      "rating": null,
+      "dateWatched": null,
+      "listId": "1"
+    },
+    {
+      "id": "10",
+      "title": "The Lord of the Rings: The Fellowship of the Ring",
+      "year": 2001,
+      "genreId": "9",
+      "director": "Peter Jackson",
+      "runtime": 178,
+      "posterUrl": "https://example.com/lotr1.jpg",
+      "description": "A hobbit begins a journey to destroy a powerful ring.",
+      "status": "Watchlist",
+      "rating": null,
+      "dateWatched": null,
+      "listId": "1"
     }
   ],
   "genre": [
@@ -189,7 +216,9 @@
         "2",
         "4",
         "5",
-        "7"
+        "7",
+        "9",
+        "10"
       ]
     },
     {
