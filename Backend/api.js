@@ -148,7 +148,8 @@ async function createMovieReview(request) {
 
         data.movies.push(newMovie); 
 
-        let targetListIndex = null;
+
+        let targetListIndex; 
         if (targetListIndex !== null){
             if(!data.lists[targetListIndex].movieIds){
                 data.lists[targetListIndex].movieIds = [];
