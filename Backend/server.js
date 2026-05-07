@@ -23,7 +23,7 @@ function handler(request) {
         })
     }
 
-    //EFTERSOM DELETE INTE BEHÖVER HEADERS :)
+    //EFTERSOM DELETE och PATCH INTE BEHÖVER accept HEADERS :)
     if (request.method !== "DELETE" && request.method !== "PATCH") {
         if (request.headers.get("Accept") !== "application/json") {
             return new Response(JSON.stringify({}), {
