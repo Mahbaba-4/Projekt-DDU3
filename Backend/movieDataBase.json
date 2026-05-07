@@ -1,5 +1,20 @@
 {
   "movies": [
+    {
+      "id": "1",
+      "title": "Interstellar",
+      "year": 2014,
+      "genreId": "8",
+      "genre": "Sci-Fi",
+      "director": "Christopher Nolan",
+      "runtime": 169,
+      "posterUrl": "https://example.com/interstellar.jpg",
+      "description": "Astronauts travel through space.",
+      "status": "Watched",
+      "rating": 5,
+      "dateWatched": "2026-05-07",
+      "listId": "2"
+    }
   ],
   "genre": [
     {
@@ -72,13 +87,13 @@
       "id": "1",
       "name": "Watchlist",
       "type": "Watchlist",
-      "movieIds": []      
+      "movieIds": []
     },
     {
       "id": "2",
       "name": "Already Watched",
       "type": "Watched",
-      "movieIds": []  
+      "movieIds": []
     }
   ]
 }
