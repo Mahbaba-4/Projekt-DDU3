@@ -29,7 +29,7 @@ function handler(request) {
             headers: { "Access-Control-Allow-Orgin": "*" }
         })
     }
-    
+
     if (request.method === "POST") {
         if (request.headers.get("Content-Type") !== "application/json") {
             return new Response(JSON.stringify({}), {
@@ -52,11 +52,6 @@ function handler(request) {
     }
 
     let movieMatch = movieByIdRoute.exec(request.url);
-
-    if (url.pathname == "/user/movies/:id" && request.method == "DELETE") {
-        return getMovieById(request);
-    }
-
     let id = movieMatch.pathname.groups.id;
     if (movieMatch && request.method === "GET") {
         return getMovieById(request, id);

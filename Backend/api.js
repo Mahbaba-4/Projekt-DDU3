@@ -53,16 +53,6 @@ function getMovieById(request, id) {
             }
         });
     }
-
-
-    return new Response(JSON.stringify(movie), {
-        status: 200,
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
-    });
-
 }
 
 function getGenres(request) {
@@ -209,7 +199,28 @@ function deleteMovieById(request, id) {
 }
 
 function getMovies(request) {
+    try {
+        let genres = data.movies;
 
+        console.log("Hämtade filmer:", movies);
+        console.log("Antal filmer:", movies.length);
+
+        return new Response(JSON.stringify(genres), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
 }
 
 export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById };

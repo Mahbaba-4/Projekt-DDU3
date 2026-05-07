@@ -1,7 +1,7 @@
 {
   "movies": [
     {
-      "id": 2,
+      "id": "2",
       "title": "Avatar",
       "year": 2009,
       "genreId": "8",
@@ -15,7 +15,7 @@
       "dateWatched": null
     },
     {
-      "id": 3,
+      "id": "3",
       "title": "The Matrix",
       "year": 1999,
       "genreId": "8",
@@ -29,7 +29,7 @@
       "dateWatched": "2026-05-01"
     },
     {
-      "id": 4,
+      "id": "4",
       "title": "The Lion King",
       "year": 1994,
       "genreId": "11",
@@ -43,7 +43,7 @@
       "dateWatched": null
     },
     {
-      "id": 5,
+      "id": "5",
       "title": "Fight Club",
       "year": 1999,
       "genreId": "4",
