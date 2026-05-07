@@ -359,6 +359,37 @@ function getMovies(request) {
         const data = readData();
         let movies = data.movies;
 
+        const url = new URL(request.url);
+        const statusFilter = url.searchParams.get("status");
+
+        if (statusFilter) {
+            if (statusFilter === "Watched") {
+                const watchedMovies = [];
+                for (let i = 0; i < movies.length; i++) {
+                    if (movies[i].status === "Watched") {
+                        watchedMovies.push(movies[i]);
+                    }
+                }
+                movies = watchedMovies;
+            } else if (statusFilter === "Watchlist") {
+                const filteredMovies = [];
+                for (let i = 0; i < movies.length; i++) {
+                    if (movies[i].status === "Watchlist") {
+                        filteredMovies.push(movies[i]);
+                    }
+                }
+                movies = filteredMovies;
+            } else {
+                return new Response(JSON.stringify({error:"No movies found with this status"}), {
+                    status: 400,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                });
+            }
+        }
+
         return new Response(JSON.stringify(movies), {
             status: 200,
             headers: {
