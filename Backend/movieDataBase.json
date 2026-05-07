@@ -1,20 +1,6 @@
 {
   "movies": [
     {
-      "id": "1",
-      "title": "Titanic",
-      "year": 1997,
-      "genreId": "7",
-      "genre": "Romance",
-      "director": "James Cameron",
-      "runtime": 195,
-      "posterUrl": "https://example.com/titanic.jpg",
-      "description": "Titanic, the ship is sinking",
-      "status": "Watched",
-      "rating": 5,
-      "dateWatched": "2026-05-06"
-    },
-    {
       "id": 2,
       "title": "Avatar",
       "year": 2009,
