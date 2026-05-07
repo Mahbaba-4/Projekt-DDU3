@@ -1,4 +1,4 @@
-import { createMovieReview, getGenres, getMovieById } from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById } from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 
@@ -43,11 +43,21 @@ function handler(request) {
         return getGenres(request);
     }
 
+    if(url.pathname == "/user/movies" && request.method === "GET") {
+        return getMovies(request);
+    }
+
     if (url.pathname == "/user/movies" && request.method == "POST") {
         return createMovieReview(request);
     }
 
+
     let movieMatch = movieByIdRoute.exec(request.url);
+
+    if (url.pathname == "/user/movies/:id" && request.method == "DELETE") {
+        return getMovieById(request);
+    }
+
 
     let id = movieMatch.pathname.groups.id;
     if (movieMatch && request.method === "GET") {

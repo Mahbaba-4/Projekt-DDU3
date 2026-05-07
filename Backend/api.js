@@ -1,11 +1,11 @@
 function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
 }
+const data = readData();
 
 //Det är enklare att använda en funktion som skriver över datan vid PATCH OCH POST :)
 function writeData(data) {
     Deno.writeTextFileSync("./movieDataBase.json", JSON.stringify(data, null, 2));
-
 }
 
 function getMovieById(request, id) {
@@ -31,6 +31,7 @@ function getMovieById(request, id) {
                 }
             });
 
+
         }
 
         return new Response(JSON.stringify(movie), {
@@ -42,6 +43,7 @@ function getMovieById(request, id) {
         });
 
 
+
     } catch (error) {
         return new Response(JSON.stringify({}), {
             status: 500,
@@ -51,11 +53,20 @@ function getMovieById(request, id) {
             }
         });
     }
+
+
+    return new Response(JSON.stringify(movie), {
+        status: 200,
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    });
+
 }
 
 function getGenres(request) {
     try {
-        const data = readData();
         let genres = data.genre;
 
         console.log("Genres hämtade:", genres);
@@ -104,8 +115,6 @@ async function createMovieReview(request) {
             });
 
         }
-
-        const data = readData();
 
         let maxId = 0;
 
@@ -160,5 +169,64 @@ async function createMovieReview(request) {
     }
 }
 
-export { createMovieReview, getGenres, getMovieById };
+function deleteMovieById(request) {
+    try {
+        const deletePattern = new URLPattern({ pathname: "/user/movies/:id" })
+        const match = deletePattern.exec(url);
+
+        const id = match.pathname.groups.id;
+
+        const auth = request.headers.get("Authorization");
+        if (auth !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Acces-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        let found = false;
+        const newMovies = [];
+
+        for (let i = 0; i < data.movies.length; i++) {
+            if (data.movies[i].id !== id) {
+                newMovies.push(data.movies[i]);
+            } else {
+                found = true;
+            }
+        }
+
+        if (!found) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Acces-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        data.movies = newMovies;
+        writeData(data);
+
+        return new Response(null, { status: 204 })
+
+    } catch (err) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+}
+
+function getMovies(request) {
+
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById };
 
