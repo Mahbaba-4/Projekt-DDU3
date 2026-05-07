@@ -8,6 +8,51 @@ function writeData(data) {
 
 }
 
+function getMovieById(request,id){
+    try{
+        const db = readData();
+        const movies = db.movies;
+
+        let movie = null;
+        for (let i=0; i<movies.length; i++){
+            if (movies[i].id === id){
+                movie = movies[i];
+                break;
+
+            }
+        } 
+
+        if(movie === null){
+             return new Response(JSON.stringify({}), {
+            status: 404,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+        }
+
+
+    }catch(error){
+         return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+
+     return new Response(JSON.stringify(movie), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+}
+
 function getGenres(request) {
     try {
         const data = readData();
@@ -115,5 +160,5 @@ async function createMovieReview(request) {
     }
 }
 
-export { createMovieReview, getGenres };
+export { createMovieReview, getGenres, getMovieById };
 
