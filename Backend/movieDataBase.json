@@ -95,5 +95,19 @@
       "type": "Watched",
       "movieIds": []
     }
+  ],
+  "lists": [
+    {
+      "id": "1",
+      "name": "Watchlist",
+      "type": "watchlist",
+      "movieIds": [ "2", "4"]
+    },
+    {
+      "id": "2",
+      "name": "Already Watched",
+      "type": "watched",
+      "movieIds": ["3", "5"] 
+    }
   ]
 }
