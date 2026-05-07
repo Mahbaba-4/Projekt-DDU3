@@ -147,6 +147,15 @@ async function createMovieReview(request) {
         };
 
         data.movies.push(newMovie); 
+
+        if (targetListIndex !== null){
+            if(!data.lists[targetListIndex].movieIds){
+                data.lists[targetListIndex].movieIds = [];
+            }
+            data.lists[targetListIndex].movieIds.push(newId);
+        }
+
+
         writeData(data);
 
         return new Response(null, {
