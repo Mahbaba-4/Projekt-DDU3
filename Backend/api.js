@@ -31,7 +31,17 @@ function getMovieById(request, id) {
                 }
             });
 
+
         }
+
+        return new Response(JSON.stringify(movie), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
 
 
     } catch (error) {
@@ -44,6 +54,7 @@ function getMovieById(request, id) {
         });
     }
 
+
     return new Response(JSON.stringify(movie), {
         status: 200,
         headers: {
@@ -51,6 +62,7 @@ function getMovieById(request, id) {
             "Access-Control-Allow-Origin": "*"
         }
     });
+
 }
 
 function getGenres(request) {
@@ -111,7 +123,7 @@ async function createMovieReview(request) {
             if (id > maxId) maxId = id;
         }
 
-        let newId = maxId + 1;
+        let newId = `${maxId + 1}` ;
 
         let genreId = null;
         for (let genre of data.genre) {
@@ -157,13 +169,8 @@ async function createMovieReview(request) {
     }
 }
 
-function deleteMovieById(request) {
+function deleteMovieById(request, id) {
     try {
-        const deletePattern = new URLPattern({ pathname: "/user/movies/:id" })
-        const match = deletePattern.exec(url);
-
-        const id = match.pathname.groups.id;
-
         let found = false;
         const newMovies = [];
 
