@@ -1,4 +1,4 @@
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById } from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById } from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 
@@ -23,11 +23,14 @@ function handler(request) {
         })
     }
 
-    if (request.headers.get("Accept") !== "application/json") {
-        return new Response(JSON.stringify({}), {
-            status: 406,
-            headers: { "Access-Control-Allow-Orgin": "*" }
-        })
+    //EFTERSOM DELETE INTE BEHÖVER HEADERS :)
+    if (request.method !== "DELETE" && request.method !== "PATCH") {
+        if (request.headers.get("Accept") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+                headers: { "Access-Control-Allow-Orgin": "*" }
+            })
+        }
     }
 
     if (request.method === "POST") {
@@ -43,7 +46,7 @@ function handler(request) {
         return getGenres(request);
     }
 
-    if(url.pathname == "/user/movies" && request.method === "GET") {
+    if (url.pathname == "/user/movies" && request.method === "GET") {
         return getMovies(request);
     }
 
@@ -52,15 +55,20 @@ function handler(request) {
     }
 
     let movieMatch = movieByIdRoute.exec(request.url);
-    let id = movieMatch.pathname.groups.id;
     if (movieMatch && request.method === "GET") {
+        let id = movieMatch.pathname.groups.id;
         return getMovieById(request, id);
     }
 
-    if(movieMatch && request.method === "DELETE") {
+    if (movieMatch && request.method === "DELETE") {
+        let id = movieMatch.pathname.groups.id;
         return deleteMovieById(request, id)
     }
 
+    if( movieMatch && request.method === "PATCH") {
+        let id = movieMatch.pathname.groups.id;
+        return patchMovieById(request, id);
+    }
     return new Response(JSON.stringify({}), {
         status: 404,
         headers: { "Access-Control-Allow-Orgin": "*" }

@@ -2,31 +2,17 @@
   "movies": [
     {
       "id": "1",
-      "title": "Interstellar",
-      "year": 2014,
+      "title": "Interstellar (Special Edition)",
+      "year": 204,
       "genreId": "8",
-      "director": "Christopher Nolan",
-      "runtime": 169,
-      "posterUrl": "https://example.com/interstellar.jpg",
-      "description": "Astronauts travel through space.",
+      "director": "C Nolan",
+      "runtime": 179,
+      "posterUrl": "https://example.com/interstellar-new.jpg",
+      "description": "A team of explorers travel through a wormhole in space.",
       "status": "Watched",
       "rating": 5,
       "dateWatched": "2026-05-07",
       "listId": "2"
-    },
-    {
-      "id": "2",
-      "title": "Toy Story",
-      "year": 1995,
-      "genreId": "11",
-      "director": "John Lasseter",
-      "runtime": 81,
-      "posterUrl": "https://example.com/toystory.jpg",
-      "description": "Toys come alive when humans aren't looking.",
-      "status": "Watchlist",
-      "rating": null,
-      "dateWatched": null,
-      "listId": "1"
     },
     {
       "id": "3",
@@ -52,8 +38,8 @@
       "posterUrl": "https://example.com/avatar.jpg",
       "description": "Humans explore alien world Pandora.",
       "status": "Watchlist",
-      "rating": null,
-      "dateWatched": null,
+      "rating": 4,
+      "dateWatched": "2026-05-07",
       "listId": "1"
     },
     {
@@ -97,20 +83,6 @@
       "rating": null,
       "dateWatched": null,
       "listId": "1"
-    },
-    {
-      "id": "8",
-      "title": "Jurassic Park",
-      "year": 1993,
-      "genreId": "2",
-      "director": "Steven Spielberg",
-      "runtime": 127,
-      "posterUrl": "https://example.com/jurassicpark.jpg",
-      "description": "Dinosaurs are brought back to life.",
-      "status": "Watched",
-      "rating": 5,
-      "dateWatched": "2026-05-03",
-      "listId": "2"
     },
     {
       "id": "9",
@@ -213,12 +185,11 @@
       "name": "Want to watch",
       "type": "Watchlist",
       "movieIds": [
-        "2",
-        "4",
         "5",
         "7",
         "9",
-        "10"
+        "10",
+        "4"
       ]
     },
     {
@@ -226,10 +197,9 @@
       "name": "Already Watched",
       "type": "Watched",
       "movieIds": [
-        "1",
         "3",
         "6",
-        "8"
+        "1"
       ]
     }
   ]

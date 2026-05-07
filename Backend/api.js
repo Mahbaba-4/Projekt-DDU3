@@ -130,8 +130,8 @@ async function createMovieReview(request) {
         }
 
         let listId = null;
-        if(targetList){
-            listId = targetList.id; 
+        if (targetList) {
+            listId = targetList.id;
         }
 
         const newMovie = {
@@ -151,8 +151,8 @@ async function createMovieReview(request) {
 
         data.movies.push(newMovie);
 
-        if(targetList) {
-            if(!targetList.movieIds) {
+        if (targetList) {
+            if (!targetList.movieIds) {
                 targetList.movieIds = [];
             }
 
@@ -182,13 +182,15 @@ function deleteMovieById(request, id) {
     try {
         const data = readData();
         let found = false;
+        let movieIdList = null;
         const newMovies = [];
 
         for (let i = 0; i < data.movies.length; i++) {
-            if (data.movies[i].id !== id) {
-                newMovies.push(data.movies[i]);
-            } else {
+            if (data.movies[i].id == id) {
+                movieIdList = data.movies[i].listId;
                 found = true;
+            } else {
+                newMovies.push(data.movies[i])
             }
         }
 
@@ -203,12 +205,146 @@ function deleteMovieById(request, id) {
         }
 
         data.movies = newMovies;
+
+        if (movieIdList) {
+            for (let list of data.lists) {
+                if (list.id == movieIdList) {
+                    let newMovieIds = [];
+                    for (let movieId of list.movieIds) {
+                        if (movieId != id) {
+                            newMovieIds.push(movieId)
+                        }
+                    }
+                    list.movieIds = newMovieIds;
+                    break;
+                }
+            }
+        }
         writeData(data);
 
         return new Response(null, { status: 204 })
 
     } catch (err) {
         return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+}
+
+async function patchMovieById(request, id) {
+    try {
+        const data = readData();
+        const body = await request.json();
+
+        let found = false;
+        let movieToUpdate = null;
+
+        for (let movie of data.movies) {
+            if (movie.id == id) {
+                movieToUpdate = movie;
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        if (body.title) {
+            movieToUpdate.title = body.title;
+        }
+        if (body.year) {
+            movieToUpdate.year = body.year;
+        }
+
+        //SAMMA SOM I createMovieReview för genre :)
+        if (body.genre) {
+            let genreId = null;
+            for (let genre of data.genre) {
+                if (genre.name === body.genre) {
+                    genreId = genre.id;
+                    break;
+                }
+            }
+            if (genreId) {
+                movieToUpdate.genreId = genreId;
+            }
+        }
+        if (body.director) {
+            movieToUpdate.director = body.director;
+        }
+        if (body.runtime) {
+            movieToUpdate.runtime = body.runtime;
+        }
+        if (body.posterUrl) {
+            movieToUpdate.posterUrl = body.posterUrl;
+        }
+        if (body.description) {
+            movieToUpdate.description = body.description;
+        }
+        if (body.rating) {
+            movieToUpdate.rating = body.rating;
+        }
+        if (body.dateWatched) {
+            movieToUpdate.dateWatched = body.dateWatched;
+        }
+
+        let newStatus = body.status;
+        let oldStatus = movieToUpdate.status;
+
+        if (newStatus && newStatus !== oldStatus) {
+            let oldListId = movieToUpdate.listId;
+            movieToUpdate.status = newStatus;
+
+            if (newStatus === "Watchlist") {
+                movieToUpdate.rating = null;
+                movieToUpdate.dateWatched = null;
+            }
+
+            for (let list of data.lists) {
+                if (list.type === newStatus) {
+                    movieToUpdate.listId = list.id;
+                    list.movieIds.push(id);
+                    break;
+                }
+            }
+
+            for (let list of data.lists) {
+                if (list.id == oldListId) {
+                    let newMovieIds = [];
+                    for (let movieId of list.movieIds) {
+                        if (movieId != id) {
+                            newMovieIds.push(movieId);
+                        }
+                    }
+                    list.movieIds = newMovieIds;
+                    break;
+                }
+            }
+        }
+
+        writeData(data);
+
+        return new Response(null, {
+            status: 200,
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+    } catch (error) {
+        return new Response(JSON.stringify({ error: error.message }), {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
@@ -241,5 +377,5 @@ function getMovies(request) {
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById };
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById };
 
