@@ -1,4 +1,4 @@
-import { createMovieReview, getGenres } from "./api.js";
+import { createMovieReview, getGenres, getMovieById } from "./api.js";
 
 function handler(request) {
     let url = new URL(request.url);
@@ -35,6 +35,12 @@ function handler(request) {
     if (url.pathname == "/user/movies" && request.method == "POST") {
         return createMovieReview(request);
     }
+
+    if (url.pathname == "/user/movies/:id" && request.method == "GET") {
+        return getMovieById(request);
+    }
+
+
 
     return new Response(JSON.stringify({}), {
         status: 404,
