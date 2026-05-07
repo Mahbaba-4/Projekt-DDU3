@@ -104,10 +104,10 @@ async function createMovieReview(request) {
 
         }
 
-        let tragetListId = null;
+        let targetListId = null;
         for (let i = 0; i < data.lists.length; i++){
             if (data.lists[i].type === body.status){
-                tragetListId = data.lists[i].id;
+                targetListId = data.lists[i].id;
                 break; 
             }
         }
