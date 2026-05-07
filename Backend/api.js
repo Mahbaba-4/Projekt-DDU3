@@ -53,16 +53,6 @@ function getMovieById(request, id) {
             }
         });
     }
-
-
-    return new Response(JSON.stringify(movie), {
-        status: 200,
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
-    });
-
 }
 
 function getGenres(request) {
