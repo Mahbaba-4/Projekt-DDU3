@@ -106,7 +106,6 @@ async function createMovieReview(request) {
 
      
 
-
             let maxId = 0;
 
             for (let movie of data.movies) {
