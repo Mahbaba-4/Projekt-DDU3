@@ -1,35 +1,5 @@
 {
   "movies": [
-    {
-      "id": "1",
-      "title": "Gladiator",
-      "year": 2000,
-      "genreId": "1",
-      "director": "Ridley Scott",
-      "runtime": 155,
-      "posterUrl": "https://example.com/gladiator.jpg",
-      "description": "A Roman general seeks revenge."
-    },
-    {
-      "id": "2",
-      "title": "Gladiator",
-      "year": 2000,
-      "genreId": "1",
-      "director": "Ridley Scott",
-      "runtime": 155,
-      "posterUrl": "https://example.com/gladiator.jpg",
-      "description": "A Roman general seeks revenge."
-    },
-    {
-      "id": "3",
-      "title": "Toy Story",
-      "year": 1995,
-      "genreId": "11",
-      "director": "John Lasseter",
-      "runtime": 81,
-      "posterUrl": "https://example.com/toystory.jpg",
-      "description": "Toys come alive when humans leave."
-    }
   ],
   "genre": [
     {
@@ -94,23 +64,6 @@
     }
   ],
   "list": [
-    {
-      "movieId": "1",
-      "status": "Watched",
-      "rating": 5,
-      "dateWatched": "2026-05-07"
-    },
-    {
-      "movieId": "2",
-      "status": "Watched",
-      "rating": 5,
-      "dateWatched": "2026-05-07"
-    },
-    {
-      "movieId": "3",
-      "status": "Watchlist",
-      "rating": null,
-      "dateWatched": null
-    }
+    
   ]
 }
