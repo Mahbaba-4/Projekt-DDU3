@@ -53,12 +53,6 @@ function handler(request) {
 
 
     let movieMatch = movieByIdRoute.exec(request.url);
-
-    if (url.pathname == "/user/movies/:id" && request.method == "DELETE") {
-        return getMovieById(request);
-    }
-
-
     let id = movieMatch.pathname.groups.id;
     if (movieMatch && request.method === "GET") {
         return getMovieById(request, id);
