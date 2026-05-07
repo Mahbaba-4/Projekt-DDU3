@@ -164,17 +164,6 @@ function deleteMovieById(request) {
 
         const id = match.pathname.groups.id;
 
-        const auth = request.headers.get("Authorization");
-        if (auth !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
-            return new Response(JSON.stringify({}), {
-                status: 401,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Acces-Control-Allow-Origin": "*"
-                }
-            })
-        }
-
         let found = false;
         const newMovies = [];
 

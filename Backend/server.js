@@ -40,11 +40,13 @@ function handler(request) {
         return createMovieReview(request);
     }
 
-    if (url.pathname == "/user/movies/:id" && request.method == "DELETE") {
+    if (url.pathname == "/user/movies/:id" && request.method == "GET") {
         return getMovieById(request);
     }
 
-
+    if(url.pathname == "/user/movies/:id" && request.method == "DELETE"){
+        return deleteMovieById(request);
+    }
 
     return new Response(JSON.stringify({}), {
         status: 404,
