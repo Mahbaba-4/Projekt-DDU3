@@ -1,16 +1,60 @@
 function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
 }
+const data = readData();
 
 //Det är enklare att använda en funktion som skriver över datan vid PATCH OCH POST :)
 function writeData(data) {
     Deno.writeTextFileSync("./movieDataBase.json", JSON.stringify(data, null, 2));
+}
 
+function getMovieById(request, id) {
+    try {
+        const db = readData();
+        const movies = db.movies;
+
+        let movie = null;
+        for (let i = 0; i < movies.length; i++) {
+            if (movies[i].id === id) {
+                movie = movies[i];
+                break;
+
+            }
+        }
+
+        if (movie === null) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+
+        }
+
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+
+    return new Response(JSON.stringify(movie), {
+        status: 200,
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    });
 }
 
 function getGenres(request) {
     try {
-        const data = readData();
         let genres = data.genre;
 
         console.log("Genres hämtade:", genres);
@@ -59,8 +103,6 @@ async function createMovieReview(request) {
             });
 
         }
-
-        const data = readData();
 
         let maxId = 0;
 
@@ -171,5 +213,9 @@ function deleteMovieById(request){
     }
 }
 
-export { createMovieReview, getGenres };
+function getMovies(request) {
+    
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById };
 

@@ -27,6 +27,48 @@
       "status": "Watchlist",
       "rating": null,
       "dateWatched": null
+    },
+    {
+      "id": 3,
+      "title": "The Matrix",
+      "year": 1999,
+      "genreId": "8",
+      "genre": "Sci-Fi",
+      "director": "Lana Wachowski, Lilly Wachowski",
+      "runtime": 136,
+      "posterUrl": "https://example.com/matrix.jpg",
+      "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+      "status": "Watched",
+      "rating": 5,
+      "dateWatched": "2026-05-01"
+    },
+    {
+      "id": 4,
+      "title": "The Lion King",
+      "year": 1994,
+      "genreId": "11",
+      "genre": "Animation",
+      "director": "Roger Allers, Rob Minkoff",
+      "runtime": 88,
+      "posterUrl": "https://example.com/lionking.jpg",
+      "description": "Lion prince Simba and his father are targeted by his bitter uncle, who wants to ascend the throne himself.",
+      "status": "Watchlist",
+      "rating": null,
+      "dateWatched": null
+    },
+    {
+      "id": 5,
+      "title": "Fight Club",
+      "year": 1999,
+      "genreId": "4",
+      "genre": "Drama",
+      "director": "David Fincher",
+      "runtime": 139,
+      "posterUrl": "https://example.com/fightclub.jpg",
+      "description": "An insomniac office worker and a devil-may-care soap maker form an underground fight club that evolves into much more.",
+      "status": "Watched",
+      "rating": 5,
+      "dateWatched": "2026-05-02"
     }
   ],
   "genre": [
