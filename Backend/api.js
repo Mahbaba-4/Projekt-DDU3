@@ -380,7 +380,7 @@ function getMovies(request) {
                 }
                 movies = filteredMovies;
             } else {
-                return new Response(JSON.stringify({error:"No movies found with this status"}), {
+                return new Response(JSON.stringify({ error: "No movies found with this status" }), {
                     status: 400,
                     headers: {
                         "Content-Type": "application/json",
@@ -408,5 +408,53 @@ function getMovies(request) {
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById };
+function searchFilterMovies(request) {
+    try {
+        const data = readData();
+        const url = new URL(request.url);
+        const searchQuery = url.searchParams.get("q");
+
+        if (!searchQuery || searchQuery === "") {
+            return new Response(JSON.stringify({}), {
+                status: 400,
+                headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+            });
+        }
+
+        const movies = data.movies;
+        const queryLower = searchQuery.toLowerCase();
+        const matchedMovies = [];
+
+        for(let i=0; i<movies.length; i++){
+            const movie = movies[i];
+            const titleLowerCase = movie.title.toLowerCase();
+            const directorLowerCase = movie.director.toLowerCase();
+            const descriptionLowerCase = movie.description.toLowerCase();
+
+            if (titleLowerCase.includes(queryLower)|| directorLowerCase.includes(queryLower) || descriptionLowerCase.includes(queryLower)){
+                matchedMovies.push(movie);
+            }
+        }
+        return new Response(JSON.stringify(matchedMovies), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+    }
+
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies };
 
