@@ -19,7 +19,7 @@ function handler(request) {
     if (request.headers.get("Authorization") !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
         return new Response(JSON.stringify({}), {
             status: 401,
-            headers: { "Access-Control-Allow-Orgin": "*" }
+            headers: { "Access-Control-Allow-Origin": "*" }
         })
     }
 
