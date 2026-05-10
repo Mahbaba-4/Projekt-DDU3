@@ -111,6 +111,20 @@
       "rating": null,
       "dateWatched": null,
       "listId": "1"
+    },
+    {
+      "id": "11",
+      "title": "Inception",
+      "year": 2010,
+      "genreId": "8",
+      "director": "Christopher Nolan",
+      "runtime": 148,
+      "posterUrl": "https://example.com/inception-poster.jpg",
+      "description": "A thief who steals corporate secrets through dream-sharing technology.",
+      "status": "Watched",
+      "rating": 5,
+      "dateWatched": "2024-01-15",
+      "listId": "2"
     }
   ],
   "genre": [
@@ -199,7 +213,8 @@
       "movieIds": [
         "3",
         "6",
-        "1"
+        "1",
+        "11"
       ]
     }
   ]
