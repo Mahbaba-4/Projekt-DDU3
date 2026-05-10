@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Movie</title>
+    <link rel="stylesheet" href="assets/css/add.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>Add New Movie</h1>
+
+        <form id="movieForm" autocomplete="off">
+            <div class="form-row">
+                <div class="form-field half">
+                    <label>Title</label>
+                    <input type="text" placeholder="Movie title">
+                </div>
+
+                <div class="form-field half">
+                    <label>Year</label>
+                    <input type="text" value="" placeholder="2026">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field half">
+                    <label>Genre</label>
+                    <select>
+                        <option>Select genre</option>
+                    </select>
+                </div>
+                <div class="form-field half">
+                    <label>Director</label>
+                    <input type="text" placeholder="Director name">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field half">
+                    <label>Runtime (minutes)</label>
+                    <input type="text" value="">
+                </div>
+
+                <div class="form-field half">
+                    <label>Poster URL</label>
+                    <input type="text" placeholder="...">
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label>My comment</label>
+                <textarea rows="3" placeholder="write something..."></textarea>
+            </div>
+
+            <div class="form-field">
+                <label>Status</label>
+                <select id="statusSelect">
+                    <option selected>Want to Watch</option>
+                    <option>Watched</option>
+                </select>
+            </div>
+
+            <div id="watchedExtra" style="display: none;">
+                <div class="form-row">
+                    <div class="form-field half">
+                        <label>Rating</label>
+                        <div class="rating-stars">
+                            <span>☆</span>
+                            <span>☆</span>
+                            <span>☆</span>
+                            <span>☆</span>
+                            <span>☆</span>
+                        </div>
+                        <input type="hidden" id="rating">
+                    </div>
+                    <div class="form-field half">
+                        <label>Date Watched</label>
+                        <input type="date" value="" placeholder="01/12/2026">
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-add">Add Movie</button>
+                <button type="button" class="btn-cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="assets/add.js"></script>
+</body>
+
+</html>
