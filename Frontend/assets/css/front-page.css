@@ -45,10 +45,6 @@ main{
 
 .poster-side{
     flex:3;
-    background-image: url("../../assets/images/devices2.png");
-    background-size: cover;
-    height: 500px; 
-   
 }
 
 .poster-side img{
