@@ -1,0 +1,56 @@
+
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: linear-gradient(to right, white, #d6a0b4);
+}
+
+main{
+    max-width: auto;
+    padding: 10px;
+
+}
+
+.first-page{
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding: 30px;
+    gap: 30px;
+    border: 2px solid;
+    border-image: linear-gradient(to right, white,  #d6a0b4) 1;
+}
+
+.logo-side{
+    flex:1;
+}
+
+.logo-side  img{
+    display: inline-block;
+    width: 400px;
+    height: 130px;
+    margin-left: 60px;;
+
+}
+
+.logo-side p{
+    font-size: 18px;
+    color: var(--gray-medium);
+    font-weight: var(--medium-light);
+    margin-top: -20px;
+}
+
+
+.poster-side{
+    flex:3;
+}
+
+.poster-side img{
+    display: inline-block;
+    width: 600px;
+    height: 400px;
+    margin-left: 150px;
+    margin-top: 50px;
+}
