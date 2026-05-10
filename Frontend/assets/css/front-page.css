@@ -5,8 +5,11 @@ body {
     background: linear-gradient(to right, white, #d6a0b4);
 }
 
+
+/* Centrera innehållet på sidan */
 main {
-    max-width: 1200px;
+    max-width: 1200px; /* Begränsa maxbredden för stora skärmar */
+
     margin: 0 auto;
     padding: 20px;
 }
@@ -14,38 +17,63 @@ main {
 .first-page {
     display: flex;
     align-items: center;
-    text-align: left;
+    justify-content: center; /* Centrerar boxarna */
     padding: 30px;
     gap: 30px;
-    flex-wrap: wrap;  
+
+    flex-wrap: wrap; /* Gör att bilden hoppar ner under texten på små skärmar */
+
 }
 
 .logo-side {
     flex: 1;
-    min-width: 400px;
+    min-width: 300px; /* Förhindrar att text-sidan blir för smal */
+    text-align: center; /* Centrerar texten */
 }
 
+/* Fixar loggan */
 .logo-side img {
-    display: inline-block;
-    width: 100%;     
-    max-width: 350px; 
-    height: auto;     
-  
-}
-
-.logo-side p {
-    font-size: 18px;
-    margin-top: -20px;
+    max-width: 100%; 
+    width: 400px; /* Max storlek */
+    height: auto; /* Behåll proportioner */
+    margin: 0 auto 20px auto; /* Centrera */
 }
 
 .poster-side {
-    flex: 3;
-    min-width: 400px;
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
 }
 
+/* Fixar den stora bilden */
 .poster-side img {
-    display: inline-block;
-    width: 100%;   
-    max-width: 800px;
-    height: auto;      
+    max-width: 100%;
+    width: 600px; /* Max storlek */
+    height: auto;
+    margin: 0; /* Ta bort margin-left: 150px */
+}
+
+.buttons{
+display: flex;
+margin: 0px 150px;
+width: 200px;
+height: auto;
+gap: 30px;
+}
+
+.buttons button{
+padding: 8px 12px;
+border-radius: 8px;
+font-size: 15px;
+font-weight: 600;
+}
+
+.log{
+background-color: #d6a0b4;
+}
+
+.log:hover{
+background-color: #933b5b;
+
 }
