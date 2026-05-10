@@ -6,10 +6,8 @@ body {
 }
 
 
-/* Centrera innehållet på sidan */
 main {
-    max-width: 1200px; /* Begränsa maxbredden för stora skärmar */
-
+    max-width: 1200px; 
     margin: 0 auto;
     padding: 20px;
 }
@@ -17,26 +15,25 @@ main {
 .first-page {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centrerar boxarna */
+    justify-content: center;
     padding: 30px;
     gap: 30px;
-
-    flex-wrap: wrap; /* Gör att bilden hoppar ner under texten på små skärmar */
+    flex-wrap: wrap; 
 
 }
 
 .logo-side {
     flex: 1;
-    min-width: 300px; /* Förhindrar att text-sidan blir för smal */
-    text-align: center; /* Centrerar texten */
+    min-width: 300px; 
+    text-align: center; 
 }
 
 /* Fixar loggan */
 .logo-side img {
     max-width: 100%; 
-    width: 400px; /* Max storlek */
-    height: auto; /* Behåll proportioner */
-    margin: 0 auto 20px auto; /* Centrera */
+    width: 400px;
+    height: auto; 
+    margin: 0 auto 20px auto;
 }
 
 .poster-side {
@@ -46,12 +43,11 @@ main {
     justify-content: center;
 }
 
-/* Fixar den stora bilden */
 .poster-side img {
     max-width: 100%;
-    width: 600px; /* Max storlek */
+    width: 600px; 
     height: auto;
-    margin: 0; /* Ta bort margin-left: 150px */
+    margin: 0; 
 }
 
 .buttons{
@@ -75,5 +71,4 @@ background-color: #d6a0b4;
 
 .log:hover{
 background-color: #933b5b;
-
 }
