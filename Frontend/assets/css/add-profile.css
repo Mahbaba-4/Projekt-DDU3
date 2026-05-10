@@ -38,7 +38,7 @@ h1 {
 
 .form-field.half {
     flex: 1;
-  
+
 }
 
 label {
@@ -48,7 +48,9 @@ label {
     color: #933b5b;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
     width: 100%;
     padding: 8px 12px;
     border: 1px solid #d4d4d4;
@@ -122,3 +124,44 @@ button {
 .rating-stars {
     color: #97385b;
 }
+
+#navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    height: 60px;
+    border-bottom: 2px solid #97385b;
+}
+
+#left-nav img {
+    height: 50px;
+}
+
+img {
+    margin-bottom: -10px;
+}
+
+#right-nav {
+    display: flex;
+    align-items: start;
+    gap: 9px;
+}
+
+#right-nav a {
+    text-decoration: none;
+    color: #97385b;
+    font-size: 15px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #f5e9ed;
+}
+
+#right-nav a:hover {
+    color: white;
+    background-color: #97385b;
+}
+
