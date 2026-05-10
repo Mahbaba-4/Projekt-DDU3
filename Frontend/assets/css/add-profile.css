@@ -165,3 +165,64 @@ img {
     background-color: #97385b;
 }
 
+#stats {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 24px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: #fff5f7;
+    border: 2px solid #f0d3dc;
+    border-radius: 20px;
+    padding: 30px 25px;
+    text-align: center;
+    min-width: 160px;
+    transition: 0.5s;
+    box-shadow: 0 2px 8px #97385b1a;
+    color: #933b5b;
+}
+
+.card:hover {
+    border-color: #97385b;
+    box-shadow: 0 6px 16px #97385b26;
+}
+
+.stat-value {
+    font-size: 30px;
+    color: #97385b;
+    margin: 10px 0;
+}
+
+.stat-label {
+    background-color: #f9e7ed;
+    padding: 5px;
+    border-radius: 9px;
+}
+
+a, .back {
+    text-decoration: none;
+    color: #97385b;
+}
+
+.cinema-journey {
+    margin: 25px;
+    font-family: cursive;
+    font-size: 20px;
+}
+
+.added {
+   margin: 25px;
+   font-size: 25px; 
+   background-color: #f9e7ed;
+   text-align: center;
+   padding: 7px;
+   max-width: 200px;
+   border-radius: 8px;
+}
+
+
