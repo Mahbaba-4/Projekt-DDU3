@@ -480,27 +480,28 @@ function postDefaultListsForUser(userId){
             }
         }
         let nextId = maxId + 1;
+
+        let watchList = {
+            id: "" + nextId,
+            userId: userId,
+            name: "Want to watch",
+            type: "WatchList",
+            movieIds: []
+        }
+
+        let watched = {
+            id: ""+ (nextId + 1),
+            userId: userId,
+            name: "Already Watched",
+            type: "Watched",
+            movieIds: []
+        }
+
+        data.lists.push(watchList);
+        data.lists.push(watched);
+        writeData(data);
     }
 
-    let watchList = {
-        id: "" + nextId,
-        userId: userId,
-        name: "Want to watch",
-        type: "WatchList",
-        movieIds: []
-    }
-
-    let watched = {
-        id: ""+ (nextId + 1),
-        userId: userId,
-        name: "Already Watched",
-        type: "Watched",
-        movieIds: []
-    }
-
-    data.lists.push(watchList);
-    data.lists.push(watched);
-    writeData(data);
 }
 
 async function postSignUp(request){
@@ -508,7 +509,7 @@ async function postSignUp(request){
         const data = readData();
         const body = await request.json();
 
-        if(!body.name || !body.email || !body.username || !body.password){
+        if(!body.email || !body.password){
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
@@ -524,7 +525,7 @@ async function postSignUp(request){
 
         let userExists = false;
         for(let i = 0; i < data.users.length; i++){
-            if(data.users[i].username === body.username || data.users[i].email === body.email){
+            if(data.users[i].email === body.email){
                 userExists = true;
                 break;
             }
@@ -553,11 +554,11 @@ async function postSignUp(request){
             id: newId,
             email: body.email,
             passwordHash: body.password,
-            toke: null,
+            token: null,
         }
 
         data.users.push(newUser);
-        writeData(db);
+        writeData(data);
 
         postDefaultListsForUser(newUser.id);
 
