@@ -21,9 +21,10 @@ for (let i = 0; i < stars.length; i++) {
             if (c < val) {
                 stars[c].innerHTML = "★";
                 stars[c].style.fontSize = "30px";
+                stars[c].style.color = "#933b5b";
             } else {
                 stars[c].innerHTML = "☆";
-                stars[c].style.color = "#101010";
+                stars[c].style.color = "#933b5b";
             }
         }
     });

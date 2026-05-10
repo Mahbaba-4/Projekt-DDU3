@@ -22,8 +22,7 @@ body {
 h1 {
     font-size: 26px;
     margin-bottom: 24px;
-    color: #101010;
-    
+    color: #933b5b;
     padding-bottom: 16px;
 }
 
@@ -46,7 +45,7 @@ label {
     display: block;
     margin-bottom: 7px;
     font-size: 14px;
-    color: #393939;
+    color: #933b5b;
 }
 
 input, select, textarea {
@@ -56,7 +55,7 @@ input, select, textarea {
     border-radius: 8px;
     font-size: 14px;
     background: #f9f9f9;
-    color: #101010;
+    color: #f7cfde;
 }
 
 .preview-box {
@@ -88,13 +87,13 @@ button {
 }
 
 .btn-add {
-    background: #171717;
+    background: #933b5b;
     color: white;
     border: none;
 }
 
 .btn-add:hover {
-    background: #000000;
+    background: #be4e77;
 }
 
 .btn-cancel {
@@ -105,19 +104,21 @@ button {
 
 .btn-cancel:hover {
     background: #f9f9f9;
-    color: #101010;
+    color: #933b5b;
 }
 
 #statusSelect {
     max-width: 150px;
-    background-color: #171717;
+    background-color: #933b5b;
     color: white;
     margin-bottom: 15px;
     border-radius: 8px;
 }
 
 #statusSelect:hover {
-    background-color: #000000;
+    background-color: #97385b;
 }
 
-
+.rating-stars {
+    color: #97385b;
+}
