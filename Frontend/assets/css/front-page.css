@@ -36,12 +36,20 @@ main{
 }
 
 .logo-side p{
-    font-size: 18px;
-    color: var(--gray-medium);
-    font-weight: var(--medium-light);
-    margin-top: -20px;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 20px;
+    color: black;
+    margin-top: 5px;
+    text-align: center;
 }
 
+.logo-side h1{
+    font-family:'Times New Roman', Times, serif;
+    font-size: 25px;
+    color: black;
+    margin-top: 0px;
+    text-align: center;
+}
 
 .poster-side{
     flex:3;
@@ -55,3 +63,25 @@ main{
     margin-top: 50px;
 }
 
+.buttons{
+    display: flex;
+    margin: 0px 150px;
+    width: 200px;
+    height: auto;
+    gap: 30px;
+}
+
+.buttons button{
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.log{
+    background-color: #d6a0b4;
+}
+
+.log:hover{
+    background-color: #933b5b;
+}
