@@ -456,5 +456,134 @@ function searchFilterMovies(request) {
 
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies };
+function postDefaultListsForUser(userId){
+    const data = readData();
+
+    if(!data.lists){
+        data.lists = [];
+    }
+
+    let hasLists = false;
+    for(let i = 0; i < data.lists.length; i++){
+        if(data.lists[i].userId === userId){
+            hasLists = true;
+            break
+        }
+    }
+
+    if(!hasLists){
+        let maxId = 0;
+        for(let i = 0; i < data.lists.length; i++){
+            let id = parseInt(data.lists[i].id);
+            if(id> maxId){
+                maxId = id
+            }
+        }
+        let nextId = maxId + 1;
+    }
+
+    let watchList = {
+        id: "" + nextId,
+        userId: userId,
+        name: "Want to watch",
+        type: "WatchList",
+        movieIds: []
+    }
+
+    let watched = {
+        id: ""+ (nextId + 1),
+        userId: userId,
+        name: "Already Watched",
+        type: "Watched",
+        movieIds: []
+    }
+
+    data.lists.push(watchList);
+    data.lists.push(watched);
+    writeData(data);
+}
+
+async function postSignUp(request){
+    try{
+        const data = readData();
+        const body = await request.json();
+
+        if(!body.name || !body.email || !body.username || !body.password){
+            return new Response(JSON.stringify({}), {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        if(!data.users){
+            data.users = [];
+        }
+
+        let userExists = false;
+        for(let i = 0; i < data.users.length; i++){
+            if(data.users[i].username === body.username || data.users[i].email === body.email){
+                userExists = true;
+                break;
+            }
+        }
+
+        if(userExists){
+            return new Response(JSON.stringify({}), {
+                status: 409,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Acess-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        let maxId = 0;
+        for(let user of data.users){
+            const id = parseInt(user.id);
+            if(id > maxId){
+                maxId = id;
+            }
+        }
+        let newId = `${maxId + 1}`;
+
+        let newUser = {
+            id: newId,
+            email: body.email,
+            passwordHash: body.password,
+            toke: null,
+        }
+
+        data.users.push(newUser);
+        writeData(db);
+
+        postDefaultListsForUser(newUser.id);
+
+        let userWithoutPassword = {
+            id: newUser.id,
+            email: newUser.email
+        }
+
+        return new Response(JSON.stringify(userWithoutPassword), {
+            status: 201,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+
+    }catch(err){
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+    }
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp };
 
