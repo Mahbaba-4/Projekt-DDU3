@@ -20,7 +20,7 @@ function handler(request) {
         return postSignUp(request)
     }
 
-    if(url.pathname === "/auth/login" && request.methid === "POST"){
+    if(url.pathname === "/auth/login" && request.method === "POST"){
         return postLogIn(request);
     }
 
