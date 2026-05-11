@@ -586,123 +586,15 @@ async function postSignUp(request){
     }
 }
 
-// async function postLogIn(request){
-//     try{
-//         const data = readData();
-//         const body = await request.json();
-//         console.log("Recived body:", body);
-//         console.log("Users in databse:", data.users)
-
-//         if(!body.email || !body.password){
-//             return new Response(JSON.stringify({}), {
-//                 status: 400,
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                     "Access-Control-Allow-Origin": "*"
-//                 }
-//             })
-//         }
-
-//         if(!data.users){
-//             data.users = [];
-//         }
-
-//         let foundUser = null;
-//         for(let i = 0; i < data.users.length; i++){
-//             console.log(`Checking user ${i}:`, data.users[i].email, data.users[i].passwordHash);
-//             if(data.users[i].email === body.email && data.users[i].passwordHash === body.password){
-//                 foundUser = data.users[i];
-//                 break;
-//             }
-//         }
-
-//         if(!foundUser){
-//             return new Response(JSON.stringify({}), {
-//                 status: 401,
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                     "Access-Control-Allow-Origin": "*"
-//                 }
-//             })
-//         }
-
-//         console.log("Found user", foundUser)
-
-//         if(!data.sessions){
-//             data.sessions = [];
-//         }
-
-//         let newSessions = [];
-//         for(let i = 0; i < data.sessions.length; i++){
-//             if(data.sessions[i].userId !== foundUser.id){
-//                 newSessions.push(data.sessions[i]);
-//             }
-//         }
-//         data.sessions = newSessions;
-
-//         let maxId = 0;
-//         for(let session of data.sessions){
-//             const id = parseInt(session.id);
-//             if(id > maxId){
-//                 maxId = id
-//             }
-//         }
-//         let newSessionId = `${maxId + 1}`;
-
-//         let newSession = {
-//             id: newSessionId,
-//             userId : foundUser.id,
-//         }
-
-//         data.sessions.push(newSession);
-//         writeData(data);
-
-//         let userWithoutPasswordForLogIn = {
-//             id: foundUser.id,
-//             email: foundUser.email,
-//         }
-
-//         return new Response(JSON.stringify(userWithoutPasswordForLogIn), {
-//             status: 200,
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "Access-Control-Allow-Origin": "*",
-//                 "Set-Cookie": "sessionId=" + newSessionId + "; Max-Age=86400; Path=/"
-//             }
-//         })
-
-//     }catch(err){
-//         return new Response(JSON.stringify({}), {
-//             status: 500,
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 "Access-Control-Allow-Origin": "*"
-//             }
-//         })
-//     }
-// }
-
 async function postLogIn(request){
-    console.log("=== postLogIn ANROPAD ===");
-    console.log("Request method:", request.method);
-    console.log("Request URL:", request.url);
-    
     try{
         const data = readData();
         const body = await request.json();
-        
-        console.log("=== REQUEST BODY ===");
-        console.log("Email från request:", body.email);
-        console.log("Password från request:", body.password);
-        console.log("Full body:", body);
-        
-        console.log("=== DATABAS USERS ===");
-        console.log("Users i databasen:", JSON.stringify(data.users, null, 2));
-        console.log("Antal users:", data.users ? data.users.length : 0);
+        console.log("Recived body:", body);
+        console.log("Users in databse:", data.users)
 
         if(!body.email || !body.password){
-            console.log("❌ Missing email or password");
-            return new Response(JSON.stringify({ error: "Missing email or password" }), {
+            return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
                     "Content-Type": "application/json",
@@ -712,32 +604,20 @@ async function postLogIn(request){
         }
 
         if(!data.users){
-            console.log("❌ data.users finns inte, skapar tom array");
             data.users = [];
         }
 
         let foundUser = null;
-        console.log("=== SÖKER EFTER ANVÄNDARE ===");
         for(let i = 0; i < data.users.length; i++){
-            console.log(`Checking user ${i}:`);
-            console.log(`  Email i databas: "${data.users[i].email}"`);
-            console.log(`  Email från request: "${body.email}"`);
-            console.log(`  Matchar email: ${data.users[i].email === body.email}`);
-            console.log(`  Password i databas: "${data.users[i].passwordHash}"`);
-            console.log(`  Password från request: "${body.password}"`);
-            console.log(`  Matchar password: ${data.users[i].passwordHash === body.password}`);
-            
+            console.log(`Checking user ${i}:`, data.users[i].email, data.users[i].passwordHash);
             if(data.users[i].email === body.email && data.users[i].passwordHash === body.password){
                 foundUser = data.users[i];
-                console.log("✅ USER FOUND!");
                 break;
             }
         }
 
         if(!foundUser){
-            console.log("❌ No user found with email:", body.email);
-            console.log("❌ Returning 401 Unauthorized");
-            return new Response(JSON.stringify({ error: "Invalid email or password" }), {
+            return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
                     "Content-Type": "application/json",
@@ -746,14 +626,12 @@ async function postLogIn(request){
             })
         }
 
-        console.log("✅ Found user:", JSON.stringify(foundUser, null, 2));
+        console.log("Found user", foundUser)
 
         if(!data.sessions){
-            console.log("Skapar ny sessions array");
             data.sessions = [];
         }
 
-        console.log("=== RENSAR GAMLA SESSIONER ===");
         let newSessions = [];
         for(let i = 0; i < data.sessions.length; i++){
             if(data.sessions[i].userId !== foundUser.id){
@@ -761,9 +639,7 @@ async function postLogIn(request){
             }
         }
         data.sessions = newSessions;
-        console.log(`Sessioner efter rensning: ${data.sessions.length}`);
 
-        console.log("=== SKAPAR NY SESSION ===");
         let maxId = 0;
         for(let session of data.sessions){
             const id = parseInt(session.id);
@@ -772,27 +648,19 @@ async function postLogIn(request){
             }
         }
         let newSessionId = `${maxId + 1}`;
-        console.log("Nytt session ID:", newSessionId);
 
         let newSession = {
             id: newSessionId,
-            userId: foundUser.id,
-            createdAt: new Date().toISOString()
+            userId : foundUser.id,
         }
 
         data.sessions.push(newSession);
         writeData(data);
-        console.log("✅ Ny session sparad");
 
         let userWithoutPasswordForLogIn = {
             id: foundUser.id,
             email: foundUser.email,
         }
-
-        console.log("=== SKICKAR RESPONSE ===");
-        console.log("Status: 200");
-        console.log("Set-Cookie: sessionId=" + newSessionId + "; Max-Age=86400; Path=/");
-        console.log("Response body:", JSON.stringify(userWithoutPasswordForLogIn));
 
         return new Response(JSON.stringify(userWithoutPasswordForLogIn), {
             status: 200,
@@ -804,9 +672,7 @@ async function postLogIn(request){
         })
 
     }catch(err){
-        console.log("❌ ERROR i postLogIn:", err.message);
-        console.log("❌ Full error:", err);
-        return new Response(JSON.stringify({ error: err.message }), {
+        return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
