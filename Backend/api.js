@@ -649,7 +649,7 @@ async function postLogIn(request){
             userId : foundUser.id,
         }
 
-        data.sessions.push(newSessions);
+        data.sessions.push(newSession);
         writeData(data);
 
         let userWithoutPasswordForLogIn = {
