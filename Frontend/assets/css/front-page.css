@@ -86,17 +86,19 @@ color: #933b5b;
 .features {
     display: flex;
     text-align: center;
+    margin-top: 50px;
 }
 
 .cards{
     display: flex;
-    width: 300px;
+    width: 280px;
     height: auto;
     margin: 10px auto;
     background-color: thistle;
     border-color: 2px solid #d6a0b4;
     border-radius: 5px;
     padding: 5px;
+    flex-wrap: wrap;
 
 }
 
