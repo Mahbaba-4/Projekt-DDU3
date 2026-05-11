@@ -239,5 +239,11 @@
       "passwordHash": "123",
       "token": null
     }
+  ],
+  "sessions": [
+    {
+      "id": "1",
+      "userId": "1"
+    }
   ]
 }
