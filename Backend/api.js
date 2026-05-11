@@ -681,5 +681,64 @@ async function postLogIn(request){
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn };
+function postLogOut(request){
+    try{
+        const data = readData();
+        const cookieHeader = request.headers.get("Cookie");
+
+        if(!cookieHeader){
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        const cookieHeaderSplitInParts = cookieHeader.split("=");
+        const sessionId = cookieHeaderSplitInParts[1]
+
+        let found = false;
+        let newSessions = [];
+
+        for(let i = 0; i < data.sessions.length; i++){
+            if(data.sessions[i].id == sessionId){
+                found = true;
+            }else{
+                newSessions.push(data.sessions[i])
+            }
+        }
+
+        if(!found){
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        data.sessions = newSessions;
+        writeData(data);
+
+        return new Response(null, {
+            status: 204,
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Set-Cookie": "sessionId=; Max-Age=0; Path=/"
+            }
+        })
+    }catch(err){
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin":"*"
+            }
+        })
+    }
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut };
 
