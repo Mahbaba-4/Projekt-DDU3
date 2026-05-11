@@ -226,7 +226,7 @@ a, .back {
 
 footer {
     display: block;
-    margin: 0;
+    margin-top: 200px;
     padding: 20px 0;;
     overflow-x: hidden;
     max-width: 100%;
