@@ -609,7 +609,6 @@ async function postLogIn(request){
 
         let foundUser = null;
         for(let i = 0; i < data.users.length; i++){
-            console.log(`Checking user ${i}:`, data.users[i].email, data.users[i].passwordHash);
             if(data.users[i].email === body.email && data.users[i].passwordHash === body.password){
                 foundUser = data.users[i];
                 break;
