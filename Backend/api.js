@@ -590,6 +590,8 @@ async function postLogIn(request){
     try{
         const data = readData();
         const body = await request.json();
+        console.log("Recived body:", body);
+        console.log("Users in databse:", data.ysers)
 
         if(!body.email || !body.password){
             return new Response(JSON.stringify({}), {
@@ -607,6 +609,7 @@ async function postLogIn(request){
 
         let foundUser = null;
         for(let i = 0; i < data.users.length; i++){
+            console.log(`Checking user ${i}:`, data.users[i].email, data.users[i].passwordHash);
             if(data.users[i].email === body.email && data.users[i].passwordHash === body.password){
                 foundUser = data.users[i];
                 break;
@@ -622,6 +625,8 @@ async function postLogIn(request){
                 }
             })
         }
+
+        console.log("Found user", foundUser)
 
         if(!data.sessions){
             data.sessions = [];
