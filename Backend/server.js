@@ -85,6 +85,7 @@ function handler(request) {
         status: 404,
         headers: { "Access-Control-Allow-Orgin": "*" }
     })
+    
 }
 
 Deno.serve(handler);
