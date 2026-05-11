@@ -1,4 +1,4 @@
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp } from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp, postLogIn } from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 
@@ -18,6 +18,10 @@ function handler(request) {
 
     if(url.pathname == "/auth/signup" && request.method === "POST"){
         return postSignUp(request)
+    }
+
+    if(url.pathname === "/auth/login" && request.methid === "POST"){
+        return postLogIn(request);
     }
 
     if (request.headers.get("Authorization") !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
