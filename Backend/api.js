@@ -591,7 +591,7 @@ async function postLogIn(request){
         const data = readData();
         const body = await request.json();
         console.log("Recived body:", body);
-        console.log("Users in databse:", data.ysers)
+        console.log("Users in databse:", data.users)
 
         if(!body.email || !body.password){
             return new Response(JSON.stringify({}), {
