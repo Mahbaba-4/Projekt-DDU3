@@ -586,5 +586,96 @@ async function postSignUp(request){
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp };
+async function postLogIn(request){
+    try{
+        const data = readData();
+        const body = await request.json();
+
+        if(!body.email || !body.password){
+            return new Response(JSON.stringify({}), {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        if(!data.users){
+            data.users = [];
+        }
+
+        let foundUser = null;
+        for(let i = 0; i < data.users.length; i++){
+            if(data.users[i].email === body.email && data.users[i].passwordHash === body.password){
+                foundUser = data.users[i];
+                break;
+            }
+        }
+
+        if(!foundUser){
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        if(!data.sessions){
+            data.sessions = [];
+        }
+
+        let newSessions = [];
+        for(let i = 0; i < data.sessions.length; i++){
+            if(data.sessions[i].userId !== foundUser.id){
+                newSessions.push(data.sessions[i]);
+            }
+        }
+        data.sessions = newSessions;
+
+        let maxId = 0;
+        for(let session of data.sessions){
+            const id = parseInt(session.id);
+            if(id > maxId){
+                maxId = id
+            }
+        }
+        let newSessionId = `${maxId + 1}`;
+
+        let newSession = {
+            id: newSessionId,
+            userId : foundUser.id,
+        }
+
+        data.sessions.push(newSessions);
+        writeData(data);
+
+        let userWithoutPasswordForLogIn = {
+            id: foundUser.id,
+            email: foundUser.email,
+        }
+
+        return new Response(JSON.stringify(userWithoutPasswordForLogIn), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                "Set-Cookie": "sessionId=" + newSessionId + "; Max-Age=86400; Path=/"
+            }
+        })
+
+    }catch(err){
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+    }
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn };
 
