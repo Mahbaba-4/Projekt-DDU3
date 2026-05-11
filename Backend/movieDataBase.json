@@ -201,6 +201,28 @@
         "6",
         "1"
       ]
+    },
+    {
+      "id": "3",
+      "userId": "1",
+      "name": "Want to watch",
+      "type": "WatchList",
+      "movieIds": []
+    },
+    {
+      "id": "4",
+      "userId": "1",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "anna@test.se",
+      "passwordHash": "123",
+      "token": null
     }
   ]
 }
