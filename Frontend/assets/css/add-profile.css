@@ -224,4 +224,13 @@ a, .back {
    border-radius: 8px;
 }
 
-
+footer {
+    display: block;
+    margin: 0;
+    padding: 20px 0;;
+    overflow-x: hidden;
+    max-width: 100%;
+    text-align: center;
+    border-top: 3px solid  #933b5b;
+    color:#5d2036
+}
