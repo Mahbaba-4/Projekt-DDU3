@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    background: linear-gradient(to right, white, #d6a0b4);
+    background: linear-gradient(to right, white, #d2a1b3);
 }
 
 
@@ -28,7 +28,6 @@ main {
     text-align: center; 
 }
 
-/* Fixar loggan */
 .logo-side img {
     max-width: 100%; 
     width: 400px;
@@ -53,9 +52,9 @@ main {
 .buttons{
 display: flex;
 margin: 0px 150px;
-width: 200px;
+width: 250px;
 height: auto;
-gap: 30px;
+gap: 20px;
 }
 
 .buttons button{
@@ -71,4 +70,43 @@ background-color: #d6a0b4;
 
 .log:hover{
 background-color: #933b5b;
+}
+
+.second{
+    margin-top: 160px;
+}
+
+h2{
+font-size: 25px;
+font-family: 'Times New Roman', Times, serif;
+text-align: center;
+color: #933b5b;
+}
+
+.features {
+    display: flex;
+    text-align: center;
+}
+
+.cards{
+    display: flex;
+    width: 300px;
+    height: auto;
+    margin: 10px auto;
+    background-color: thistle;
+    border-color: 2px solid #d6a0b4;
+    border-radius: 5px;
+    padding: 5px;
+
+}
+
+.cards h3{
+font-size: 17px;
+margin-left: 15px;
+}
+
+.cards img{
+margin: 14px 3px;
+height: 20px;
+
 }
