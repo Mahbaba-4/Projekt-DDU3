@@ -528,10 +528,6 @@ function postDefaultListsForUser(userId) {
 
 }
 
-function ownTokenGenerator(){
-    return "Bearer " + crypto.randomUUID();
-}
-
 async function postSignUp(request) {
     try {
         const data = readData();
@@ -582,7 +578,7 @@ async function postSignUp(request) {
             id: newId,
             email: body.email,
             passwordHash: body.password,
-            token: ownTokenGenerator(),
+            token: `Bearer ${crypto.randomUUID()}`,
         }
 
         data.users.push(newUser);
