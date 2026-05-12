@@ -373,7 +373,18 @@ function getMovies(request) {
         let movies = data.movies;
 
         const url = new URL(request.url);
+        const genreFilter = url.searchParams.get("genre");
         const statusFilter = url.searchParams.get("status");
+
+        if (genreFilter) {
+            let filteredByGenre = [];
+            for (let i = 0; i < movies.length; i++) {
+                if (movies[i].genreId === genreFilter) {
+                    filteredByGenre.push(movies[i]);
+                }
+            }
+            movies = filteredByGenre;
+        }
 
         if (statusFilter) {
             if (statusFilter === "Watched") {
