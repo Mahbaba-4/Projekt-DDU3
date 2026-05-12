@@ -245,5 +245,13 @@
       "type": "Watched",
       "movieIds": []
     }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "stina@test.se",
+      "passwordHash": "stinaslosen123",
+      "token": "Bearer54ac9c9c-69f5-4d7e-8b73-5ade07819b16"
+    }
   ]
 }
