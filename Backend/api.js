@@ -614,8 +614,6 @@ async function postLogIn(request) {
     try {
         const data = readData();
         const body = await request.json();
-        console.log("Recived body:", body);
-        console.log("Users in databse:", data.users)
 
         if (!body.email || !body.password) {
             return new Response(JSON.stringify({}), {
@@ -648,8 +646,6 @@ async function postLogIn(request) {
                 }
             })
         }
-
-        console.log("Found user", foundUser)
 
         if (!data.sessions) {
             data.sessions = [];
