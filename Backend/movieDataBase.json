@@ -230,6 +230,20 @@
       "name": "Already Watched",
       "type": "Watched",
       "movieIds": []
+    },
+    {
+      "id": "5",
+      "userId": "2",
+      "name": "Want to watch",
+      "type": "WatchList",
+      "movieIds": []
+    },
+    {
+      "id": "6",
+      "userId": "2",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
     }
   ],
   "users": [
@@ -238,7 +252,22 @@
       "email": "anna@test.se",
       "passwordHash": "123",
       "token": null
+    },
+    {
+      "id": "2",
+      "email": "kalle@test.se",
+      "passwordHash": "hemligt123",
+      "token": null
     }
   ],
-  "sessions": []
+  "sessions": [
+    {
+      "id": "1",
+      "userId": "2"
+    },
+    {
+      "id": "2",
+      "userId": "1"
+    }
+  ]
 }
