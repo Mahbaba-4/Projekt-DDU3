@@ -578,7 +578,7 @@ async function postSignUp(request) {
             id: newId,
             email: body.email,
             passwordHash: body.password,
-            token: null,
+            token: ownTokenGenerator(),
         }
 
         data.users.push(newUser);
@@ -1070,6 +1070,10 @@ async function deleteProfileImage(request) {
             }
         });
     }
+}
+
+function ownTokenGenerator(){
+    return "Bearer" + crypto.randomUUID();
 }
 
 export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage };
