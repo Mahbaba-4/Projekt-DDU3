@@ -528,6 +528,10 @@ function postDefaultListsForUser(userId) {
 
 }
 
+function ownTokenGenerator(){
+    return "Bearer" + crypto.randomUUID();
+}
+
 async function postSignUp(request) {
     try {
         const data = readData();
@@ -1070,10 +1074,6 @@ async function deleteProfileImage(request) {
             }
         });
     }
-}
-
-function ownTokenGenerator(){
-    return "Bearer" + crypto.randomUUID();
 }
 
 export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage };
