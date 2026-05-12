@@ -1,4 +1,4 @@
- import { extname } from "jsr:@std/path";
+import { extname } from "jsr:@std/path";
 
 function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
@@ -85,6 +85,16 @@ async function createMovieReview(request) {
         const data = readData();
         const body = await request.json();
 
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
+            return new Response(JSON.stringify({ error: "Not logged in" }), {
+                status: 401,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
         if (!body.title || !body.year || !body.genre || !body.director || !body.runtime || !body.posterUrl || !body.description || !body.status) {
             return new Response(JSON.stringify({}), {
                 status: 400,
@@ -125,7 +135,7 @@ async function createMovieReview(request) {
 
         let targetList = null;
         for (let i = 0; i < data.lists.length; i++) {
-            if (data.lists[i].type === body.status) {
+            if (data.lists[i].type === body.status && data.lists[i].userId === userId) {
                 targetList = data.lists[i];
                 break;
             }
@@ -138,6 +148,7 @@ async function createMovieReview(request) {
 
         const newMovie = {
             id: newId,
+            userId: userId,
             title: body.title,
             year: body.year,
             genreId: genreId,
@@ -1007,7 +1018,7 @@ async function deleteProfileImage(request) {
             }
         }
 
-        if(!user){
+        if (!user) {
             return new Response(JSON.stringify({ error: "User not found" }), {
                 status: 404,
                 headers: {
@@ -1016,7 +1027,7 @@ async function deleteProfileImage(request) {
             });
         }
 
-         if (user.profileImage && user.profileImage.substring(0, 9) === "/uploads/") {
+        if (user.profileImage && user.profileImage.substring(0, 9) === "/uploads/") {
             const filePath = `.${user.profileImage}`;
             try {
                 await Deno.remove(filePath);
@@ -1028,7 +1039,7 @@ async function deleteProfileImage(request) {
         user.profileImage = null;
         writeData(data);
 
-         return new Response(null, {
+        return new Response(null, {
             status: 204,
             headers: {
                 "Content-Type": "application/json",
