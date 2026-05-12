@@ -249,10 +249,9 @@
   "users": [
     {
       "id": "1",
-      "email": "anna@test.se",
-      "passwordHash": "123",
-      "token": null,
-      "profileImage": "/uploads/profile-images/a6a5b6c9-2f80-4403-a0d7-ad5e6eb1843e.png"
+      "email": "stina@test.se",
+      "passwordHash": "stinaslosen123",
+      "token": "Bearer8292b53f-df95-4afd-8f45-197dcf9fb76e"
     }
   ]
 }
