@@ -253,7 +253,12 @@
       "passwordHash": "123",
       "token": null,
       "profileImage": "/uploads/profile-images/a6a5b6c9-2f80-4403-a0d7-ad5e6eb1843e.png"
+    },
+    {
+      "id": "2",
+      "email": "test@example.com",
+      "passwordHash": "mittlosen123",
+      "token": "Bearer6ea2e4a3-1952-4acc-9214-52e77c464148"
     }
   ]
-  
 }
