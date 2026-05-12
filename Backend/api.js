@@ -1,3 +1,5 @@
+ import { extname } from "jsr:@std/path";
+
 function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
 }
@@ -425,13 +427,13 @@ function searchFilterMovies(request) {
         const queryLower = searchQuery.toLowerCase();
         const matchedMovies = [];
 
-        for(let i=0; i<movies.length; i++){
+        for (let i = 0; i < movies.length; i++) {
             const movie = movies[i];
             const titleLowerCase = movie.title.toLowerCase();
             const directorLowerCase = movie.director.toLowerCase();
             const descriptionLowerCase = movie.description.toLowerCase();
 
-            if (titleLowerCase.includes(queryLower)|| directorLowerCase.includes(queryLower) || descriptionLowerCase.includes(queryLower)){
+            if (titleLowerCase.includes(queryLower) || directorLowerCase.includes(queryLower) || descriptionLowerCase.includes(queryLower)) {
                 matchedMovies.push(movie);
             }
         }
@@ -456,26 +458,26 @@ function searchFilterMovies(request) {
 
 }
 
-function postDefaultListsForUser(userId){
+function postDefaultListsForUser(userId) {
     const data = readData();
 
-    if(!data.lists){
+    if (!data.lists) {
         data.lists = [];
     }
 
     let hasLists = false;
-    for(let i = 0; i < data.lists.length; i++){
-        if(data.lists[i].userId === userId){
+    for (let i = 0; i < data.lists.length; i++) {
+        if (data.lists[i].userId === userId) {
             hasLists = true;
             break
         }
     }
 
-    if(!hasLists){
+    if (!hasLists) {
         let maxId = 0;
-        for(let i = 0; i < data.lists.length; i++){
+        for (let i = 0; i < data.lists.length; i++) {
             let id = parseInt(data.lists[i].id);
-            if(id> maxId){
+            if (id > maxId) {
                 maxId = id
             }
         }
@@ -490,7 +492,7 @@ function postDefaultListsForUser(userId){
         }
 
         let watched = {
-            id: ""+ (nextId + 1),
+            id: "" + (nextId + 1),
             userId: userId,
             name: "Already Watched",
             type: "Watched",
@@ -504,12 +506,12 @@ function postDefaultListsForUser(userId){
 
 }
 
-async function postSignUp(request){
-    try{
+async function postSignUp(request) {
+    try {
         const data = readData();
         const body = await request.json();
 
-        if(!body.email || !body.password){
+        if (!body.email || !body.password) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
@@ -519,19 +521,19 @@ async function postSignUp(request){
             })
         }
 
-        if(!data.users){
+        if (!data.users) {
             data.users = [];
         }
 
         let userExists = false;
-        for(let i = 0; i < data.users.length; i++){
-            if(data.users[i].email === body.email){
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].email === body.email) {
                 userExists = true;
                 break;
             }
         }
 
-        if(userExists){
+        if (userExists) {
             return new Response(JSON.stringify({}), {
                 status: 409,
                 headers: {
@@ -542,9 +544,9 @@ async function postSignUp(request){
         }
 
         let maxId = 0;
-        for(let user of data.users){
+        for (let user of data.users) {
             const id = parseInt(user.id);
-            if(id > maxId){
+            if (id > maxId) {
                 maxId = id;
             }
         }
@@ -575,7 +577,7 @@ async function postSignUp(request){
             }
         })
 
-    }catch(err){
+    } catch (err) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
@@ -586,14 +588,14 @@ async function postSignUp(request){
     }
 }
 
-async function postLogIn(request){
-    try{
+async function postLogIn(request) {
+    try {
         const data = readData();
         const body = await request.json();
         console.log("Recived body:", body);
         console.log("Users in databse:", data.users)
 
-        if(!body.email || !body.password){
+        if (!body.email || !body.password) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
@@ -603,19 +605,19 @@ async function postLogIn(request){
             })
         }
 
-        if(!data.users){
+        if (!data.users) {
             data.users = [];
         }
 
         let foundUser = null;
-        for(let i = 0; i < data.users.length; i++){
-            if(data.users[i].email === body.email && data.users[i].passwordHash === body.password){
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].email === body.email && data.users[i].passwordHash === body.password) {
                 foundUser = data.users[i];
                 break;
             }
         }
 
-        if(!foundUser){
+        if (!foundUser) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
@@ -627,22 +629,22 @@ async function postLogIn(request){
 
         console.log("Found user", foundUser)
 
-        if(!data.sessions){
+        if (!data.sessions) {
             data.sessions = [];
         }
 
         let newSessions = [];
-        for(let i = 0; i < data.sessions.length; i++){
-            if(data.sessions[i].userId !== foundUser.id){
+        for (let i = 0; i < data.sessions.length; i++) {
+            if (data.sessions[i].userId !== foundUser.id) {
                 newSessions.push(data.sessions[i]);
             }
         }
         data.sessions = newSessions;
 
         let maxId = 0;
-        for(let session of data.sessions){
+        for (let session of data.sessions) {
             const id = parseInt(session.id);
-            if(id > maxId){
+            if (id > maxId) {
                 maxId = id
             }
         }
@@ -650,7 +652,7 @@ async function postLogIn(request){
 
         let newSession = {
             id: newSessionId,
-            userId : foundUser.id,
+            userId: foundUser.id,
         }
 
         data.sessions.push(newSession);
@@ -670,7 +672,7 @@ async function postLogIn(request){
             }
         })
 
-    }catch(err){
+    } catch (err) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
@@ -681,12 +683,12 @@ async function postLogIn(request){
     }
 }
 
-function postLogOut(request){
-    try{
+function postLogOut(request) {
+    try {
         const data = readData();
         const cookieHeader = request.headers.get("Cookie");
 
-        if(!cookieHeader){
+        if (!cookieHeader) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
@@ -701,15 +703,15 @@ function postLogOut(request){
         let found = false;
         let newSessions = [];
 
-        for(let i = 0; i < data.sessions.length; i++){
-            if(data.sessions[i].id == sessionId){
+        for (let i = 0; i < data.sessions.length; i++) {
+            if (data.sessions[i].id == sessionId) {
                 found = true;
-            }else{
+            } else {
                 newSessions.push(data.sessions[i])
             }
         }
 
-        if(!found){
+        if (!found) {
             return new Response(JSON.stringify({}), {
                 status: 404,
                 headers: {
@@ -729,16 +731,324 @@ function postLogOut(request){
                 "Set-Cookie": "sessionId=; Max-Age=0; Path=/"
             }
         })
-    }catch(err){
+    } catch (err) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin":"*"
+                "Access-Control-Allow-Origin": "*"
             }
         })
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut };
+function getUserIdFromSession(request) {
+    const data = readData();
+    const cookieHeader = request.headers.get("Cookie");
+
+    if (!cookieHeader) {
+        return null;
+    }
+
+    const cookieHeaderSplit = cookieHeader.split("=");
+    let sessionId = null;
+
+    if (cookieHeaderSplit[0] === "sessionId") {
+        sessionId = cookieHeaderSplit[1];
+    }
+
+    if (!sessionId) {
+        return null;
+    }
+
+    for (let i = 0; i < data.sessions.length; i++) {
+        if (data.sessions[i].id === sessionId) {
+            return data.sessions[i].userId;
+        }
+    }
+    return null;
+
+
+}
+
+function getUserProfile(request) {
+    try {
+        const data = readData();
+
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        let userFound = null;
+
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].id === userId) {
+                userFound = data.users[i];
+                break;
+            }
+        }
+
+        if (!userFound) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        let user = {
+            id: userFound.id,
+            email: userFound.email,
+            username: userFound.username,
+            profileImage: userFound.profileImage
+        };
+
+        return new Response(JSON.stringify(user), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+}
+
+async function patchUserProfile(request) {
+    try {
+        const data = readData();
+        const body = await request.json();
+
+
+
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        let userFound = null;
+
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].id === userId) {
+                userFound = data.users[i];
+                break;
+            }
+        }
+
+        if (!userFound) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        if (body.username) {
+            userFound.username = body.username;
+        }
+        if (body.email) {
+            userFound.email = body.email;
+        }
+
+        writeData(data);
+
+        return new Response(null, {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+}
+
+async function postProfileImage(request) {
+    try {
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({ error: "Not logged in" }), {
+                status: 401,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        const formData = await request.formData();
+        const imageFile = formData.get("image");
+
+        if (!imageFile) {
+            return new Response(JSON.stringify({ error: "No image file provided" }), {
+                status: 400,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        const MAX_FILE_SIZE = 5 * 1024 * 1024;
+        if (imageFile.size > MAX_FILE_SIZE) {
+            return new Response(JSON.stringify({ error: "File too large" }), {
+                status: 400,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        const extension = extname(imageFile.name);
+
+        const uniqueName = crypto.randomUUID();
+        const newFilename = uniqueName + extension;
+
+        const bytes = await imageFile.bytes();
+
+        try {
+            await Deno.mkdir("./uploads/profile-images", { recursive: true });
+        } catch (error) {
+            console.log("Error");
+        }
+
+
+        const filePath = `./uploads/profile-images/${newFilename}`;
+        await Deno.writeFile(filePath, bytes);
+
+        const data = readData();
+        let user = null;
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].id === userId) {
+                user = data.users[i];
+                break;
+            }
+        }
+
+        if (user.profileImage && user.profileImage.substring(0, 9) === "/uploads/") {
+            const oldPath = `.${user.profileImage}`;
+            try {
+                await Deno.remove(oldPath);
+            } catch (error) {
+                console.log("Error deleting old image:", error);
+            }
+        }
+
+        user.profileImage = `/uploads/profile-images/${newFilename}`;
+        writeData(data);
+
+        return new Response(JSON.stringify({ message: "Image uploaded", path: user.profileImage }), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+}
+
+async function deleteProfileImage(request) {
+    try {
+
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
+            return new Response(JSON.stringify({ error: "Not logged in" }), {
+                status: 401,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        const data = readData();
+        let user = null;
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].id === userId) {
+                user = data.users[i];
+                break;
+            }
+        }
+
+        if(!user){
+            return new Response(JSON.stringify({ error: "User not found" }), {
+                status: 404,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+         if (user.profileImage && user.profileImage.substring(0, 9) === "/uploads/") {
+            const filePath = `.${user.profileImage}`;
+            try {
+                await Deno.remove(filePath);
+            } catch (error) {
+                console.log("Could not remove image:", error);
+            }
+        }
+
+        user.profileImage = null;
+        writeData(data);
+
+         return new Response(null, {
+            status: 204,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+
+
+    } catch (error) {
+        console.error(error);
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage };
 

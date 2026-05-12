@@ -100,6 +100,7 @@ h2 {
     border: 2px solid #d6a0b4; 
     border-radius: 5px;
     padding: 5px;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.204);
 }
 
 .cards h3 {
@@ -114,12 +115,12 @@ h2 {
 
 @media (max-width: 1200px) {
     .features {
-        grid-template-columns: repeat(2, 1fr);  /* 2 columns */
+        grid-template-columns: repeat(2, 1fr);  
         gap: 20px;
     }
     
     .cards {
-        width: 100%;  /* Make cards fill the column */
+        width: 100%;  
         max-width: 320px;
     }
 }
@@ -140,7 +141,7 @@ h2 {
 
 @media (max-width: 550px) {
     .features {
-        grid-template-columns: 1fr;  /* 1 column */
+        grid-template-columns: 1fr;
         gap: 15px;
     }
     
