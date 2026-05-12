@@ -578,7 +578,7 @@ async function postSignUp(request) {
             id: newId,
             email: body.email,
             passwordHash: body.password,
-            token: "Bearer" + " " + crypto.ramdomUUID(),
+            token: crypto.ramdomUUID(),
         }
 
         data.users.push(newUser);
