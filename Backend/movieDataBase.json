@@ -237,8 +237,14 @@
       "id": "1",
       "email": "anna@test.se",
       "passwordHash": "123",
-      "token": null
+      "token": null,
+      "profileImage": "/uploads/profile-images/a6a5b6c9-2f80-4403-a0d7-ad5e6eb1843e.png"
     }
   ],
-  "sessions": []
+  "sessions": [
+    {
+      "id": "1",
+      "userId": "1"
+    }
+  ]
 }
