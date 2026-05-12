@@ -252,22 +252,12 @@
       "email": "anna@test.se",
       "passwordHash": "123",
       "token": null
-    },
-    {
-      "id": "2",
-      "email": "kalle@test.se",
-      "passwordHash": "hemligt123",
-      "token": null
     }
   ],
   "sessions": [
     {
       "id": "1",
       "userId": "2"
-    },
-    {
-      "id": "2",
-      "userId": "1"
     }
   ]
 }
