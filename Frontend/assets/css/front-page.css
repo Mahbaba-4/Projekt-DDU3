@@ -115,12 +115,12 @@ h2 {
 
 @media (max-width: 1200px) {
     .features {
-        grid-template-columns: repeat(2, 1fr);  /* 2 columns */
+        grid-template-columns: repeat(2, 1fr);  
         gap: 20px;
     }
     
     .cards {
-        width: 100%;  /* Make cards fill the column */
+        width: 100%;  
         max-width: 320px;
     }
 }
@@ -141,7 +141,7 @@ h2 {
 
 @media (max-width: 550px) {
     .features {
-        grid-template-columns: 1fr;  /* 1 column */
+        grid-template-columns: 1fr;
         gap: 15px;
     }
     
