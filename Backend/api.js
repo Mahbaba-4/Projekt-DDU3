@@ -740,44 +740,40 @@ function postLogOut(request) {
     }
 }
 
+function getUserIdFromSession(request) {
+    const data = readData();
+    const cookieHeader = request.headers.get("Cookie");
+
+    if (!cookieHeader) {
+        return null;
+    }
+
+    const cookieHeaderSplit = cookieHeader.split("=");
+    let sessionId = null;
+
+    if (cookieHeaderSplit[0] === "sessionId") {
+        sessionId = cookieHeaderSplit[1];
+    }
+
+    if (!sessionId) {
+        return null;
+    }
+
+    for (let i = 0; i < data.sessions.length; i++) {
+        if (data.sessions[i].id === sessionId) {
+            return data.sessions[i].userId;
+        }
+    }
+    return null;
+
+
+}
+
 function getUserProfile(request) {
     try {
         const data = readData();
 
-        const cookieHeader = request.headers.get("Cookie");
-
-        if (!cookieHeader) {
-            return new Response(JSON.stringify({}), {
-                status: 401,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-        }
-
-        const cookieHeaderSplit = cookieHeader.split("=");
-        let sessionId = null;
-
-        if (cookieHeaderSplit[0] === "sessionId") {
-            sessionId = cookieHeaderSplit[1];
-        }
-
-        if (!sessionId) {
-            return new Response(JSON.stringify({}), {
-                status: 401,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-        }
-
-        let userId = null;
-        for (let i = 0; i < data.sessions.length; i++) {
-            if (data.sessions[i].id === sessionId) {
-                userId = data.sessions[i].userId;
-                break;
-            }
-        }
+        const userId = getUserIdFromSession(request);
 
         if (!userId) {
             return new Response(JSON.stringify({}), {
@@ -836,40 +832,9 @@ async function patchUserProfile(request) {
         const data = readData();
         const body = await request.json();
 
-        const cookieHeader = request.headers.get("Cookie");
+       
 
-        if (!cookieHeader) {
-            return new Response(JSON.stringify({}), {
-                status: 401,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-        }
-
-        const cookieHeaderSplit = cookieHeader.split("=");
-        let sessionId = null;
-
-        if (cookieHeaderSplit[0] === "sessionId") {
-            sessionId = cookieHeaderSplit[1];
-        }
-
-        if (!sessionId) {
-            return new Response(JSON.stringify({}), {
-                status: 401,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
-            });
-        }
-
-        let userId = null;
-        for (let i = 0; i < data.sessions.length; i++) {
-            if (data.sessions[i].id === sessionId) {
-                userId = data.sessions[i].userId;
-                break;
-            }
-        }
+        const userId = getUserIdFromSession(request);
 
         if (!userId) {
             return new Response(JSON.stringify({}), {
@@ -905,7 +870,7 @@ async function patchUserProfile(request) {
             userFound.email = body.email;
         }
 
-          writeData(data);
+        writeData(data);
 
         return new Response(null, {
             status: 200,
@@ -916,7 +881,7 @@ async function patchUserProfile(request) {
         });
 
 
-    }catch (error) {
+    } catch (error) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
@@ -928,5 +893,6 @@ async function patchUserProfile(request) {
 }
 
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile };
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile };
 
