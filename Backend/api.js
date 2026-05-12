@@ -1,3 +1,5 @@
+ import { extname } from "jsr:@std/path";
+
 function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
 }
@@ -832,7 +834,7 @@ async function patchUserProfile(request) {
         const data = readData();
         const body = await request.json();
 
-       
+
 
         const userId = getUserIdFromSession(request);
 
@@ -892,7 +894,161 @@ async function patchUserProfile(request) {
     }
 }
 
+async function postProfileImage(request) {
+    try {
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({ error: "Not logged in" }), {
+                status: 401,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        const formData = await request.formData();
+        const imageFile = formData.get("image");
+
+        if (!imageFile) {
+            return new Response(JSON.stringify({ error: "No image file provided" }), {
+                status: 400,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        const MAX_FILE_SIZE = 5 * 1024 * 1024;
+        if (imageFile.size > MAX_FILE_SIZE) {
+            return new Response(JSON.stringify({ error: "File too large" }), {
+                status: 400,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        const extension = extname(imageFile.name);
+
+        const uniqueName = crypto.randomUUID();
+        const newFilename = uniqueName + extension;
+
+        const bytes = await imageFile.bytes();
+
+        try {
+            await Deno.mkdir("./uploads/profile-images", { recursive: true });
+        } catch (error) {
+            console.log("Error");
+        }
 
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile };
+        const filePath = `./uploads/profile-images/${newFilename}`;
+        await Deno.writeFile(filePath, bytes);
+
+        const data = readData();
+        let user = null;
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].id === userId) {
+                user = data.users[i];
+                break;
+            }
+        }
+
+        if (user.profileImage && user.profileImage.substring(0, 9) === "/uploads/") {
+            const oldPath = `.${user.profileImage}`;
+            try {
+                await Deno.remove(oldPath);
+            } catch (error) {
+                console.log("Error deleting old image:", error);
+            }
+        }
+
+        user.profileImage = `/uploads/profile-images/${newFilename}`;
+        writeData(data);
+
+        return new Response(JSON.stringify({ message: "Image uploaded", path: user.profileImage }), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+}
+
+async function deleteProfileImage(request) {
+    try {
+
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
+            return new Response(JSON.stringify({ error: "Not logged in" }), {
+                status: 401,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        const data = readData();
+        let user = null;
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].id === userId) {
+                user = data.users[i];
+                break;
+            }
+        }
+
+        if(!user){
+            return new Response(JSON.stringify({ error: "User not found" }), {
+                status: 404,
+                headers: {
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+         if (user.profileImage && user.profileImage.substring(0, 9) === "/uploads/") {
+            const filePath = `.${user.profileImage}`;
+            try {
+                await Deno.remove(filePath);
+            } catch (error) {
+                console.log("Could not remove image:", error);
+            }
+        }
+
+        user.profileImage = null;
+        writeData(data);
+
+         return new Response(null, {
+            status: 204,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+
+
+    } catch (error) {
+        console.error(error);
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage };
 

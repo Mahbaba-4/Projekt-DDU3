@@ -1,4 +1,4 @@
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile } from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile,postProfileImage,deleteProfileImage } from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 
@@ -28,6 +28,22 @@ function handler(request) {
         return postLogOut(request)
     }
 
+    if(url.pathname === "/user/profile" && request.method === "GET"){
+        return getUserProfile(request);
+    }
+
+    if(url.pathname === "/user/profile" && request.method === "PATCH"){
+        return patchUserProfile(request);
+    }
+
+    if(url.pathname === "/user/profile/image" && request.method === "POST"){
+        return postProfileImage(request);
+    }
+    
+    if(url.pathname === "/user/profile/image" && request.method === "DELETE"){
+        return deleteProfileImage(request);
+    }
+
     if (request.headers.get("Authorization") !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
         return new Response(JSON.stringify({}), {
             status: 401,
@@ -40,7 +56,7 @@ function handler(request) {
         if (request.headers.get("Accept") !== "application/json") {
             return new Response(JSON.stringify({}), {
                 status: 406,
-                headers: { "Access-Control-Allow-Orgin": "*" }
+                headers: { "Access-Control-Allow-Origin": "*" }
             })
         }
     }
@@ -49,7 +65,7 @@ function handler(request) {
         if (request.headers.get("Content-Type") !== "application/json") {
             return new Response(JSON.stringify({}), {
                 status: 415,
-                headers: { "Access-Control-Allow-Orgin": "*" }
+                headers: { "Access-Control-Allow-Origin": "*" }
             })
         }
     }
@@ -87,7 +103,7 @@ function handler(request) {
     }
     return new Response(JSON.stringify({}), {
         status: 404,
-        headers: { "Access-Control-Allow-Orgin": "*" }
+        headers: { "Access-Control-Allow-Origin": "*" }
     })
     
 }
