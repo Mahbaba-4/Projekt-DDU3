@@ -529,7 +529,7 @@ function postDefaultListsForUser(userId) {
 }
 
 function ownTokenGenerator(){
-    return "Bearer" + " " + crypto.randomUUID();
+    return "Bearer " + crypto.randomUUID();
 }
 
 async function postSignUp(request) {
