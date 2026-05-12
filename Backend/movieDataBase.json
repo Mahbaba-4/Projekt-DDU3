@@ -253,12 +253,6 @@
       "passwordHash": "123",
       "token": null,
       "profileImage": "/uploads/profile-images/a6a5b6c9-2f80-4403-a0d7-ad5e6eb1843e.png"
-    },
-    {
-      "id": "2",
-      "email": "per@test.se",
-      "passwordHash": "perslosen",
-      "token": "Bearer59b94a43-9e42-44e3-8031-d8efe9abb459"
     }
   ]
 }
