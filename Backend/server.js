@@ -61,7 +61,7 @@ function handler(request) {
     }
 
     //EFTERSOM DELETE och PATCH INTE BEHÖVER accept HEADERS :)
-    if (request.method !== "DELETE" && request.method !== "PATCH") {
+    if (request.method === "GET") {
         if (request.headers.get("Accept") !== "application/json") {
             return new Response(JSON.stringify({}), {
                 status: 406,
@@ -73,7 +73,7 @@ function handler(request) {
     if (request.method === "POST") {
         if (request.headers.get("Content-Type") !== "application/json") {
             return new Response(JSON.stringify({}), {
-                status: 415,
+                status: 406,
                 headers: { "Access-Control-Allow-Origin": "*" }
             })
         }

@@ -544,7 +544,7 @@ async function postSignUp(request) {
         const data = readData();
         const body = await request.json();
 
-        if (!body.email || !body.password) {
+        if (!body.email || !body.password || !body.username) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
@@ -566,9 +566,9 @@ async function postSignUp(request) {
             }
         }
 
-        if (!userExists) {
+        if (userExists) {
             return new Response(JSON.stringify({}), {
-                status: 404,
+                status: 409,
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*"
