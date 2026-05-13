@@ -1,4 +1,4 @@
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile,postProfileImage,deleteProfileImage } from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile,postProfileImage,deleteProfileImage, getUsersStatistics, monthlyStatistics} from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 
@@ -43,6 +43,14 @@ function handler(request) {
     
     if(url.pathname === "/user/profile/image" && request.method === "DELETE"){
         return deleteProfileImage(request);
+    }
+
+    if(url.pathname === "/user/statistics" && request.method === "GET"){
+        return getUsersStatistics(request);
+    }
+
+    if(url.pathname === "/user/statistics/monthly" && request.method === "GET") {
+        return monthlyStatistics(request);
     }
 
     if (request.headers.get("Authorization") !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
@@ -102,6 +110,7 @@ function handler(request) {
         let id = movieMatch.pathname.groups.id;
         return patchMovieById(request, id);
     }
+
     return new Response(JSON.stringify({}), {
         status: 404,
         headers: { "Access-Control-Allow-Origin": "*" }

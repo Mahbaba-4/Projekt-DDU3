@@ -235,12 +235,12 @@ function deleteMovieById(request, id) {
         }
         writeData(data);
 
-        return new Response(null, { 
+        return new Response(null, {
             status: 204,
             headers: {
                 "Access-Control-Allow-Origin": "*"
             }
-         })
+        })
 
     } catch (err) {
         return new Response(JSON.stringify({}), {
@@ -334,7 +334,7 @@ async function patchMovieById(request, id) {
                 if (list.type === newStatus) {
                     movieToUpdate.listId = list.id;
 
-                    if(!list.movieIds) {
+                    if (!list.movieIds) {
                         list.movieIds = [];
                     }
 
@@ -469,6 +469,7 @@ function searchFilterMovies(request) {
                 matchedMovies.push(movie);
             }
         }
+
         return new Response(JSON.stringify(matchedMovies), {
             status: 200,
             headers: {
@@ -565,9 +566,9 @@ async function postSignUp(request) {
             }
         }
 
-        if (userExists) {
+        if (!userExists) {
             return new Response(JSON.stringify({}), {
-                status: 409,
+                status: 404,
                 headers: {
                     "Content-Type": "application/json",
                     "Access-Control-Allow-Origin": "*"
@@ -1081,5 +1082,139 @@ async function deleteProfileImage(request) {
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage };
+function getUsersStatistics(request) {
+    try {
+        const data = readData();
+
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        let watchedCount = 0;
+        let watchlistCount = 0;
+        let totalWatchedMinutes = 0;
+        let ratingTotal = 0;
+
+        for (let movie of data.movies) {
+            if (movie.userId == userId) {
+                if (movie.status == "Watched") {
+                    watchedCount++;
+                    totalWatchedMinutes += movie.runtime;
+                    if (movie.rating) {
+                        ratingTotal += movie.rating;
+                    }
+                } else if (movie.status == "Watchlist") {
+                    watchlistCount++;
+                }
+            }
+        }
+
+        let totalMovies = watchedCount + watchlistCount;
+
+        let averageRating = 0;
+        if (watchedCount > 0) {
+            averageRating = ratingTotal / watchedCount;
+            //AVRUNDA TILL EN DECIMAL? eller så hanterar vi det i frontend, annars kanske vi får 4.1111 eller något. 
+        }
+
+        let statistics = {
+            totalMovies: totalMovies,
+            watchedCount: watchedCount,
+            watchlistCount: watchlistCount,
+            avgRating: averageRating,
+            totalMinutes: totalWatchedMinutes
+        }
+
+        return new Response(JSON.stringify(statistics), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+    } catch (error) {
+        console.error(error);
+        return new Response(JSON.stringify({}), {
+        status: 500,
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    });
+    }
+}
+
+function monthlyStatistics(request) {
+    try {
+        const data = readData();
+
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        let monthlyStats = [];
+        for (let movie of data.movies) {
+            if (movie.userId == userId) {
+                if (movie.status == "Watched") {
+                    let allParts = movie.dateWatched.split("-");
+                    //måste dubbelkolla att vår type="date" i html skickar in år-månad-dag
+                    let year = allParts[0];
+                    let month = allParts[1];
+                    let monthkey = year + "-" + month;
+
+                    let found = false;
+                    for (let stat of monthlyStats) {
+                        if (stat.month == monthkey) {
+                            stat.count++;
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        monthlyStats.push({
+                            month: monthkey,
+                            count: 1
+                        });
+                    }
+                }
+            }
+        }
+
+        return new Response(JSON.stringify(monthlyStats), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+    } catch (error) {
+        console.log(error.message);
+        return new Response(JSON.stringify({}), {
+        status: 500,
+        headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+        }
+    });
+    }
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics };
 
