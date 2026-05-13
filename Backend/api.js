@@ -175,7 +175,7 @@ async function createMovieReview(request) {
         writeData(data);
 
         return new Response(null, {
-            status: 201,
+            status: 204,
             headers: {
                 "Access-Control-Allow-Origin": "*"
             }
@@ -212,7 +212,7 @@ function deleteMovieById(request, id) {
                 status: 404,
                 headers: {
                     "Content-Type": "application/json",
-                    "Acces-Control-Allow-Origin": "*"
+                    "Access-Control-Allow-Origin": "*"
                 }
             })
         }
@@ -235,7 +235,12 @@ function deleteMovieById(request, id) {
         }
         writeData(data);
 
-        return new Response(null, { status: 204 })
+        return new Response(null, { 
+            status: 204,
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
+         })
 
     } catch (err) {
         return new Response(JSON.stringify({}), {
@@ -328,6 +333,11 @@ async function patchMovieById(request, id) {
             for (let list of data.lists) {
                 if (list.type === newStatus) {
                     movieToUpdate.listId = list.id;
+
+                    if(!list.movieIds) {
+                        list.movieIds = [];
+                    }
+
                     list.movieIds.push(id);
                     break;
                 }
@@ -505,11 +515,11 @@ function postDefaultListsForUser(userId) {
         }
         let nextId = maxId + 1;
 
-        let watchList = {
+        let watchlist = {
             id: "" + nextId,
             userId: userId,
             name: "Want to watch",
-            type: "WatchList",
+            type: "Watchlist",
             movieIds: []
         }
 
@@ -521,7 +531,7 @@ function postDefaultListsForUser(userId) {
             movieIds: []
         }
 
-        data.lists.push(watchList);
+        data.lists.push(watchlist);
         data.lists.push(watched);
         writeData(data);
     }
@@ -560,7 +570,7 @@ async function postSignUp(request) {
                 status: 409,
                 headers: {
                     "Content-Type": "application/json",
-                    "Acess-Control-Allow-Origin": "*"
+                    "Access-Control-Allow-Origin": "*"
                 }
             })
         }
@@ -578,7 +588,8 @@ async function postSignUp(request) {
             id: newId,
             email: body.email,
             passwordHash: body.password,
-            token: crypto.ramdomUUID(),
+            username: body.username,
+            token: crypto.randomUUID()
         }
 
         data.users.push(newUser);
@@ -588,7 +599,8 @@ async function postSignUp(request) {
 
         let userWithoutPassword = {
             id: newUser.id,
-            email: newUser.email
+            email: newUser.email,
+            username: newUser.username
         }
 
         return new Response(JSON.stringify(userWithoutPassword), {
@@ -671,6 +683,7 @@ async function postLogIn(request) {
         let newSession = {
             id: newSessionId,
             userId: foundUser.id,
+            username: foundUser.username
         }
 
         data.sessions.push(newSession);
