@@ -1120,8 +1120,8 @@ function getUsersStatistics(request) {
 
         let averageRating = 0;
         if (watchedCount > 0) {
-            averageRating = ratingTotal / watchedCount;
-            //AVRUNDA TILL EN DECIMAL? eller så hanterar vi det i frontend, annars kanske vi får 4.1111 eller något. 
+            averageRating = ratingTotal / watchedCount; 
+            averageRating = Math.round(averageRating * 10) / 10; // Det här gör att vi avrundar till en decimal annars fick vi 3,9312... osv på testet
         }
 
         let statistics = {
