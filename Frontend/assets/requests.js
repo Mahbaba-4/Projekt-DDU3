@@ -43,6 +43,25 @@ class API {
             console.log(error.message);
         }
     }
+
+    async logOut(){
+        try {
+
+            const response = await fetch ("http://localhost:8000/auth/logout", {
+                method: "POST",
+                credentials: "include"
+            });
+            
+            if(response.ok){
+                window.location.href = "/login.html"; 
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+        } catch (error){
+            console.log(error.message);
+        }
+    }
 }
 
 //http://localhost:8000/
