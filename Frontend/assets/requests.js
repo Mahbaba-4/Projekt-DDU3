@@ -170,7 +170,7 @@ class API {
 
     }
 
-    async getMontlyStatistics() {
+    async getMonthlyStatistics() {
         try {
 
             const response = await fetch("http://localhost:8000/user/statistics/monthly", {
