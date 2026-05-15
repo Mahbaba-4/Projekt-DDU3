@@ -344,25 +344,3 @@ class API {
 
 }
 
-
-
-//http://localhost:8000/
-
-
-/* async metodNamn(){
-    try {
-
-        const response = await fetch ();
-            
-        if(response.ok){
-            const data = await response.json();
-            return data;
-        } else {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-    
-    } catch (error){
-        console.log(error.message);
-    }
-} */
-
