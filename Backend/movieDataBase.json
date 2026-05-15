@@ -587,10 +587,6 @@
     }
   ],
   "sessions": [
-    {
-      "id": "1",
-      "userId": "1",
-      "username": "testuser"
-    }
+
   ]
 }
