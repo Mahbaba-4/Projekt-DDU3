@@ -4,7 +4,7 @@ class API {
         try {
             const response = await fetch("http://localhost:8000/auth/signup", {
                 method: "POST",
-                hedares: {
+                headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(sign)
@@ -29,7 +29,8 @@ class API {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password }),
+                credentials: "include"
             });
 
             if (response.ok) {
@@ -147,6 +148,7 @@ class API {
 
     }
 
+
     async getStatistics() {
         try {
 
@@ -211,8 +213,8 @@ class API {
         try {
 
             let url = "http://localhost:8000/user/movies";
-            
-            if(filter) {
+
+            if (filter) {
                 url += `?status=${filter}`;
             }
 
@@ -235,19 +237,19 @@ class API {
 
     async searchMovies(query) {
         try {
-            const response = await fetch (`http://localhost:8000/user/movies/search?q=${encodeURIComponent(query)}`,{
+            const response = await fetch(`http://localhost:8000/user/movies/search?q=${encodeURIComponent(query)}`, {
                 method: "GET",
                 credentials: "include"
             });
-            
-            if(response.ok){
+
+            if (response.ok) {
                 const data = await response.json();
                 return data;
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
-        } catch (error){
+
+        } catch (error) {
             console.log(error.message);
         }
     }
@@ -255,19 +257,19 @@ class API {
     async getMoviesById(movieId) {
         try {
 
-            const response = await fetch (`http://localhost:8000/user/movies/${movieId}`, {
+            const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
                 method: "GET",
                 credentials: "include"
             });
-            
-            if(response.ok){
+
+            if (response.ok) {
                 const data = await response.json();
                 return data;
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
-        } catch (error){
+
+        } catch (error) {
             console.log(error.message);
         }
     }
@@ -275,7 +277,7 @@ class API {
     async createMovie(movieData) {
         try {
 
-            const response = await fetch ("http://localhost:8000/user/movies", {
+            const response = await fetch("http://localhost:8000/user/movies", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -283,18 +285,65 @@ class API {
                 body: JSON.stringify(movieData),
                 credentials: "include"
             });
-            
-            if(response.ok){
+
+            if (response.ok) {
+                console.log('Film skapad');
+                return true;
+            }
+        } catch (error) {
+            console.log(error.message);
+
+        }
+    }
+    async updateMovie(movieId, updatedData) {
+        try {
+            const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
+                method: 'PATCH',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedData),
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                console.log("Film uppdaterad")
+
                 return true;
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
-        } catch (error){
+
+
+        } catch (error) {
             console.log(error.message);
         }
     }
+
+
+    async deleteMovie(movieId) {
+        try {
+            const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                console.log("Film raderad")
+                return true;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+
+
+    }
+
+
 }
+
 
 
 //http://localhost:8000/
