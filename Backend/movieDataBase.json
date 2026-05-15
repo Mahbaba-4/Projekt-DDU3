@@ -555,14 +555,14 @@
       "email": "test@example.com",
       "passwordHash": "123456",
       "username": "testuser",
-      "token": "6dd0161b-24c4-4d85-aa08-ec9c8c69dac1"
+      "token": " Bearer 55fcaa69-8af2-4033-902a-c3adc44d2039"
     },
     {
       "id": "2",
       "email": "test2@example.com",
       "passwordHash": "123456",
       "username": "test2",
-      "token": "55fcaa69-8af2-4033-902a-c3adc44d2039"
+      "token": " Bearer 55fcaa69-8af2-4033-902a-c3adc44d2039"
     }
   ],
   "sessions": [
