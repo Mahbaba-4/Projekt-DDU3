@@ -4,7 +4,7 @@ class API {
         try {
             const response = await fetch("http://localhost:8000/auth/signup", {
                 method: "POST",
-                hedares: {
+                headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(sign)
@@ -29,7 +29,8 @@ class API {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ email, password })
+                body: JSON.stringify({ email, password }),
+                credentials: "include"
             });
 
             if (response.ok) {
@@ -146,6 +147,52 @@ class API {
 
 
     }
+
+    async updateMovie(movieId, updatedData) {
+        try {
+            const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
+                method: 'PATCH',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedData),
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                console.log("Film uppdaterad")
+                return true;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+        } catch (error) {
+            console.log(error.message);
+        }
+
+
+    }
+
+    async deleteMovie(movieId) {
+        try {
+            const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
+                method: 'DELETE',
+                credentials: 'include'
+            });
+
+            if (response.ok) {
+                console.log("Film raderad")
+                return true;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+
+
+    }
+
 }
 
 
