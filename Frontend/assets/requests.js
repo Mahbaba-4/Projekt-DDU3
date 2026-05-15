@@ -29,12 +29,12 @@ class API {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({email, password})
+            body: JSON.stringify({email, password}),
+            credentials: "include"
         });
             
         if(response.ok){
-            const data = await response.json();
-            return data;
+            window.location.href = "/main-page.html";
         } else {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -42,6 +42,25 @@ class API {
     } catch (error){
         console.log(error.message);
     }
+    }
+
+    async logOut(){
+        try {
+
+            const response = await fetch ("http://localhost:8000/auth/logout", {
+                method: "POST",
+                credentials: "include"
+            });
+            
+            if(response.ok){
+                window.location.href = "/login.html"; 
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+        } catch (error){
+            console.log(error.message);
+        }
     }
 }
 
