@@ -232,6 +232,68 @@ class API {
             console.log(error.message);
         }
     }
+
+    async searchMovies(query) {
+        try {
+            const response = await fetch (`http://localhost:8000/user/movies/search?q=${encodeURIComponent(query)}`,{
+                method: "GET",
+                credentials: "include"
+            });
+            
+            if(response.ok){
+                const data = await response.json();
+                return data;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+        } catch (error){
+            console.log(error.message);
+        }
+    }
+
+    async getMoviesById(movieId) {
+        try {
+
+            const response = await fetch (`http://localhost:8000/user/movies/${movieId}`, {
+                method: "GET",
+                credentials: "include"
+            });
+            
+            if(response.ok){
+                const data = await response.json();
+                return data;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+        } catch (error){
+            console.log(error.message);
+        }
+    }
+
+    async createMovie(movieData) {
+        try {
+
+            const response = await fetch ("http://localhost:8000/user/movies", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(movieData),
+                credentials: "include"
+            });
+            
+            if(response.ok){
+                return true;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+        } catch (error){
+            console.log(error.message);
+        }
+    }
 }
 
 
