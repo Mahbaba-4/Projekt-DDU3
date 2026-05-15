@@ -44,21 +44,21 @@ class API {
         }
     }
 
-    async logOut(){
+    async logOut() {
         try {
 
-            const response = await fetch ("http://localhost:8000/auth/logout", {
+            const response = await fetch("http://localhost:8000/auth/logout", {
                 method: "POST",
                 credentials: "include"
             });
-            
-            if(response.ok){
-                window.location.href = "/login.html"; 
+
+            if (response.ok) {
+                window.location.href = "/login.html";
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-    
-        } catch (error){
+
+        } catch (error) {
             console.log(error.message);
         }
     }
