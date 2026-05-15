@@ -1,3 +1,44 @@
 class API {
-    
+    //sign --> ett objekt som tar emot ett objet med 3 nycklar som är {username, email, password};
+    async postSignUp(sign) {
+        try {
+            const response = await fetch ("http://localhost:8000/auth/signup", {
+                method: "POST",
+                hedares: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(sign)
+            });
+
+            if(response.ok) {
+                window.location.href = "/login.html";
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 }
+
+//http://localhost:8000/
+
+
+
+/* async metodNamn(){
+    try {
+
+        const response = await fetch ();
+            
+        if(response.ok){
+            const data = await response.json();
+            return data;
+        } else {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    
+    } catch (error){
+        console.log(error.message);
+    }
+} */
