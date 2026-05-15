@@ -152,7 +152,6 @@ class API {
 //http://localhost:8000/
 
 
-
 /* async metodNamn(){
     try {
 
