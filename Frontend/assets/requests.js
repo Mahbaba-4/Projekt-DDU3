@@ -148,7 +148,6 @@ class API {
 
     }
 
-
     async getStatistics() {
         try {
 
@@ -295,6 +294,7 @@ class API {
 
         }
     }
+
     async updateMovie(movieId, updatedData) {
         try {
             const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
@@ -319,7 +319,6 @@ class API {
             console.log(error.message);
         }
     }
-
 
     async deleteMovie(movieId) {
         try {
