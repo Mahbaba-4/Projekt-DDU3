@@ -590,7 +590,7 @@ async function postSignUp(request) {
             email: body.email,
             passwordHash: body.password,
             username: body.username,
-            token: crypto.randomUUID()
+            token: `Bearer ${crypto.randomUUID()}`
         }
 
         data.users.push(newUser);
@@ -601,7 +601,7 @@ async function postSignUp(request) {
         let userWithoutPassword = {
             id: newUser.id,
             email: newUser.email,
-            username: newUser.username
+            username: newUser.username,
         }
 
         return new Response(JSON.stringify(userWithoutPassword), {
