@@ -547,6 +547,20 @@
         "26",
         "27"
       ]
+    },
+    {
+      "id": "5",
+      "userId": "3",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "6",
+      "userId": "3",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
     }
   ],
   "users": [
@@ -555,14 +569,21 @@
       "email": "test@example.com",
       "passwordHash": "123456",
       "username": "testuser",
-      "token": "6dd0161b-24c4-4d85-aa08-ec9c8c69dac1"
+      "token": "Bearer 6dd0161b-24c4-4d85-aa08-ec9c8c69dac1"
     },
     {
       "id": "2",
       "email": "test2@example.com",
       "passwordHash": "123456",
       "username": "test2",
-      "token": "55fcaa69-8af2-4033-902a-c3adc44d2039"
+      "token": "Bearer 55fcaa69-8af2-4033-902a-c3adc44d2039"
+    },
+    {
+      "id": "3",
+      "email": "user3@example.com",
+      "passwordHash": "123456",
+      "username": "User3",
+      "token": "Bearer 29b7c535-6991-46c6-9ffe-cae1fa8a1bef"
     }
   ],
   "sessions": [
