@@ -340,7 +340,7 @@ class API {
 
     }
 
-    async postGenre(genreName){
+    async postGenre(genreName) {
         try {
 
             const response = await fetch("http://localhost:8000/movies/genre", {
@@ -349,7 +349,7 @@ class API {
                     "Content-Type": "application/json"
                 },
                 credentials: "include",
-                body: JSON.stringify({name: genreName}),
+                body: JSON.stringify({ name: genreName }),
             });
 
             if (response.ok) {
@@ -364,7 +364,7 @@ class API {
         }
     }
 
-    async deleteGenres(genreId){
+    async deleteGenres(genreId) {
         try {
 
             const response = await fetch(`http://localhost:8000/movies/genre/${genreId}`, {
@@ -384,6 +384,108 @@ class API {
         }
     }
 
-    
-}
+    async getAllCustomLists() {
+        try {
+            const response = await fetch("http://localhost:8000/user/lists", {
+                method: "GET",
+                credentials: "include"
+            });
 
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+        } catch (error) {
+            console.log(error.message);
+            return [];
+        }
+
+
+    }
+
+    async createCustomList(listName, movieIds = []) {
+        try {
+            const response = await fetch("http://localhost:8000/user/lists", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({ name: listName, movieIds }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    async deleteCustomList(listId) {
+        try {
+            const response = await fetch(`http://localhost:8000/user/lists/${listId}`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            if (response.ok) {
+                console.log("Listan har tagits bort!");
+                return true;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    async getMoviesByListId(listId) {
+        try {
+            const response = await fetch(`http://localhost:8000/user/lists/${listId}`, {
+                method: "GET",
+                credentials: "include"
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+        } catch (error) {
+            console.log(error.message);
+            return [];
+        }
+    }
+
+    async getUserMovieTitles() {
+        try {
+            const response = await fetch("http://localhost:8000/user/movies/title", {
+                method: "GET",
+                credentials: "include"
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+        } catch (error) {
+            console.log(error.message);
+            return [];
+        }
+    }
+
+}
