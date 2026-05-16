@@ -1,4 +1,6 @@
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile,postProfileImage,deleteProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles} from "./api.js";
+
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile,postProfileImage,deleteProfileImage, getUsersStatistics, monthlyStatistics, getUserIdFromSession, getUserMovieTitles, createCustomList, getAllCustomLists,deleteCustomList,getMoviesByListId} from "./api.js";
+
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 const genreByIdRoute = new URLPattern ({pathname: "/movie/genre/:id"})
