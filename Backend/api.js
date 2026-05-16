@@ -1436,7 +1436,7 @@ async function createCustomList(request) {
             id: newId,
             userId: userId,
             name: body.name,
-            type: "Custom",
+            type: "custom",
             movieIds: []
         }
 

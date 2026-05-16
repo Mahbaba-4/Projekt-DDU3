@@ -547,6 +547,20 @@
         "26",
         "27"
       ]
+    },
+    {
+      "id": "5",
+      "userId": "1",
+      "name": "Mina favoriter",
+      "type": "Custom",
+      "movieIds": []
+    },
+    {
+      "id": "6",
+      "userId": "1",
+      "name": "Mina favoriter",
+      "type": "Custom",
+      "movieIds": []
     }
   ],
   "users": [
