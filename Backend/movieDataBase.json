@@ -568,41 +568,6 @@
       "name": "Mina favoriter",
       "type": "Custom",
       "movieIds": []
-    },
-    {
-      "id": "8",
-      "userId": "1",
-      "name": "Mina favoriter",
-      "type": "custom",
-      "movieIds": []
-    },
-    {
-      "id": "9",
-      "userId": "1",
-      "name": "Sommarbio 2024",
-      "type": "custom",
-      "movieIds": []
-    },
-    {
-      "id": "10",
-      "userId": "1",
-      "name": "Test lista",
-      "type": "custom",
-      "movieIds": []
-    },
-    {
-      "id": "11",
-      "userId": "1",
-      "name": "Mina favoriter",
-      "type": "custom",
-      "movieIds": []
-    },
-    {
-      "id": "12",
-      "userId": "1",
-      "name": "Mina favoriter",
-      "type": "custom",
-      "movieIds": []
     }
   ],
   "users": [
