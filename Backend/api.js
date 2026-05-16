@@ -1214,7 +1214,77 @@ function monthlyStatistics(request) {
         }
     });
     }
+
+    async function postGenres(request){
+        try{
+            const data = readData();
+            const body = await request.json();
+
+            if(!body.name){
+                return new Response(JSON.stringify({}), {
+                    status: 400,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                })
+            }
+
+            let genreExists = false;
+            for(let genre of data.genre){
+                if(genre.name === body.name){
+                    genreExists = true;
+                    break;
+                }
+            }
+
+            if(genreExists){
+                return new Response(JSON.stringify({}), {
+                    status: 409,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                })
+            }
+
+            let maxId = 0;
+            for(let genre of data.genre){
+                const id = parseInt(genre.id);
+                if(id > maxId ){
+                    maxId = id;
+                }
+            }
+
+            const newId = `${maxId + 1}`;
+
+            const newGenre = {
+                id: newId,
+                name: body.name
+            }
+
+            data.genre.push(newGenre);
+            writeData(data)
+
+            return new Response(JSON.stringify({}), {
+                    status: 201,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "*"
+                    }
+                })
+
+        }catch(error){
+            return new Response(JSON.stringify({}), {
+                status: 500,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
+        }
+    }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics };
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics, postGenres };
 
