@@ -1619,7 +1619,7 @@ function getMoviesByListId(request, listId) {
                 }
             }
         }
-         return new Response(JSON.stringify(customLists), {
+         return new Response(JSON.stringify(moviesInList), {
             status: 200,
             headers: {
                 "Content-Type": "application/json",

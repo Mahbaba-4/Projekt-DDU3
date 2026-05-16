@@ -596,6 +596,13 @@
       "name": "Mina favoriter",
       "type": "custom",
       "movieIds": []
+    },
+    {
+      "id": "12",
+      "userId": "1",
+      "name": "Mina favoriter",
+      "type": "custom",
+      "movieIds": []
     }
   ],
   "users": [
