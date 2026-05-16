@@ -1369,9 +1369,9 @@ function getUserMovieTitles(request) {
         }
 
         const movieTitles = [];
-        for (let i=0; i< data.movies.length; i++){
+        for (let i = 0; i < data.movies.length; i++) {
             const movie = data.movies[i];
-            if(movie.userId === userId){
+            if (movie.userId === userId) {
                 movieTitles.push({
                     id: movie.id,
                     title: movie.title
@@ -1379,8 +1379,73 @@ function getUserMovieTitles(request) {
             }
         }
 
-          return new Response(JSON.stringify(movieTitles), {
+        return new Response(JSON.stringify(movieTitles), {
             status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+
+}
+
+async function createCustomList(request) {
+    try {
+        const data = readData();
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+
+        }
+
+        const body = await request.json();
+        if (!body.name) {
+            return new Response(JSON.stringify({}), {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        let maxId = 0;
+        for (let i = 0; i < data.lists.length; i++) {
+            const id = parseInt(data.lists[i].id);
+            if (id > maxId) { maxId = id };
+        }
+        const newId = `${maxId + 1}`;
+
+        const newList = {
+            id: newId,
+            userId: userId,
+            name: body.name,
+            type: "Custom",
+            movieIds: []
+        }
+
+        data.lists.push(newList);
+        writeData(data);
+
+        return new Response(JSON.stringify(newList), {
+            status: 201,
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
@@ -1396,7 +1461,187 @@ function getUserMovieTitles(request) {
             }
         })
     }
-
 }
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre };
+
+function getAllCustomLists(request) {
+    try {
+
+        const data = readData();
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+
+        }
+
+        const customLists = [];
+        for (let i = 0; i < data.lists.length; i++) {
+            const list = data.lists[i];
+            if (list.userId === userId && list.type == "custom") {
+                customLists.push(list);
+            }
+        }
+
+        return new Response(JSON.stringify(customLists), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+    }
+}
+
+function deleteCustomList(request, id) {
+    try {
+        const data = readData();
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+
+        }
+
+        let listToDelete = null;
+        for (let i = 0; i < data.lists.length; i++) {
+            if (data.lists[i].id === id) {
+                listToDelete = data.lists[i];
+                break;
+            }
+        }
+
+        if (!listToDelete) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        if (listToDelete.type !== "custom" || listToDelete.userId !== userId) {
+            return new Response(JSON.stringify({}), {
+                status: 403,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        const newLists = [];
+        for (let i = 0; i < data.lists.length; i++) {
+            if (data.lists[i].id !== id) {
+                newLists.push(data.lists[i]);
+            }
+        }
+        data.lists = newLists;
+        writeData(data);
+
+        return new Response(null, {
+            status: 204,
+            headers: { "Access-Control-Allow-Origin": "*" }
+        });
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+    }
+}
+
+
+function getMoviesByListId(request, listId) {
+    try {
+        const data = readData();
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+
+        }
+
+        let targetList = null;
+        for (let i = 0; i < data.lists.length; i++) {
+            if (data.lists[i].id === listId && data.lists[i].userId === userId) {
+                targetList = data.lists[i];
+                break;
+            }
+        }
+
+        if (!targetList) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+        }
+
+        const moviesInList = [];
+        for (let i = 0; i < data.movies.length; i++) {
+            const movie = data.movies[i];
+            for (let j = 0; j < targetList.movieIds.length; j++) {
+                if (movie.id === targetList.movieIds[j]) {
+                    moviesInList.push(movie);
+                    break;
+                }
+            }
+        }
+         return new Response(JSON.stringify(customLists), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+
+    }catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+    }
+}
+
+
+
+
+
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, getUserIdFromSession, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId };
 
