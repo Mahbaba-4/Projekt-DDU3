@@ -323,7 +323,7 @@ class API {
     async deleteMovie(movieId) {
         try {
             const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
-                method: 'DELETE',
+                method: "DELETE",
                 credentials: 'include'
             });
 
@@ -356,7 +356,7 @@ class API {
                 const data = await response.json();
                 return data;
             } else {
-                throw new Error(`Något gick fel`);
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
         } catch (error) {
@@ -367,19 +367,16 @@ class API {
     async deleteGenres(genreId){
         try {
 
-            const response = await fetch("http://localhost:8000/movies/genre/${genreId}", {
+            const response = await fetch(`http://localhost:8000/movies/genre/${genreId}`, {
                 method: "Delete",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                credentials: "include",
+                credentials: "include"
             });
 
             if (response.ok) {
-                const data = await response.json();
-                return data;
+                console.log("Genre raderad");
+                return true
             } else {
-                throw new Error(`Något gick fel`);
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
 
         } catch (error) {
