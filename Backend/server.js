@@ -53,12 +53,12 @@ function handler(request) {
         return monthlyStatistics(request);
     }
 
-    if (request.headers.get("Authorization") !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
+    /*if (request.headers.get("Authorization") !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
         return new Response(JSON.stringify({}), {
             status: 401,
             headers: { "Access-Control-Allow-Origin": "*" }
         })
-    }
+    }*/
 
     /*EFTERSOM DELETE och PATCH INTE BEHÖVER accept HEADERS :)
     if (request.method === "GET") {
