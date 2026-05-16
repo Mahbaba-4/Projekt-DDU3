@@ -339,5 +339,52 @@ class API {
 
 
     }
+
+    async postGenre(genreName){
+        try {
+
+            const response = await fetch("http://localhost:8000/movies/genre", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({name: genreName}),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            } else {
+                throw new Error(`Något gick fel`);
+            }
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    async deleteGenres(genreId){
+        try {
+
+            const response = await fetch("http://localhost:8000/movies/genre/${genreId}", {
+                method: "Delete",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            } else {
+                throw new Error(`Något gick fel`);
+            }
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 }
 
