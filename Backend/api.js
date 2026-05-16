@@ -1120,7 +1120,7 @@ function getUsersStatistics(request) {
 
         let averageRating = 0;
         if (watchedCount > 0) {
-            averageRating = ratingTotal / watchedCount; 
+            averageRating = ratingTotal / watchedCount;
             averageRating = Math.round(averageRating * 10) / 10; // Det här gör att vi avrundar till en decimal annars fick vi 3,9312... osv på testet
         }
 
@@ -1143,12 +1143,12 @@ function getUsersStatistics(request) {
     } catch (error) {
         console.error(error);
         return new Response(JSON.stringify({}), {
-        status: 500,
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
-    });
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
     }
 }
 
@@ -1207,21 +1207,21 @@ function monthlyStatistics(request) {
     } catch (error) {
         console.log(error.message);
         return new Response(JSON.stringify({}), {
-        status: 500,
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-        }
-    });
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
     }
 }
 
-async function postGenres(request){
-    try{
+async function postGenres(request) {
+    try {
         const data = readData();
         const body = await request.json();
 
-        if(!body.name){
+        if (!body.name) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
@@ -1232,14 +1232,14 @@ async function postGenres(request){
         }
 
         let genreExists = false;
-        for(let genre of data.genre){
-            if(genre.name === body.name){
+        for (let genre of data.genre) {
+            if (genre.name === body.name) {
                 genreExists = true;
                 break;
             }
         }
 
-        if(genreExists){
+        if (genreExists) {
             return new Response(JSON.stringify({}), {
                 status: 409,
                 headers: {
@@ -1250,9 +1250,9 @@ async function postGenres(request){
         }
 
         let maxId = 0;
-        for(let genre of data.genre){
+        for (let genre of data.genre) {
             const id = parseInt(genre.id);
-            if(id > maxId ){
+            if (id > maxId) {
                 maxId = id;
             }
         }
@@ -1275,7 +1275,7 @@ async function postGenres(request){
             }
         })
 
-    }catch(error){
+    } catch (error) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
@@ -1286,21 +1286,21 @@ async function postGenres(request){
     }
 }
 
-function deleteGenre(request,id){
-    try{
+function deleteGenre(request, id) {
+    try {
         const data = readData();
         let found = false;
         const updatedGenres = [];
 
-        for(let i = 0; i < data.genre.length; i++){
-            if(data.genre[i].id == id){
+        for (let i = 0; i < data.genre.length; i++) {
+            if (data.genre[i].id == id) {
                 found = true;
-            }else{
+            } else {
                 updatedGenres.push(data.genre[i])
             }
         }
 
-        if(!found){
+        if (!found) {
             return new Response(JSON.stringify({}), {
                 status: 404,
                 headers: {
@@ -1311,16 +1311,16 @@ function deleteGenre(request,id){
         }
 
         let isUsedInMovie = false;
-        for(let i = 0; i < data.movies.length; i++) {
-            if(data.movies[i].genreId == id) {
+        for (let i = 0; i < data.movies.length; i++) {
+            if (data.movies[i].genreId == id) {
                 isUsedInMovie = true;
                 break;
             }
         }
 
         //VI MÅSTE kontrollera så att genre inte används i en film innan det kan raderas. 409 betyder conflict :)
-        if(isUsedInMovie){
-            return new Response (JSON.stringify({}), {
+        if (isUsedInMovie) {
+            return new Response(JSON.stringify({}), {
                 status: 409,
                 headers: {
                     "Content-Type": "application/json",
@@ -1340,7 +1340,7 @@ function deleteGenre(request,id){
             }
         })
 
-    }catch(error){
+    } catch (error) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
@@ -1351,5 +1351,52 @@ function deleteGenre(request,id){
     }
 }
 
+
+function getUserMovieTitles(request) {
+    try {
+        const data = readData();
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            });
+
+        }
+
+        const movieTitles = [];
+        for (let i=0; i< data.movies.length; i++){
+            const movie = data.movies[i];
+            if(movie.userId === userId){
+                movieTitles.push({
+                    id: movie.id,
+                    title: movie.title
+                });
+            }
+        }
+
+          return new Response(JSON.stringify(movieTitles), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+    }
+
+}
 export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre };
 
