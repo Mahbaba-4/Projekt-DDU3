@@ -4,6 +4,7 @@ import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById,
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 const genreByIdRoute = new URLPattern ({pathname: "/movie/genre/:id"})
+const listByIdRoute =  new URLPattern ({pathname: "/user/lists/:id"})
 
 function handler(request) {
     let url = new URL(request.url);
@@ -82,7 +83,27 @@ function handler(request) {
         }
     }
 
-    if(url.pathname === "user/movies/title" && request.method === "GET") {
+     if(url.pathname === "/user/lists" && request.method === "GET") {
+        return getAllCustomLists(request);
+    }
+
+     if(url.pathname === "/user/lists" && request.method === "POST") {
+        return createCustomList(request);
+    }
+
+    let listMatch = listByIdRoute.exec(request.url);
+
+    if(listMatch && request.method === "GET"){
+        let id = listMatch.pathname.groups.id;
+        return getMoviesByListId(request, id);
+    }
+
+    if(listMatch && request.method === "DELETE"){
+        let id = listMatch.pathname.groups.id;
+        return deleteCustomList(request, id);
+    }
+
+    if(url.pathname === "/user/movies/title" && request.method === "GET") {
         return getUserMovieTitles(request);
     }
 
@@ -109,7 +130,7 @@ function handler(request) {
     let genreMatch = genreByIdRoute.exec(request.url);
     if(genreMatch && request.method === "DELETE"){
         let id = genreMatch.pathname.groups.id;
-        return deleteGenre(id);
+        return deleteGenre(request, id);
     }
 
     let movieMatch = movieByIdRoute.exec(request.url);

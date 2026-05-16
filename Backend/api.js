@@ -1286,7 +1286,7 @@ async function postGenres(request) {
     }
 }
 
-function deleteGenre(id) {
+function deleteGenre(request, id) {
     try {
         const data = readData();
         let found = false;
