@@ -1310,11 +1310,30 @@ function deleteGenre(request,id){
             })
         }
 
+        let isUsedInMovie = false;
+        for(let i = 0; i < data.movies.length; i++) {
+            if(data.movies[i].genreId == id) {
+                isUsedInMovie = true;
+                break;
+            }
+        }
+
+        //VI MÅSTE kontrollera så att genre inte används i en film innan det kan raderas. 409 betyder conflict :)
+        if(isUsedInMovie){
+            return new Response (JSON.stringify({}), {
+                status: 409,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
         data.genre = updatedGenres;
         writeData(data);
 
-        return new Response(JSON.stringify({}), {
-            status: 201,
+        return new Response(null, {
+            status: 204,
             headers: {
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Origin": "*"
