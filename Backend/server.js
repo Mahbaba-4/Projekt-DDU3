@@ -1,10 +1,10 @@
 
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile,postProfileImage,deleteProfileImage, getUsersStatistics, monthlyStatistics, getUserIdFromSession, getUserMovieTitles, createCustomList, getAllCustomLists,deleteCustomList,getMoviesByListId} from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics, getUserIdFromSession, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId } from "./api.js";
 
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
-const genreByIdRoute = new URLPattern ({pathname: "/movie/genre/:id"})
-const listByIdRoute =  new URLPattern ({pathname: "/user/lists/:id"})
+const genreByIdRoute = new URLPattern({ pathname: "/movie/genre/:id" })
+const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
 
 function handler(request) {
     let url = new URL(request.url);
@@ -21,39 +21,39 @@ function handler(request) {
         })
     }
 
-    if(url.pathname == "/auth/signup" && request.method === "POST"){
+    if (url.pathname == "/auth/signup" && request.method === "POST") {
         return postSignUp(request)
     }
 
-    if(url.pathname === "/auth/login" && request.method === "POST"){
+    if (url.pathname === "/auth/login" && request.method === "POST") {
         return postLogIn(request);
     }
 
-    if(url.pathname === "/auth/logout" && request.method === "POST"){
+    if (url.pathname === "/auth/logout" && request.method === "POST") {
         return postLogOut(request)
     }
 
-    if(url.pathname === "/user/profile" && request.method === "GET"){
+    if (url.pathname === "/user/profile" && request.method === "GET") {
         return getUserProfile(request);
     }
 
-    if(url.pathname === "/user/profile" && request.method === "PATCH"){
+    if (url.pathname === "/user/profile" && request.method === "PATCH") {
         return patchUserProfile(request);
     }
 
-    if(url.pathname === "/user/profile/image" && request.method === "POST"){
+    if (url.pathname === "/user/profile/image" && request.method === "POST") {
         return postProfileImage(request);
     }
-    
-    if(url.pathname === "/user/profile/image" && request.method === "DELETE"){
+
+    if (url.pathname === "/user/profile/image" && request.method === "DELETE") {
         return deleteProfileImage(request);
     }
 
-    if(url.pathname === "/user/statistics" && request.method === "GET"){
+    if (url.pathname === "/user/statistics" && request.method === "GET") {
         return getUsersStatistics(request);
     }
 
-    if(url.pathname === "/user/statistics/monthly" && request.method === "GET") {
+    if (url.pathname === "/user/statistics/monthly" && request.method === "GET") {
         return monthlyStatistics(request);
     }
 
@@ -83,27 +83,27 @@ function handler(request) {
         }
     }
 
-     if(url.pathname === "/user/lists" && request.method === "GET") {
+    if (url.pathname === "/user/lists" && request.method === "GET") {
         return getAllCustomLists(request);
     }
 
-     if(url.pathname === "/user/lists" && request.method === "POST") {
+    if (url.pathname === "/user/lists" && request.method === "POST") {
         return createCustomList(request);
     }
 
     let listMatch = listByIdRoute.exec(request.url);
 
-    if(listMatch && request.method === "GET"){
+    if (listMatch && request.method === "GET") {
         let id = listMatch.pathname.groups.id;
         return getMoviesByListId(request, id);
     }
 
-    if(listMatch && request.method === "DELETE"){
+    if (listMatch && request.method === "DELETE") {
         let id = listMatch.pathname.groups.id;
         return deleteCustomList(request, id);
     }
 
-    if(url.pathname === "/user/movies/title" && request.method === "GET") {
+    if (url.pathname === "/user/movies/title" && request.method === "GET") {
         return getUserMovieTitles(request);
     }
 
@@ -111,7 +111,7 @@ function handler(request) {
         return getGenres(request);
     }
 
-    if(url.pathname === "/movies/genre" && request.method === "POST") {
+    if (url.pathname === "/movies/genre" && request.method === "POST") {
         return postGenres(request);
     }
 
@@ -128,7 +128,7 @@ function handler(request) {
     }
 
     let genreMatch = genreByIdRoute.exec(request.url);
-    if(genreMatch && request.method === "DELETE"){
+    if (genreMatch && request.method === "DELETE") {
         let id = genreMatch.pathname.groups.id;
         return deleteGenre(request, id);
     }
@@ -144,7 +144,7 @@ function handler(request) {
         return deleteMovieById(request, id)
     }
 
-    if( movieMatch && request.method === "PATCH") {
+    if (movieMatch && request.method === "PATCH") {
         let id = movieMatch.pathname.groups.id;
         return patchMovieById(request, id);
     }
@@ -153,7 +153,7 @@ function handler(request) {
         status: 404,
         headers: { "Access-Control-Allow-Origin": "*" }
     })
-    
+
 }
 
 Deno.serve(handler);
