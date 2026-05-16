@@ -1268,12 +1268,12 @@ async function postGenres(request){
         writeData(data)
 
         return new Response(JSON.stringify({}), {
-                status: 201,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
-                }
-            })
+            status: 201,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
 
     }catch(error){
         return new Response(JSON.stringify({}), {
@@ -1286,5 +1286,51 @@ async function postGenres(request){
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics, postGenres };
+function deleteGenre(request,id){
+    try{
+        const data = readData();
+        let found = false;
+        const updatedGenres = [];
+
+        for(let i = 0; i < data.genre.length; i++){
+            if(data.genre[i].id == id){
+                found = true;
+            }else{
+                updatedGenres.push(data.genre[i])
+            }
+        }
+
+        if(!found){
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                }
+            })
+        }
+
+        data.genre = updatedGenres;
+        writeData(data);
+
+        return new Response(JSON.stringify({}), {
+            status: 201,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+
+    }catch(error){
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*"
+            }
+        })
+    }
+}
+
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre };
 
