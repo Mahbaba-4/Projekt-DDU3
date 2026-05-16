@@ -1286,7 +1286,7 @@ async function postGenres(request) {
     }
 }
 
-function deleteGenre(request, id) {
+function deleteGenre(id) {
     try {
         const data = readData();
         let found = false;
@@ -1398,5 +1398,5 @@ function getUserMovieTitles(request) {
 
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre };
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, deleteProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles };
 

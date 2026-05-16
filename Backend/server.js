@@ -1,6 +1,7 @@
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile,postProfileImage,deleteProfileImage, getUsersStatistics, monthlyStatistics} from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById,searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile,postProfileImage,deleteProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles} from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
+const genreByIdRoute = new URLPattern ({pathname: "/movie/genre/:id"})
 
 function handler(request) {
     let url = new URL(request.url);
@@ -79,8 +80,16 @@ function handler(request) {
         }
     }
 
+    if(url.pathname === "user/movies/title" && request.method === "GET") {
+        return getUserMovieTitles(request);
+    }
+
     if (url.pathname === "/movies/genre" && request.method === "GET") {
         return getGenres(request);
+    }
+
+    if(url.pathname === "/movies/genre" && request.method === "POST") {
+        return postGenres(request);
     }
 
     if (url.pathname == "/user/movies" && request.method === "GET") {
@@ -93,6 +102,12 @@ function handler(request) {
 
     if (url.pathname == "/user/movies/search" && request.method === "GET") {
         return searchFilterMovies(request);
+    }
+
+    let genreMatch = genreByIdRoute.exec(request.url);
+    if(genreMatch && request.method === "DELETE"){
+        let id = genreMatch.pathname.groups.id;
+        return deleteGenre(id);
     }
 
     let movieMatch = movieByIdRoute.exec(request.url);
