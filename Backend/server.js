@@ -9,28 +9,14 @@ const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
 function handler(request) {
     let url = new URL(request.url);
 
-    // HANTERA OPTIONS (PREFLIGHT) REQUESTS
     if (request.method === "OPTIONS") {
-        // För login/logout endpoints som behöver credentials
-        if (url.pathname === "/auth/login" || url.pathname === "/auth/logout") {
-            return new Response(null, {
-                status: 204,
-                headers: {
-                    "Access-Control-Allow-Origin": "http://localhost:5500",
-                    "Access-Control-Allow-Credentials": "true",
-                    "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
-                    "Access-Control-Allow-Headers": "Content-Type"
-                }
-            })
-        }
-        
-        // För alla andra endpoints
         return new Response(null, {
             status: 204,
             headers: {
                 "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers": "Content-Type"
+                "Access-Control-Allow-Headers": "Authorization, Content-Type, Accept",
+                "Access-Control-Max-Age": "86400"
             }
         })
     }
