@@ -254,7 +254,7 @@ footer {
 
 .profile-header:hover {
     border-color: #97385b;
-    box-shadow: 0 6px 16px #97385b42;
+    box-shadow: 0 6px 16px #9f3a5f42;
 }
 
 
@@ -316,7 +316,7 @@ footer {
     color: white;
 }
 
-/* Edit Profile Form */
+
 .edit-form {
     background: white;
     padding: 2rem;

@@ -42,23 +42,25 @@
     </div>
 </div>
 
-<!-- Edit Profile Form (ALL redigering här inne) -->
+<!-- Edit Profile Form -->
 <div id="editProfileForm" class="edit-form" style="display: none;">
     <h3>Edit Profile</h3>
     
-    <!-- Bilduppladdning -->
+    <!-- Bara filuppladdning - ingen URL -->
     <div class="form-group">
         <label>Profile Picture</label>
-        <div class="current-image">
-            <img id="editProfileImage" src="" width="80" height="80" style="border-radius: 50%;">
-        </div>
         <input type="file" id="editImageUpload" accept="image/*">
-        <small>Or enter image URL below</small>
-    </div>
-    
-    <div class="form-group">
-        <label>Profile Picture URL</label>
-        <input type="text" id="editProfileImageUrl" placeholder="https://...">
+        
+        <!-- Preview av nuvarande bild -->
+        <div class="current-image-preview">
+            <img id="editPreviewImage" src="" width="60" height="60" style="border-radius: 50%; margin-top: 10px;">
+        </div>
+        
+        <!-- Checkbox för att ta bort bild -->
+        <div style="margin-top: 10px;">
+            <input type="checkbox" id="removeImageCheckbox">
+            <label for="removeImageCheckbox">Remove current picture (use default)</label>
+        </div>
     </div>
     
     <div class="form-group">
