@@ -47,6 +47,16 @@
     <footer>
         <p> © 2026 CineLog.</p>
     </footer>
+
+    <script type="module">
+        import API from "./assets/request.js";
+        import UI from "./assets/movie.js"
+
+        const api = new API();
+        const ui = new UI(api);
+
+        ui.signupForm()
+    </script>
 </body>
 
 </html>
