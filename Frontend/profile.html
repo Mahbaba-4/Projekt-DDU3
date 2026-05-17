@@ -27,10 +27,9 @@
     <br>
     <h1>PROFILE</h1>
 
-    <!-- Profile Section (bara visning) -->
 <div class="profile-header">
     <div class="profile-avatar">
-        <img id="profileImage" src="assets/images/default-avatar.png" alt="">
+        <img id="profileImage" src="assets/images/avatar.png" alt="">
     </div>
     <div class="profile-info">
         <h2 id="profileUsername">Loading...</h2>
@@ -42,21 +41,18 @@
     </div>
 </div>
 
-<!-- Edit Profile Form -->
 <div id="editProfileForm" class="edit-form" style="display: none;">
     <h3>Edit Profile</h3>
     
-    <!-- Bara filuppladdning - ingen URL -->
     <div class="form-group">
         <label>Profile Picture</label>
         <input type="file" id="editImageUpload" accept="image/*">
-        
-        <!-- Preview av nuvarande bild -->
+  
         <div class="current-image-preview">
             <img id="editPreviewImage" src="" width="60" height="60" style="border-radius: 50%; margin-top: 10px;">
         </div>
         
-        <!-- Checkbox för att ta bort bild -->
+       
         <div style="margin-top: 10px;">
             <input type="checkbox" id="removeImageCheckbox">
             <label for="removeImageCheckbox">Remove current picture (use default)</label>
