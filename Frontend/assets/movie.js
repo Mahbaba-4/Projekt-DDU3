@@ -27,7 +27,7 @@ class UI {
     }
 
     logInForm(){
-        const logInForm = document.getElementById("movieForm");
+        const logInForm = document.getElementById("logInForm");
 
         logInForm.addEventListener("submit", async (e) => {e.preventDefault()
 
