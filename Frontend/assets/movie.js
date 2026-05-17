@@ -4,6 +4,10 @@ class UI {
         this.currentProductId = null;
     }
 
+    showError(message){
+        console.log
+    }
+
     signUpForm(){
         const signUpForm = document.getElementById("movieForm");
 
@@ -14,7 +18,7 @@ class UI {
             const passwordInput = signUpForm.getElementById("password").value;
 
             if(!usernameInput || !emailInput || !passwordInput){
-                this.showError("Alla fält måste fyllas in");
+                console.log("Alla fält måste fyllas in");
                 return;
             }
 
@@ -35,7 +39,7 @@ class UI {
             const passwordInput = document.getElementById("password").value;
 
             if(!username || !password){
-                this.showError("Användarnamn och lösenord krävs för att logga in");
+                console.log("Användarnamn och lösenord krävs för att logga in");
                 return;
             }
 

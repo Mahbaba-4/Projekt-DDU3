@@ -628,7 +628,7 @@ async function postLogIn(request) {
         const data = readData();
         const body = await request.json();
 
-        if (!body.email || !body.password) {
+        if (!body.username || !body.password) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
@@ -644,7 +644,7 @@ async function postLogIn(request) {
 
         let foundUser = null;
         for (let i = 0; i < data.users.length; i++) {
-            if (data.users[i].email === body.email && data.users[i].passwordHash === body.password) {
+            if (data.users[i].username === body.username && data.users[i].passwordHash === body.password) {
                 foundUser = data.users[i];
                 break;
             }
@@ -692,7 +692,7 @@ async function postLogIn(request) {
 
         let userWithoutPasswordForLogIn = {
             id: foundUser.id,
-            email: foundUser.email,
+            email: foundUser.username,
         }
 
         return new Response(JSON.stringify(userWithoutPasswordForLogIn), {
