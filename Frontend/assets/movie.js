@@ -29,7 +29,7 @@ class UI {
     logInForm(){
         const logInForm = document.getElementById("logInForm");
 
-        logInForm.addEventListener("submit", async (e) => {e.preventDefault()
+        logInForm.addEventListener("submit", async (e) => {
 
             const usernameInput = document.getElementById("username").value;
             const passwordInput = document.getElementById("password").value;
