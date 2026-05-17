@@ -699,8 +699,7 @@ async function postLogIn(request) {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "http://localhost:5500",
-                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Allow-Origin": "*",
                 "Set-Cookie": "sessionId=" + newSessionId + "; Max-Age=86400; Path=/"
             }
         })
@@ -760,8 +759,7 @@ function postLogOut(request) {
         return new Response(null, {
             status: 204,
             headers: {
-                "Access-Control-Allow-Origin": "http://localhost:5500",
-                "Access-Control-Allow-Credentials": "true",
+                "Access-Control-Allow-Origin": "*",
                 "Set-Cookie": "sessionId=; Max-Age=0; Path=/"
             }
         })
