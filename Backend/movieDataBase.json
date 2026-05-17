@@ -610,6 +610,20 @@
       "name": "Already Watched",
       "type": "Watched",
       "movieIds": []
+    },
+    {
+      "id": "14",
+      "userId": "6",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "15",
+      "userId": "6",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
     }
   ],
   "users": [
@@ -647,6 +661,13 @@
       "passwordHash": "user5656",
       "username": "user01",
       "token": "Bearer 782621d1-8c12-4f73-84b9-254bcbd83235"
+    },
+    {
+      "id": "6",
+      "email": "janetta@gmail.com",
+      "passwordHash": "janeetajane",
+      "username": "janetta",
+      "token": "Bearer 09ad07ad-32a7-40dc-92dc-4d77cb3be5c3"
     }
   ],
   "sessions": [
