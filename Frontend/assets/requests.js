@@ -35,6 +35,7 @@ class API {
 
             if (response.ok) {
                 const data = await response.json();
+                window.location.href = "front-page.html";
                 return data;
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
@@ -54,7 +55,7 @@ class API {
             });
 
             if (response.ok) {
-                window.location.href = "/login.html";
+                window.location.href = "login.html";
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
