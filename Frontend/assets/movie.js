@@ -4,10 +4,6 @@ class UI {
         this.currentProductId = null;
     }
 
-    showError(message){
-        console.log
-    }
-
     signUpForm(){
         const signUpForm = document.getElementById("movieForm");
 
