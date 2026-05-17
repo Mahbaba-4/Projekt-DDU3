@@ -11,11 +11,11 @@ class UI {
     signUpForm(){
         const signUpForm = document.getElementById("movieForm");
 
-        signUpForm.addEventListener("submit", async function(e) {e.preventDefault()
+        signUpForm.addEventListener("submit", async (e) => {e.preventDefault()
 
-            const usernameInput = signUpForm.getElementById("username").value;
-            const emailInput = signUpForm.getElementById("email").value;
-            const passwordInput = signUpForm.getElementById("password").value;
+            const usernameInput = document.getElementById("username").value;
+            const emailInput = document.getElementById("email").value;
+            const passwordInput = document.getElementById("password").value;
 
             if(!usernameInput || !emailInput || !passwordInput){
                 console.log("Alla fält måste fyllas in");
@@ -33,12 +33,12 @@ class UI {
     logInForm(){
         const logInForm = document.getElementById("movieForm");
 
-        logInForm.addEventListener("submit", async function(e) {e.preventDefault()
+        logInForm.addEventListener("submit", async (e) => {e.preventDefault()
 
             const usernameInput = document.getElementById("username").value;
             const passwordInput = document.getElementById("password").value;
 
-            if(!username || !password){
+            if(!usernameInput || !passwordInput ){
                 console.log("Användarnamn och lösenord krävs för att logga in");
                 return;
             }
