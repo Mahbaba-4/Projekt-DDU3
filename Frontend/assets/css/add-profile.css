@@ -204,7 +204,8 @@ img {
     border-radius: 9px;
 }
 
-a, .back {
+a,
+.back {
     text-decoration: none;
     color: #97385b;
 }
@@ -216,28 +217,28 @@ a, .back {
 }
 
 .added {
-   margin: 25px;
-   font-size: 25px; 
-   text-align: center;
-   padding: 7px;
-   max-width: 200px;
-   border-radius: 8px;
+    margin: 25px;
+    font-size: 25px;
+    text-align: center;
+    padding: 7px;
+    max-width: 200px;
+    border-radius: 8px;
 }
 
 footer {
     display: block;
     margin-top: 200px;
-    padding: 20px 0;;
+    padding: 20px 0;
+    ;
     overflow-x: hidden;
     max-width: 100%;
     text-align: center;
-    border-top: 2px solid  #933b5b;
-    color:#5d2036
+    border-top: 2px solid #933b5b;
+    color: #5d2036
 }
 
-/* profile*/
 
-/* Profile Header - bild, text, och edit knapp i samma rad */
+
 .profile-header {
     display: flex;
     gap: 2rem;
@@ -251,12 +252,12 @@ footer {
     border: 2px solid #f0d3dc;
 }
 
-.profile-header:hover{
-     border-color: #97385b;
-    box-shadow: 0 6px 16px #97385b26;
+.profile-header:hover {
+    border-color: #97385b;
+    box-shadow: 0 6px 16px #97385b42;
 }
 
-/* Profilbild till vänster */
+
 .profile-avatar {
     width: 100px;
     height: 100px;
@@ -271,7 +272,7 @@ footer {
     border: 3px solid #933b5b;
 }
 
-/* Text i mitten */
+
 .profile-info {
     flex: 1;
 }
@@ -293,7 +294,7 @@ footer {
     color: #888;
 }
 
-/* Edit Profile knapp längst till höger */
+
 .profile-actions {
     flex-shrink: 0;
 }
@@ -408,16 +409,17 @@ footer {
         flex-direction: column;
         text-align: center;
     }
-    
+
     .profile-actions {
         margin-top: 1rem;
     }
-    
+
     .form-buttons {
         flex-direction: column;
     }
-    
-    .save-btn, .cancel-btn {
+
+    .save-btn,
+    .cancel-btn {
         width: 100%;
     }
 }

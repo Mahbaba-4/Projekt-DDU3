@@ -27,7 +27,7 @@
     <br>
     <h1>PROFILE</h1>
 
-<!-- Profile Section -->
+    <!-- Profile Section (bara visning) -->
 <div class="profile-header">
     <div class="profile-avatar">
         <img id="profileImage" src="assets/images/default-avatar.png" alt="">
@@ -35,33 +35,47 @@
     <div class="profile-info">
         <h2 id="profileUsername">Loading...</h2>
         <p id="profileEmail">Loading...</p>
-        <p id="profileBio" class="bio-text">No bio yet.</p>
+        <p id="profileBio" class="bio-text">No bio yet!</p>
     </div>
     <div class="profile-actions">
         <button id="editProfileBtn" class="edit-profile-btn">Edit Profile</button>
     </div>
 </div>
 
-<!-- Edit Profile Form -->
+<!-- Edit Profile Form (ALL redigering här inne) -->
 <div id="editProfileForm" class="edit-form" style="display: none;">
     <h3>Edit Profile</h3>
+    
+    <!-- Bilduppladdning -->
+    <div class="form-group">
+        <label>Profile Picture</label>
+        <div class="current-image">
+            <img id="editProfileImage" src="" width="80" height="80" style="border-radius: 50%;">
+        </div>
+        <input type="file" id="editImageUpload" accept="image/*">
+        <small>Or enter image URL below</small>
+    </div>
+    
+    <div class="form-group">
+        <label>Profile Picture URL</label>
+        <input type="text" id="editProfileImageUrl" placeholder="https://...">
+    </div>
+    
     <div class="form-group">
         <label>Username</label>
         <input type="text" id="editUsername" placeholder="Username">
     </div>
+    
     <div class="form-group">
         <label>Email</label>
         <input type="email" id="editEmail" placeholder="Email">
     </div>
-    <div class="form-group">
-        <label>Profile Picture URL</label>
-        <input type="text" id="editProfileImageUrl" placeholder="https://...">
-        <small>Or upload using the button above as your avatar.</small>
-    </div>
+    
     <div class="form-group">
         <label>Bio</label>
         <textarea id="editBio" rows="3" placeholder="Tell us about yourself..."></textarea>
     </div>
+    
     <div class="form-buttons">
         <button id="saveProfileBtn" class="save-btn">Save Changes</button>
         <button id="cancelEditBtn" class="cancel-btn">Cancel</button>
