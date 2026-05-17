@@ -489,3 +489,5 @@ class API {
     }
 
 }
+
+window.API = API; //detta gör API-klassen globalt tillgänglig
