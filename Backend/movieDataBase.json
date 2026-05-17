@@ -652,6 +652,48 @@
       "name": "Already Watched",
       "type": "Watched",
       "movieIds": []
+    },
+    {
+      "id": "20",
+      "userId": "9",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "21",
+      "userId": "9",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
+    },
+    {
+      "id": "22",
+      "userId": "10",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "23",
+      "userId": "10",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
+    },
+    {
+      "id": "24",
+      "userId": "11",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "25",
+      "userId": "11",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
     }
   ],
   "users": [
@@ -710,18 +752,44 @@
       "passwordHash": "101010",
       "username": "hihi",
       "token": "Bearer 18346e20-199d-40c4-828f-d2c693a05bd9"
+    },
+    {
+      "id": "9",
+      "email": "student@gmail.com",
+      "passwordHash": "12345",
+      "username": "student1",
+      "token": "Bearer 3f24805d-fc21-4e14-b0c8-0daafc148abe"
+    },
+    {
+      "id": "10",
+      "email": "test@test.se",
+      "passwordHash": "123456",
+      "username": "testuser",
+      "token": "Bearer 58515ee8-dbcb-4180-b731-dbd37b3f54ba"
+    },
+    {
+      "id": "11",
+      "email": "bab@gmail.com",
+      "passwordHash": "200525",
+      "username": "mahnoor05",
+      "token": "Bearer ea10b395-cdc2-4eb1-bc41-ee6b7f7e1870"
     }
   ],
   "sessions": [
     {
-      "id": "1",
+      "id": "2",
+      "userId": "5",
+      "username": "user01"
+    },
+    {
+      "id": "3",
       "userId": "1",
       "username": "testuser"
     },
     {
-      "id": "2",
-      "userId": "5",
-      "username": "user01"
+      "id": "4",
+      "userId": "11",
+      "username": "mahnoor05"
     }
   ]
 }
