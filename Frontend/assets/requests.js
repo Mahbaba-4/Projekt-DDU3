@@ -30,7 +30,7 @@ class API {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ username, password }),
-                //credentials: "include"
+                credentials: "include"
             });
 
             if (response.ok) {
@@ -51,7 +51,7 @@ class API {
 
             const response = await fetch("http://localhost:8000/auth/logout", {
                 method: "POST",
-                //credentials: "include"
+                credentials: "include"
             });
 
             if (response.ok) {
