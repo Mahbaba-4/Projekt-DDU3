@@ -692,7 +692,7 @@ async function postLogIn(request) {
 
         let userWithoutPasswordForLogIn = {
             id: foundUser.id,
-            email: foundUser.username,
+            username: foundUser.username,
         }
 
         return new Response(JSON.stringify(userWithoutPasswordForLogIn), {
