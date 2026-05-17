@@ -596,6 +596,20 @@
       "name": "Already Watched",
       "type": "Watched",
       "movieIds": []
+    },
+    {
+      "id": "12",
+      "userId": "5",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "13",
+      "userId": "5",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
     }
   ],
   "users": [
@@ -626,6 +640,13 @@
       "passwordHash": "apple123",
       "username": "apple",
       "token": "Bearer 72420fa1-1e98-48e6-85f6-d04fc6554421"
+    },
+    {
+      "id": "5",
+      "email": "user01@gmail.com",
+      "passwordHash": "user5656",
+      "username": "user01",
+      "token": "Bearer 782621d1-8c12-4f73-84b9-254bcbd83235"
     }
   ],
   "sessions": [
