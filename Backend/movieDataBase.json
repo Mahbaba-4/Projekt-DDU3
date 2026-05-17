@@ -568,6 +568,34 @@
       "name": "Mina favoriter",
       "type": "Custom",
       "movieIds": []
+    },
+    {
+      "id": "8",
+      "userId": "3",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "9",
+      "userId": "3",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
+    },
+    {
+      "id": "10",
+      "userId": "4",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "11",
+      "userId": "4",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
     }
   ],
   "users": [
@@ -584,6 +612,20 @@
       "passwordHash": "123456",
       "username": "test2",
       "token": "Bearer 55fcaa69-8af2-4033-902a-c3adc44d2039"
+    },
+    {
+      "id": "3",
+      "email": "appleIsTheBest@gmail.com",
+      "passwordHash": "apple123",
+      "username": "apple",
+      "token": "Bearer f1523743-8ddf-4779-b4b5-27d2f6206d3f"
+    },
+    {
+      "id": "4",
+      "email": "apple@gmail.com",
+      "passwordHash": "apple123",
+      "username": "apple",
+      "token": "Bearer 72420fa1-1e98-48e6-85f6-d04fc6554421"
     }
   ],
   "sessions": [
