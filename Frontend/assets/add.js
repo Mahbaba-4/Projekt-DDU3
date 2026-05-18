@@ -1,7 +1,7 @@
-const watchedExtra = document.getElementById('watchedExtra');
-const stars = document.querySelectorAll('.rating-stars span');
-const statusSelect = document.getElementById('statusSelect');
-const ratingInput = document.getElementById('rating');
+const watchedExtra = document.getElementById("watchedExtra");
+const stars = document.querySelectorAll(".rating-stars span");
+const statusSelect = document.getElementById("statusSelect");
+const ratingInput = document.getElementById("rating");
 
 
 statusSelect.addEventListener("click", function () {
@@ -21,10 +21,10 @@ for (let i = 0; i < stars.length; i++) {
             if (c < val) {
                 stars[c].innerHTML = "★";
                 stars[c].style.fontSize = "30px";
-                stars[c].style.color = "#933b5b";
+                stars[c].style.color = "#DB2424";
             } else {
                 stars[c].innerHTML = "☆";
-                stars[c].style.color = "#933b5b";
+                stars[c].style.color = "#DB2424";
             }
         }
     });

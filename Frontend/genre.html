@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="assets/images/icon-logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage genre</title>
+    <link rel="stylesheet" href="assets/css/add-genre.css">
+</head>
+
+<body>
+    <a href="main-page.html">
+        <h3 class="back">⬅ To Main Page</h3>
+    </a>
+
+    <div class="genre-container">
+        <h1 style="border-bottom: none;">Manage Genres</h1>
+
+        <form id="add-box-genre">
+            <h2 class="add-genre-title">+ Add New Genre</h2>
+            <input type="text" id="genreInput" placeholder="Enter genre name...">
+            <button type="submit" id="saveBtn-genre">Save</button>
+        </form>
+
+        <form id="delete-box-genre">
+            <h2 class="delete-genre-title">- Delete Genre</h2>
+            <select id="genreSelect">
+                <option value="">Select genre to delete</option>
+            </select>
+            <button type="submit" id="delBtn-genre">Delete</button>
+        </form>
+    </div>
+
+    <footer>
+        <p> © 2026 CineLog.</p>
+    </footer>
+</body>
+
+</html>
