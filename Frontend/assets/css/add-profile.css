@@ -197,6 +197,10 @@ img {
     color: #a0a0a0;
 }
 
+.card:hover {
+    border-color: #DB2424;
+}
+
 .stat-value {
     font-size: 30px;
     color: #f9f7f7;
@@ -276,6 +280,10 @@ footer {
     border-radius: 12px;
     margin: 1rem 0;
     border: 1px solid #2a2a2a;
+}
+
+.profile-header:hover {
+    border-color: #DB2424;
 }
 
 .profile-avatar {
