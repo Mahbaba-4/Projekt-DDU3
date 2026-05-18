@@ -45,10 +45,6 @@ function handler(request) {
         return postProfileImage(request);
     }
 
-    if (url.pathname === "/user/profile/image" && request.method === "DELETE") {
-        return deleteProfileImage(request);
-    }
-
     if (url.pathname === "/user/statistics" && request.method === "GET") {
         return getUsersStatistics(request);
     }

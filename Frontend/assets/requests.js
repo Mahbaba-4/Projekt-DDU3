@@ -128,27 +128,6 @@ class API {
         }
     }
 
-    async deleteProfileImage() {
-        try {
-            const response = await fetch('http://localhost:8000/user/profile/image', {
-                method: 'DELETE',
-                credentials: 'include'
-            });
-
-            if (response.ok) {
-                console.log("Bilden har tagits bort!")
-                return true;
-            } else {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-        } catch (error) {
-            console.log(error.message);
-        }
-
-
-    }
-
     async getStatistics() {
         try {
 
