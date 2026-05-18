@@ -481,10 +481,6 @@
     {
       "id": "15",
       "name": "Mystery"
-    },
-    {
-      "id": "16",
-      "name": "Other"
     }
   ],
   "lists": [
@@ -547,153 +543,6 @@
         "26",
         "27"
       ]
-    },
-    {
-      "id": "5",
-      "userId": "1",
-      "name": "Mina favoriter",
-      "type": "Custom",
-      "movieIds": []
-    },
-    {
-      "id": "6",
-      "userId": "1",
-      "name": "Mina favoriter",
-      "type": "Custom",
-      "movieIds": []
-    },
-    {
-      "id": "7",
-      "userId": "1",
-      "name": "Mina favoriter",
-      "type": "Custom",
-      "movieIds": []
-    },
-    {
-      "id": "8",
-      "userId": "3",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "9",
-      "userId": "3",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "10",
-      "userId": "4",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "11",
-      "userId": "4",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "12",
-      "userId": "5",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "13",
-      "userId": "5",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "14",
-      "userId": "6",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "15",
-      "userId": "6",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "16",
-      "userId": "7",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "17",
-      "userId": "7",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "18",
-      "userId": "8",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "19",
-      "userId": "8",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "20",
-      "userId": "9",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "21",
-      "userId": "9",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "22",
-      "userId": "10",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "23",
-      "userId": "10",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "24",
-      "userId": "11",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "25",
-      "userId": "11",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
     }
   ],
   "users": [
@@ -710,86 +559,13 @@
       "passwordHash": "123456",
       "username": "test2",
       "token": "Bearer 55fcaa69-8af2-4033-902a-c3adc44d2039"
-    },
-    {
-      "id": "3",
-      "email": "appleIsTheBest@gmail.com",
-      "passwordHash": "apple123",
-      "username": "apple",
-      "token": "Bearer f1523743-8ddf-4779-b4b5-27d2f6206d3f"
-    },
-    {
-      "id": "4",
-      "email": "apple@gmail.com",
-      "passwordHash": "apple123",
-      "username": "apple",
-      "token": "Bearer 72420fa1-1e98-48e6-85f6-d04fc6554421"
-    },
-    {
-      "id": "5",
-      "email": "user01@gmail.com",
-      "passwordHash": "user5656",
-      "username": "user01",
-      "token": "Bearer 782621d1-8c12-4f73-84b9-254bcbd83235"
-    },
-    {
-      "id": "6",
-      "email": "janetta@gmail.com",
-      "passwordHash": "janeetajane",
-      "username": "janetta",
-      "token": "Bearer 09ad07ad-32a7-40dc-92dc-4d77cb3be5c3"
-    },
-    {
-      "id": "7",
-      "email": "mahnoor@test.com",
-      "passwordHash": "12345",
-      "username": "mahnoor",
-      "token": "Bearer ad92386c-c229-41b3-a70e-8c503fa1bb3d"
-    },
-    {
-      "id": "8",
-      "email": "hihi@gmail.com",
-      "passwordHash": "101010",
-      "username": "hihi",
-      "token": "Bearer 18346e20-199d-40c4-828f-d2c693a05bd9"
-    },
-    {
-      "id": "9",
-      "email": "student@gmail.com",
-      "passwordHash": "12345",
-      "username": "student1",
-      "token": "Bearer 3f24805d-fc21-4e14-b0c8-0daafc148abe"
-    },
-    {
-      "id": "10",
-      "email": "test@test.se",
-      "passwordHash": "123456",
-      "username": "testuser",
-      "token": "Bearer 58515ee8-dbcb-4180-b731-dbd37b3f54ba"
-    },
-    {
-      "id": "11",
-      "email": "bab@gmail.com",
-      "passwordHash": "200525",
-      "username": "mahnoor05",
-      "token": "Bearer ea10b395-cdc2-4eb1-bc41-ee6b7f7e1870"
     }
   ],
   "sessions": [
     {
-      "id": "2",
-      "userId": "5",
-      "username": "user01"
-    },
-    {
-      "id": "3",
+      "id": "1",
       "userId": "1",
       "username": "testuser"
-    },
-    {
-      "id": "4",
-      "userId": "11",
-      "username": "mahnoor05"
     }
   ]
 }
