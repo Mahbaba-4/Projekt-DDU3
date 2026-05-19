@@ -543,62 +543,6 @@
         "26",
         "27"
       ]
-    },
-    {
-      "id": "5",
-      "userId": "3",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "6",
-      "userId": "3",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "7",
-      "userId": "4",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "8",
-      "userId": "4",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "9",
-      "userId": "5",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "10",
-      "userId": "5",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
-    },
-    {
-      "id": "11",
-      "userId": "6",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "12",
-      "userId": "6",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
     }
   ],
   "users": [
@@ -613,30 +557,6 @@
       "email": "test2@example.com",
       "passwordHash": "123456",
       "username": "test2"
-    },
-    {
-      "id": "3",
-      "email": "student5@gmail.com",
-      "passwordHash": "12345",
-      "username": "student5"
-    },
-    {
-      "id": "4",
-      "email": "mahnoor@gmail.com",
-      "passwordHash": "25082005",
-      "username": "mahnoor"
-    },
-    {
-      "id": "5",
-      "email": "ibbe@gmail.com",
-      "passwordHash": "20101010",
-      "username": "ibbe"
-    },
-    {
-      "id": "6",
-      "email": "sarah@gmail.com",
-      "passwordHash": "12345",
-      "username": "sarah"
     }
   ]
 }
