@@ -368,7 +368,20 @@ function getMovies(request) {
     try {
         const data = readData();
 
-        let movies = data.movies;
+        const userId = getUserIdFromSession(request);
+
+         if (!userId) {
+            return new Response(JSON.stringify("Not logged in"), {
+                status: 401
+            })
+        }
+
+        let movies = [];
+        for (let i = 0; i < data.movies.length; i++) {
+            if (data.movies[i].userId === userId) {
+                movies.push(data.movies[i]);
+            }
+        }
 
         const url = new URL(request.url);
         const genreFilter = url.searchParams.get("genre");

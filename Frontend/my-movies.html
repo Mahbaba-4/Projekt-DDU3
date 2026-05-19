@@ -11,12 +11,47 @@
 
 <body>
 
-    <a href="main-page.html">
-        <h3 class="back">⬅ Back</h3>
-    </a>
+    <div id="navigation">
+        <div id="left-nav">
+            <img src="assets/images/namelogo.png">
+        </div>
+
+        <div id="right-nav">
+            <a href="main-page.html">Home</a>
+            <a style="background-color:#222020; color: #DB2424;" href="my-movies.html">My movies</a>
+            <a href="add-movie.html">+ Add</a>
+            <a href="profile.html">Profile</a>
+            <a href="genre.html">Manage genre</a>
+            <a href="">Log out</a>
+        </div>
+    </div>
+
+    <div id="my-movies-t">
+        <img src="assets/images/film.png">
+        <h1 id="my-movies-title" style="border-bottom: none;">My movies</h1>
+    </div>
+
+    <div id="filter-movies">
+        <div class="filter-counts">
+            <button class="filter-btn" style="background-color: #161515;"> All <span id="all-count">0</span></button>
+
+            <button class="filter-btn">Watched <span id="watched-count">0</span></button>
+
+            <button class="filter-btn">Watchlist <span id="watchlist-count">0</span></button>
+        </div>
+    </div>
+
+    <div id="movies-container">
+        
+    </div>
+
     <footer>
         <p> © 2026 CineLog.</p>
     </footer>
+
+    <script src="assets/requests.js"></script>
+    <script src="assets/movie.js"></script>
+    <script src="assets/my-movie.js"></script>
 </body>
 
 </html>
