@@ -1,12 +1,15 @@
 class API {
-    
+
+    constructor() {
+        this.bearerToken = "";
+    }   
+
     async postSignUp(sign) {
         try {
             const response = await fetch("http://localhost:8000/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
 
                 },
                 body: JSON.stringify(sign)
@@ -24,23 +27,25 @@ class API {
     }
 
     async logIn(username, password) {
+
         try {
+            const credentials = { username: username, password: password };
 
             const response = await fetch("http://localhost:8000/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
-
                 },
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify(credentials),
                 credentials: "include"
             });
 
             if (response.ok) {
-                const data = await response.json();
+                // const data = await response.json();
+                // Svar: { success: true, token: "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6" }
+                // this.bearerToken = data.token;
                 window.location.href = "http://localhost:8000/main-page.html";
-                return data;
+                // return data;
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -73,6 +78,9 @@ class API {
         try {
             const response = await fetch('http://localhost:8000/user/profile', {
                 method: 'GET',
+                // headers: {
+                //     "Authorization": this.bearerToken // använd token! (efter man loggat in)
+                // },
                 credentials: 'include'
             });
 
@@ -93,8 +101,6 @@ class API {
                 method: 'PATCH',
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
-
                 },
                 body: JSON.stringify(profileData),
                 credentials: 'include'
@@ -141,7 +147,6 @@ class API {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
 
                 },
                 credentials: "include"
@@ -167,7 +172,6 @@ class API {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include"
             });
@@ -191,7 +195,6 @@ class API {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
             });
 
@@ -239,7 +242,6 @@ class API {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include"
             });
@@ -263,7 +265,6 @@ class API {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include"
             });
@@ -287,7 +288,6 @@ class API {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 body: JSON.stringify(movieData),
                 credentials: "include"
@@ -309,7 +309,6 @@ class API {
                 method: 'PATCH',
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 body: JSON.stringify(updatedData),
                 credentials: 'include'
@@ -356,7 +355,6 @@ class API {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include",
                 body: JSON.stringify({ name: genreName }),
@@ -425,7 +423,6 @@ class API {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include",
                 body: JSON.stringify({ name: listName, movieIds }),
@@ -468,7 +465,6 @@ class API {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include"
             });
@@ -492,7 +488,6 @@ class API {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
-                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include"
             });
