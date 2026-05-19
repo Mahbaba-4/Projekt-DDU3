@@ -5,7 +5,7 @@ const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 const genreByIdRoute = new URLPattern({ pathname: "/movie/genre/:id" })
 const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
 
-const cookies = []; // { userId: 55, value: "ada8sjd9asjd98asjd" }
+
 
 function handler(request) {
     let url = new URL(request.url);
@@ -22,11 +22,11 @@ function handler(request) {
         return postLogOut(request)
     }
 
-      if (/* kolla om den cookien som dom skickade finns och är aktiv */cookie ){
+    /*  if (/* kolla om den cookien som dom skickade finns och är aktiv cookie ){
         return new Response(JSON.stringify({}), {
             status: 401
         })
-    }
+    }*/
 
     if (url.pathname == "/") {
         // const userCookie = request.headers.get("Cookie");

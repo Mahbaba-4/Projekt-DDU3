@@ -18,7 +18,7 @@ class UI {
                 return;
             }
 
-            await this.api.postSignUp({
+            await api.postSignUp({
                 username: usernameInput,
                 email: emailInput, 
                 password: passwordInput

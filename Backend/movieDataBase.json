@@ -543,6 +543,20 @@
         "26",
         "27"
       ]
+    },
+    {
+      "id": "5",
+      "userId": "3",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "6",
+      "userId": "3",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
     }
   ],
   "users": [
@@ -557,6 +571,12 @@
       "email": "test2@example.com",
       "passwordHash": "123456",
       "username": "test2"
+    },
+    {
+      "id": "3",
+      "email": "student5@gmail.com",
+      "passwordHash": "12345",
+      "username": "student5"
     }
   ]
 }
