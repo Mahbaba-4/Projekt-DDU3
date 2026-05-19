@@ -1,5 +1,5 @@
 class API {
-    //sign --> ett objekt som tar emot ett objet med 3 nycklar som är {username, email, password};
+    
     async postSignUp(sign) {
         try {
             const response = await fetch("http://localhost:8000/auth/signup", {
