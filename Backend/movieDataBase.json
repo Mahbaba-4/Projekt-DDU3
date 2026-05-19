@@ -543,20 +543,6 @@
         "26",
         "27"
       ]
-    },
-    {
-      "id": "5",
-      "userId": "3",
-      "name": "Want to watch",
-      "type": "Watchlist",
-      "movieIds": []
-    },
-    {
-      "id": "6",
-      "userId": "3",
-      "name": "Already Watched",
-      "type": "Watched",
-      "movieIds": []
     }
   ],
   "users": [
