@@ -8,17 +8,6 @@ const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
 
 function handler(request) {
     let url = new URL(request.url);
-    if (request.method === "OPTIONS") {
-        return new Response(null, {
-            status: 204,
-            headers: {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers": "Authorization, Content-Type, Accept",
-                "Access-Control-Max-Age": "86400"
-            }
-        })
-    }
 
     if (url.pathname == "/auth/signup" && request.method === "POST") {
         return postSignUp(request)
