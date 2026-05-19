@@ -63,7 +63,6 @@ function handler(request) {
         if (request.headers.get("Accept") !== "application/json") {
             return new Response(JSON.stringify({}), {
                 status: 406,
-                headers: { "Access-Control-Allow-Origin": "*" }
             })
         }
     }
@@ -72,7 +71,6 @@ function handler(request) {
         if (request.headers.get("Content-Type") !== "application/json") {
             return new Response(JSON.stringify({}), {
                 status: 406,
-                headers: { "Access-Control-Allow-Origin": "*" }
             })
         }
     }
@@ -145,7 +143,6 @@ function handler(request) {
 
     return new Response(JSON.stringify({}), {
         status: 404,
-        headers: { "Access-Control-Allow-Origin": "*" }
     })
 
 }
