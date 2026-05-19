@@ -53,7 +53,7 @@ async function handler(request) {
         return monthlyStatistics(request);
     }
 
-    if (request.method === "GET") {
+   /* if (request.method === "GET") {
         if (request.headers.get("Accept") !== "application/json") {
             return new Response(JSON.stringify({}), {
                 status: 406,
@@ -61,7 +61,7 @@ async function handler(request) {
         }
     }
 
-    /* if (request.method === "POST") {
+    if (request.method === "POST") {
          if (request.headers.get("Content-Type") !== "application/json") {
              return new Response(JSON.stringify({}), {
                  status: 406,
