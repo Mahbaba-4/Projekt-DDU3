@@ -543,6 +543,20 @@
         "26",
         "27"
       ]
+    },
+    {
+      "id": "5",
+      "userId": "3",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "6",
+      "userId": "3",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
     }
   ],
   "users": [
@@ -559,6 +573,13 @@
       "passwordHash": "123456",
       "username": "test2",
       "token": "Bearer 55fcaa69-8af2-4033-902a-c3adc44d2039"
+    },
+    {
+      "id": "3",
+      "email": "test4@gmail.com",
+      "passwordHash": "12345",
+      "username": "test4",
+      "token": "Bearer 52ffb50f-ba4e-49c6-ad93-069743298ec5"
     }
   ],
   "sessions": [

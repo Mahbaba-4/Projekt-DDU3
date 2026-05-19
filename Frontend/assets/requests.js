@@ -24,7 +24,7 @@ class API {
     async logIn(username, password) {
         try {
 
-            const response = await fetch("http://localhost:800/auth/login", {
+            const response = await fetch("http://localhost:8000/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -35,7 +35,7 @@ class API {
 
             if (response.ok) {
                 const data = await response.json();
-                window.location.href = "https://localhost:800/main-page.html";
+                window.location.href = "http://localhost:8000/main-page.html";
                 return data;
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
