@@ -5,7 +5,9 @@ class API {
             const response = await fetch("http://localhost:8000/auth/signup", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
+
                 },
                 body: JSON.stringify(sign)
             });
@@ -27,7 +29,9 @@ class API {
             const response = await fetch("http://localhost:8000/auth/login", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
+
                 },
                 body: JSON.stringify({ username, password }),
                 credentials: "include"
@@ -88,7 +92,9 @@ class API {
             const response = await fetch('http://localhost:8000/user/profile', {
                 method: 'PATCH',
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
+
                 },
                 body: JSON.stringify(profileData),
                 credentials: 'include'
@@ -134,7 +140,9 @@ class API {
             const response = await fetch("http://localhost:8000/user/statistics", {
                 method: "GET",
                 headers: {
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
+
                 },
                 credentials: "include"
             });
@@ -158,7 +166,8 @@ class API {
             const response = await fetch("http://localhost:8000/user/statistics/monthly", {
                 method: "GET",
                 headers: {
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include"
             });
@@ -181,7 +190,8 @@ class API {
             const response = await fetch("http://localhost:8000/movies/genre", {
                 method: "GET",
                 headers: {
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
             });
 
@@ -228,7 +238,8 @@ class API {
             const response = await fetch(`http://localhost:8000/user/movies/search?q=${encodeURIComponent(query)}`, {
                 method: "GET",
                 headers: {
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include"
             });
@@ -251,7 +262,8 @@ class API {
             const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
                 method: "GET",
                 headers: {
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include"
             });
@@ -274,7 +286,8 @@ class API {
             const response = await fetch("http://localhost:8000/user/movies", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 body: JSON.stringify(movieData),
                 credentials: "include"
@@ -295,7 +308,8 @@ class API {
             const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
                 method: 'PATCH',
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 body: JSON.stringify(updatedData),
                 credentials: 'include'
@@ -341,7 +355,8 @@ class API {
             const response = await fetch("http://localhost:8000/movies/genre", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include",
                 body: JSON.stringify({ name: genreName }),
@@ -409,7 +424,8 @@ class API {
             const response = await fetch("http://localhost:8000/user/lists", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include",
                 body: JSON.stringify({ name: listName, movieIds }),
@@ -421,7 +437,7 @@ class API {
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
+
         } catch (error) {
             console.log(error.message);
         }
@@ -451,7 +467,8 @@ class API {
             const response = await fetch(`http://localhost:8000/user/lists/${listId}`, {
                 method: "GET",
                 headers: {
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include"
             });
@@ -474,7 +491,8 @@ class API {
             const response = await fetch("http://localhost:8000/user/movies/title", {
                 method: "GET",
                 headers: {
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    "Authorization": "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6"
                 },
                 credentials: "include"
             });

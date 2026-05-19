@@ -1,7 +1,6 @@
 
 import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId } from "./api.js";
 
-
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 const genreByIdRoute = new URLPattern({ pathname: "/movie/genre/:id" })
 const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
@@ -20,6 +19,12 @@ function handler(request) {
         })
     }
 
+
+    if (request.headers.get("Authorization") !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
+        return new Response(JSON.stringify({}), {
+            status: 401
+        })
+    }
     if (url.pathname == "/auth/signup" && request.method === "POST") {
         return postSignUp(request)
     }
@@ -51,13 +56,6 @@ function handler(request) {
     if (url.pathname === "/user/statistics/monthly" && request.method === "GET") {
         return monthlyStatistics(request);
     }
-
-    /*if (request.headers.get("Authorization") !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
-        return new Response(JSON.stringify({}), {
-            status: 401,
-            headers: { "Access-Control-Allow-Origin": "*" }
-        })
-    }*/
 
     if (request.method === "GET") {
         if (request.headers.get("Accept") !== "application/json") {
