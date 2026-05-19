@@ -359,6 +359,7 @@ async function patchMovieById(request, id) {
 function getMovies(request) {
     try {
         const data = readData();
+
         let movies = data.movies;
 
         const url = new URL(request.url);
@@ -636,7 +637,7 @@ async function postLogIn(request) {
                 newSessions.push(sessions[i]);
             }
         }
-        sessions += newSessions;
+        sessions = newSessions;
 
         let maxId = 0;
         for (let session of sessions) {
@@ -696,7 +697,7 @@ function postLogOut(request) {
         let newSessions = [];
 
         for (let i = 0; i < data.sessions.length; i++) {
-            if (data.sessions[i].id == sessionId) {
+            if (sessions[i].id == sessionId) {
                 found = true;
             } else {
                 newSessions.push(data.sessions[i])
@@ -750,9 +751,9 @@ function getUserIdFromSession(request) {
         return null;
     }
 
-    for (let i = 0; i < data.sessions.length; i++) {
-        if (data.sessions[i].id === sessionId) {
-            return data.sessions[i].userId;
+    for (let i = 0; i < sessions.length; i++) {
+        if (sessions[i].id === sessionId) {
+            return sessions[i].userId;
         }
     }
     return null;
