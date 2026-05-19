@@ -60,7 +60,7 @@ function handler(request) {
         })
     }*/
 
-    /*EFTERSOM DELETE och PATCH INTE BEHÖVER accept HEADERS :)
+    
     if (request.method === "GET") {
         if (request.headers.get("Accept") !== "application/json") {
             return new Response(JSON.stringify({}), {
@@ -68,7 +68,7 @@ function handler(request) {
                 headers: { "Access-Control-Allow-Origin": "*" }
             })
         }
-    }*/
+    }
 
     if (request.method === "POST") {
         if (request.headers.get("Content-Type") !== "application/json") {

@@ -133,6 +133,9 @@ class API {
 
             const response = await fetch("http://localhost:8000/user/statistics", {
                 method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
                 credentials: "include"
             });
 
@@ -154,6 +157,9 @@ class API {
 
             const response = await fetch("http://localhost:8000/user/statistics/monthly", {
                 method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
                 credentials: "include"
             });
 
@@ -173,7 +179,10 @@ class API {
         try {
 
             const response = await fetch("http://localhost:8000/movies/genre", {
-                method: "GET"
+                method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
             });
 
             if (response.ok) {
@@ -218,6 +227,9 @@ class API {
         try {
             const response = await fetch(`http://localhost:8000/user/movies/search?q=${encodeURIComponent(query)}`, {
                 method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
                 credentials: "include"
             });
 
@@ -238,6 +250,9 @@ class API {
 
             const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
                 method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
                 credentials: "include"
             });
 
@@ -368,6 +383,9 @@ class API {
         try {
             const response = await fetch("http://localhost:8000/user/lists", {
                 method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
                 credentials: "include"
             });
 
@@ -432,6 +450,9 @@ class API {
         try {
             const response = await fetch(`http://localhost:8000/user/lists/${listId}`, {
                 method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
                 credentials: "include"
             });
 
@@ -452,6 +473,9 @@ class API {
         try {
             const response = await fetch("http://localhost:8000/user/movies/title", {
                 method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
                 credentials: "include"
             });
 
