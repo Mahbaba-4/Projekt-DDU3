@@ -5,23 +5,10 @@ const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 const genreByIdRoute = new URLPattern({ pathname: "/movie/genre/:id" })
 const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
 
-const ALLOWED_ORIGINS = "http://localhost:8000";
+
 
 function handler(request) {
     let url = new URL(request.url);
-
-     if (request.method === "OPTIONS") {
-        return new Response(null, {
-            status: 204,
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin":  ALLOWED_ORIGINS,
-                "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
-                "Access-Control-Allow-Headers": "Authorization, Content-Type, Accept",
-                "Access-Control-Max-Age": "86400"
-            }
-        })
-    }
 
         if (url.pathname == "/auth/signup" && request.method === "POST") {
         return postSignUp(request)
