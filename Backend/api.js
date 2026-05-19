@@ -4,6 +4,8 @@ function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
 }
 
+
+
 //Det är enklare att använda en funktion som skriver över datan vid PATCH OCH POST :)
 function writeData(data) {
     Deno.writeTextFileSync("./movieDataBase.json", JSON.stringify(data, null, 2));
@@ -664,7 +666,7 @@ async function postLogIn(request) {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
-                "Set-Cookie": "sessionId=" + newSessionId + "; Max-Age=86400; Path=/"
+                "Set-Cookie": "sessionId=" + newSessionId + "; Max-Age=86400;"
             }
         })
 
