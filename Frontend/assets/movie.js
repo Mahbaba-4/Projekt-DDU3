@@ -40,7 +40,7 @@ class UI {
                 return;
             }
 
-            await this.api.logIn(usernameInput, passwordInput)
+            await api.logIn(usernameInput, passwordInput)
         })
 
     }
