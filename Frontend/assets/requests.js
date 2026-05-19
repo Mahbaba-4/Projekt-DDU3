@@ -3,7 +3,7 @@ class API {
 
     async postSignUp(sign) {
         try {
-            const response = await fetch("http://localhost:8000/auth/signup", {
+            const response = await fetch("/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -27,7 +27,7 @@ class API {
         try {
             const credentials = { username: username, password: password };
 
-            const response = await fetch("http://localhost:8000/auth/login", {
+            const response = await fetch("/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -37,7 +37,7 @@ class API {
             });
 
             if (response.ok) {
-                window.location.href = "http://localhost:8000/main-page.html";
+                window.location.href = "/main-page.html";
       
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);

@@ -16,7 +16,7 @@ function authorization(request) {
     return userId;
 }
 
-function handler(request) {
+async function handler(request) {
     let url = new URL(request.url);
 
     const frontendResponse = serveDir(request, {fsRoot: "Frontend"})
@@ -42,9 +42,9 @@ function handler(request) {
         let filePath;
 
         if (!userId) {
-            filePath = "./Frontend/login.html";
+            filePath = "../Frontend/login.html";
         }else{
-            filePath = "./Frontend/main-page.html";
+            filePath = "../Frontend/main-page.html";
 
         }
 

@@ -1,6 +1,5 @@
 import { extname } from "jsr:@std/path";
 
-
 export let sessions = [];
 
 
@@ -733,8 +732,8 @@ function getUserIdFromSession(request) {
     const cookies = cookieHeader.split(";");
     let sessionId = null;
 
-    for(let i=0; i < cookies.length; i++)
-        const cookie = cookies[i].trim();
+    for(let i=0; i < cookies.length; i++){
+         const cookie = cookies[i].trim();
 
         if(cookie.includes("sessionId=")){
 
@@ -742,6 +741,8 @@ function getUserIdFromSession(request) {
             break;
         }
 
+    }
+       
     if (!sessionId) {
         return null;
     }
