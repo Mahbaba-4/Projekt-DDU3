@@ -21,9 +21,6 @@ function handler(request) {
 
     const frontendResponse = serveDir(request, {fsRoot: "Frontend"})
     
-
-
-
     if (url.pathname == "/auth/signup") {
         if (request.method === "POST") {
             return postSignUp(request)
@@ -45,19 +42,18 @@ function handler(request) {
         let filePath;
 
         if (!userId) {
-            filePath = "../Frontend/login.html";
+            filePath = "./Frontend/login.html";
         }else{
-            filePath = "../Frontend/main-page.html";
+            filePath = "./Frontend/main-page.html";
 
         }
 
-        const html =  Deno.readTextFile(filePath);
+        const html = await Deno.readTextFile(filePath);
 
         return new Response(html, {
             headers:{"Content-Type": "text/html"}
         })
     }
-
 
 
     if (url.pathname === "/user/profile" && request.method === "GET") {
