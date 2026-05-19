@@ -1,8 +1,5 @@
 class API {
-
-    constructor() {
-        this.bearerToken = "";
-    }   
+ 
 
     async postSignUp(sign) {
         try {

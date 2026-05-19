@@ -1,10 +1,12 @@
 import { extname } from "jsr:@std/path";
 
+
+let sessions = [];
+
+
 function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
 }
-
-
 
 //Det är enklare att använda en funktion som skriver över datan vid PATCH OCH POST :)
 function writeData(data) {
@@ -627,20 +629,17 @@ async function postLogIn(request) {
             })
         }
 
-        if (!data.sessions) {
-            data.sessions = [];
-        }
 
         let newSessions = [];
-        for (let i = 0; i < data.sessions.length; i++) {
-            if (data.sessions[i].userId !== foundUser.id) {
-                newSessions.push(data.sessions[i]);
+        for (let i = 0; i < sessions.length; i++) {
+            if (sessions[i].userId !== foundUser.id) {
+                newSessions.push(sessions[i]);
             }
         }
-        data.sessions = newSessions;
+        sessions += newSessions;
 
         let maxId = 0;
-        for (let session of data.sessions) {
+        for (let session of sessions) {
             const id = parseInt(session.id);
             if (id > maxId) {
                 maxId = id
@@ -654,8 +653,7 @@ async function postLogIn(request) {
             username: foundUser.username
         }
 
-        data.sessions.push(newSession);
-        writeData(data);
+        sessions.push(newSession);
 
         let userWithoutPasswordForLogIn = {
             id: foundUser.id,
