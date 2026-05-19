@@ -1,26 +1,35 @@
 
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId,postGenres, deleteGenre, sessions, getUserIdFromSession} from "./api.js";
+import {serveDir} from "jsr:@std/http/file-server";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, postGenres, deleteGenre, sessions, getUserIdFromSession } from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 const genreByIdRoute = new URLPattern({ pathname: "/movie/genre/:id" })
 const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
 
-function authorization(request){
+function authorization(request) {
     const userId = getUserIdFromSession(request);
 
-    if(!userId){
+    if (!userId) {
         return null;
     }
 
-    return userId; 
+    return userId;
 }
 
 function handler(request) {
     let url = new URL(request.url);
 
-        if (url.pathname == "/auth/signup" && request.method === "POST") {
-        return postSignUp(request)
+    const frontendResponse = serveDir(request, {fsRoot: "Frontend"})
+    
+
+
+
+    if (url.pathname == "/auth/signup") {
+        if (request.method === "POST") {
+            return postSignUp(request)
+        }
     }
+
 
     if (url.pathname === "/auth/login" && request.method === "POST") {
         return postLogIn(request);
@@ -33,15 +42,21 @@ function handler(request) {
     if (url.pathname == "/") {
         const userId = authorization(request);
 
-       if(!userId){
-        return serveFile(request, "login.html");
-       }
+        let filePath;
 
-        return serveFile(request, "main-page.html");
-       
+        if (!userId) {
+            filePath = "../Frontend/login.html";
+        }else{
+            filePath = "../Frontend/main-page.html";
+
+        }
+
+        const html =  Deno.readTextFile(filePath);
+
+        return new Response(html, {
+            headers:{"Content-Type": "text/html"}
+        })
     }
-
-  
 
 
 
