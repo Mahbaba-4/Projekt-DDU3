@@ -3,7 +3,7 @@ class API {
 
     async postSignUp(sign) {
         try {
-            const response = await fetch("/auth/signup", {
+            const response = await fetch("http://localhost:8000/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
