@@ -1404,7 +1404,6 @@ function deleteCustomList(request, id) {
     }
 }
 
-
 function getMoviesByListId(request, listId) {
     try {
         const data = readData();
