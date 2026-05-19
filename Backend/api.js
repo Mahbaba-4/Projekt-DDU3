@@ -668,7 +668,7 @@ async function postLogIn(request) {
 
 function postLogOut(request) {
     try {
-        const data = readData();
+
         const cookieHeader = request.headers.get("Cookie");
 
         if (!cookieHeader) {
@@ -700,15 +700,15 @@ function postLogOut(request) {
                     sessions.splice(i, 1);
                     break;
                 }
-
-                return new Response(null, {
-                    status: 204,
-                    headers: {
-                        "Set-Cookie": "sessionId=; Max-Age=0; "
-                    }
-                });
             }
         }
+        
+        return new Response(null, {
+            status: 204,
+            headers: {
+                "Set-Cookie": "sessionId=; Max-Age=0; "
+            }
+        });
     } catch (err) {
         return new Response(JSON.stringify({}), {
             status: 500,
@@ -719,745 +719,745 @@ function postLogOut(request) {
     }
 }
 
-    function getUserIdFromSession(request) {
+function getUserIdFromSession(request) {
 
-        console.log("Sessions array:", sessions);
-        console.log("Sessions length:", sessions.length);
+    console.log("Sessions array:", sessions);
+    console.log("Sessions length:", sessions.length);
 
-        const cookieHeader = request.headers.get("Cookie");
-        console.log("Cookie header:", cookieHeader);
-        if (!cookieHeader) {
-            return null;
+    const cookieHeader = request.headers.get("Cookie");
+    console.log("Cookie header:", cookieHeader);
+    if (!cookieHeader) {
+        return null;
+    }
+
+    const cookies = cookieHeader.split(";");
+    let sessionId = null;
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+
+        if (cookie.includes("sessionId=")) {
+            sessionId = cookie.split("=")[1];
+            break;
         }
 
-        const cookies = cookieHeader.split(";");
-        let sessionId = null;
+    }
 
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
+    if (!sessionId) {
+        return null;
+    }
 
-            if (cookie.includes("sessionId=")) {
-                sessionId = cookie.split("=")[1];
+    for (let i = 0; i < sessions.length; i++) {
+        if (sessions[i].sessionId === sessionId) {
+            return sessions[i].userId;
+        }
+    }
+    return null;
+
+
+}
+
+function getUserProfile(request) {
+    try {
+        const data = readData();
+
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401
+            });
+        }
+
+        let userFound = null;
+
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].id === userId) {
+                userFound = data.users[i];
                 break;
             }
-
         }
 
-        if (!sessionId) {
-            return null;
-        }
-
-        for (let i = 0; i < sessions.length; i++) {
-            if (sessions[i].sessionId === sessionId) {
-                return sessions[i].userId;
-            }
-        }
-        return null;
-
-
-    }
-
-    function getUserProfile(request) {
-        try {
-            const data = readData();
-
-            const userId = getUserIdFromSession(request);
-
-            if (!userId) {
-                return new Response(JSON.stringify({}), {
-                    status: 401
-                });
-            }
-
-            let userFound = null;
-
-            for (let i = 0; i < data.users.length; i++) {
-                if (data.users[i].id === userId) {
-                    userFound = data.users[i];
-                    break;
-                }
-            }
-
-            if (!userFound) {
-                return new Response(JSON.stringify({}), {
-                    status: 404
-                });
-            }
-
-            let user = {
-                id: userFound.id,
-                email: userFound.email,
-                username: userFound.username,
-                profileImage: userFound.profileImage
-            };
-
-            return new Response(JSON.stringify(user), {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-        } catch (error) {
+        if (!userFound) {
             return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                status: 404
             });
         }
+
+        let user = {
+            id: userFound.id,
+            email: userFound.email,
+            username: userFound.username,
+            profileImage: userFound.profileImage
+        };
+
+        return new Response(JSON.stringify(user), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
     }
+}
 
-    async function patchUserProfile(request) {
-        try {
-            const data = readData();
-            const body = await request.json();
-
-
-
-            const userId = getUserIdFromSession(request);
-
-            if (!userId) {
-                return new Response(JSON.stringify({}), {
-                    status: 401
-                });
-            }
-
-            let userFound = null;
-
-            for (let i = 0; i < data.users.length; i++) {
-                if (data.users[i].id === userId) {
-                    userFound = data.users[i];
-                    break;
-                }
-            }
-
-            if (!userFound) {
-                return new Response(JSON.stringify({}), {
-                    status: 404
-                });
-            }
-
-            if (body.username) {
-                userFound.username = body.username;
-            }
-            if (body.email) {
-                userFound.email = body.email;
-            }
-
-            writeData(data);
-
-            return new Response(null, {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
+async function patchUserProfile(request) {
+    try {
+        const data = readData();
+        const body = await request.json();
 
 
-        } catch (error) {
+
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
             return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                status: 401
             });
         }
-    }
 
-    async function postProfileImage(request) {
-        try {
-            const userId = getUserIdFromSession(request);
+        let userFound = null;
 
-            if (!userId) {
-                return new Response(JSON.stringify({ error: "Not logged in" }), {
-                    status: 401,
-                });
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].id === userId) {
+                userFound = data.users[i];
+                break;
             }
+        }
 
-            const formData = await request.formData();
-            const imageFile = formData.get("image");
-
-            if (!imageFile) {
-                return new Response(JSON.stringify({ error: "No image file provided" }), {
-                    status: 400
-                });
-            }
-
-            const MAX_FILE_SIZE = 5 * 1024 * 1024;
-            if (imageFile.size > MAX_FILE_SIZE) {
-                return new Response(JSON.stringify({ error: "File too large" }), {
-                    status: 400
-                });
-            }
-
-            const extension = extname(imageFile.name);
-
-            const uniqueName = crypto.randomUUID();
-            const newFilename = uniqueName + extension;
-
-            const bytes = await imageFile.bytes();
-
-            const filePath = `./uploads/profile-images/${newFilename}`;
-            await Deno.writeFile(filePath, bytes);
-
-            const data = readData();
-            let user = null;
-            for (let i = 0; i < data.users.length; i++) {
-                if (data.users[i].id === userId) {
-                    user = data.users[i];
-                    break;
-                }
-            }
-
-            if (user.profileImage && user.profileImage.substring(0, 9) === "/uploads/") {
-                const oldPath = `.${user.profileImage}`;
-                try {
-                    await Deno.remove(oldPath);
-                } catch (error) {
-                    console.log("Error deleting old image:", error);
-                }
-            }
-
-            user.profileImage = `/uploads/profile-images/${newFilename}`;
-            writeData(data);
-
-            return new Response(JSON.stringify({ message: "Image uploaded", path: user.profileImage }), {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-        } catch (error) {
+        if (!userFound) {
             return new Response(JSON.stringify({}), {
-                status: 500,
+                status: 404
+            });
+        }
+
+        if (body.username) {
+            userFound.username = body.username;
+        }
+        if (body.email) {
+            userFound.email = body.email;
+        }
+
+        writeData(data);
+
+        return new Response(null, {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    }
+}
+
+async function postProfileImage(request) {
+    try {
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({ error: "Not logged in" }), {
+                status: 401,
+            });
+        }
+
+        const formData = await request.formData();
+        const imageFile = formData.get("image");
+
+        if (!imageFile) {
+            return new Response(JSON.stringify({ error: "No image file provided" }), {
+                status: 400
+            });
+        }
+
+        const MAX_FILE_SIZE = 5 * 1024 * 1024;
+        if (imageFile.size > MAX_FILE_SIZE) {
+            return new Response(JSON.stringify({ error: "File too large" }), {
+                status: 400
+            });
+        }
+
+        const extension = extname(imageFile.name);
+
+        const uniqueName = crypto.randomUUID();
+        const newFilename = uniqueName + extension;
+
+        const bytes = await imageFile.bytes();
+
+        const filePath = `./uploads/profile-images/${newFilename}`;
+        await Deno.writeFile(filePath, bytes);
+
+        const data = readData();
+        let user = null;
+        for (let i = 0; i < data.users.length; i++) {
+            if (data.users[i].id === userId) {
+                user = data.users[i];
+                break;
+            }
+        }
+
+        if (user.profileImage && user.profileImage.substring(0, 9) === "/uploads/") {
+            const oldPath = `.${user.profileImage}`;
+            try {
+                await Deno.remove(oldPath);
+            } catch (error) {
+                console.log("Error deleting old image:", error);
+            }
+        }
+
+        user.profileImage = `/uploads/profile-images/${newFilename}`;
+        writeData(data);
+
+        return new Response(JSON.stringify({ message: "Image uploaded", path: user.profileImage }), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    }
+}
+
+function getUsersStatistics(request) {
+    try {
+        const data = readData();
+
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
         }
-    }
 
-    function getUsersStatistics(request) {
-        try {
-            const data = readData();
+        let watchedCount = 0;
+        let watchlistCount = 0;
+        let totalWatchedMinutes = 0;
+        let ratingTotal = 0;
 
-            const userId = getUserIdFromSession(request);
-            if (!userId) {
-                return new Response(JSON.stringify({}), {
-                    status: 401,
-                    headers: {
-                        "Content-Type": "application/json"
+        for (let movie of data.movies) {
+            if (movie.userId == userId) {
+                if (movie.status == "Watched") {
+                    watchedCount++;
+                    totalWatchedMinutes += movie.runtime;
+                    if (movie.rating) {
+                        ratingTotal += movie.rating;
                     }
-                });
-            }
-
-            let watchedCount = 0;
-            let watchlistCount = 0;
-            let totalWatchedMinutes = 0;
-            let ratingTotal = 0;
-
-            for (let movie of data.movies) {
-                if (movie.userId == userId) {
-                    if (movie.status == "Watched") {
-                        watchedCount++;
-                        totalWatchedMinutes += movie.runtime;
-                        if (movie.rating) {
-                            ratingTotal += movie.rating;
-                        }
-                    } else if (movie.status == "Watchlist") {
-                        watchlistCount++;
-                    }
+                } else if (movie.status == "Watchlist") {
+                    watchlistCount++;
                 }
             }
+        }
 
-            let totalMovies = watchedCount + watchlistCount;
+        let totalMovies = watchedCount + watchlistCount;
 
-            let averageRating = 0;
-            if (watchedCount > 0) {
-                averageRating = ratingTotal / watchedCount;
-                averageRating = Math.round(averageRating * 10) / 10;
+        let averageRating = 0;
+        if (watchedCount > 0) {
+            averageRating = ratingTotal / watchedCount;
+            averageRating = Math.round(averageRating * 10) / 10;
+        }
+
+        let statistics = {
+            totalMovies: totalMovies,
+            watchedCount: watchedCount,
+            watchlistCount: watchlistCount,
+            avgRating: averageRating,
+            totalMinutes: totalWatchedMinutes
+        }
+
+        return new Response(JSON.stringify(statistics), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
             }
+        });
 
-            let statistics = {
-                totalMovies: totalMovies,
-                watchedCount: watchedCount,
-                watchlistCount: watchlistCount,
-                avgRating: averageRating,
-                totalMinutes: totalWatchedMinutes
+    } catch (error) {
+        console.error(error);
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
             }
+        });
+    }
+}
 
-            return new Response(JSON.stringify(statistics), {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
+function monthlyStatistics(request) {
+    try {
+        const data = readData();
 
-        } catch (error) {
-            console.error(error);
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
             return new Response(JSON.stringify({}), {
-                status: 500,
+                status: 401,
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
         }
-    }
 
-    function monthlyStatistics(request) {
-        try {
-            const data = readData();
+        let monthlyStats = [];
+        for (let movie of data.movies) {
+            if (movie.userId == userId) {
+                if (movie.status == "Watched") {
+                    let allParts = movie.dateWatched.split("-");
+                    //måste dubbelkolla att vår type="date" i html skickar in år-månad-dag
+                    let year = allParts[0];
+                    let month = allParts[1];
+                    let monthkey = year + "-" + month;
 
-            const userId = getUserIdFromSession(request);
-            if (!userId) {
-                return new Response(JSON.stringify({}), {
-                    status: 401,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-            }
-
-            let monthlyStats = [];
-            for (let movie of data.movies) {
-                if (movie.userId == userId) {
-                    if (movie.status == "Watched") {
-                        let allParts = movie.dateWatched.split("-");
-                        //måste dubbelkolla att vår type="date" i html skickar in år-månad-dag
-                        let year = allParts[0];
-                        let month = allParts[1];
-                        let monthkey = year + "-" + month;
-
-                        let found = false;
-                        for (let stat of monthlyStats) {
-                            if (stat.month == monthkey) {
-                                stat.count++;
-                                found = true;
-                                break;
-                            }
-                        }
-
-                        if (!found) {
-                            monthlyStats.push({
-                                month: monthkey,
-                                count: 1
-                            });
+                    let found = false;
+                    for (let stat of monthlyStats) {
+                        if (stat.month == monthkey) {
+                            stat.count++;
+                            found = true;
+                            break;
                         }
                     }
+
+                    if (!found) {
+                        monthlyStats.push({
+                            month: monthkey,
+                            count: 1
+                        });
+                    }
                 }
             }
+        }
 
-            return new Response(JSON.stringify(monthlyStats), {
-                status: 200,
+        return new Response(JSON.stringify(monthlyStats), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+    } catch (error) {
+        console.log(error.message);
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    }
+}
+
+async function postGenres(request) {
+    try {
+        const data = readData();
+        const body = await request.json();
+
+        if (!body.name) {
+            return new Response(JSON.stringify({}), {
+                status: 400,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        }
+
+        let genreExists = false;
+        for (let genre of data.genre) {
+            if (genre.name === body.name) {
+                genreExists = true;
+                break;
+            }
+        }
+
+        if (genreExists) {
+            return new Response(JSON.stringify({}), {
+                status: 409,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        }
+
+        let maxId = 0;
+        for (let genre of data.genre) {
+            const id = parseInt(genre.id);
+            if (id > maxId) {
+                maxId = id;
+            }
+        }
+
+        const newId = `${maxId + 1}`;
+
+        const newGenre = {
+            id: newId,
+            name: body.name
+        }
+
+        data.genre.push(newGenre);
+        writeData(data)
+
+        return new Response(JSON.stringify({}), {
+            status: 201,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    }
+}
+
+function deleteGenre(request, id) {
+    try {
+        const data = readData();
+        let found = false;
+        const updatedGenres = [];
+
+        for (let i = 0; i < data.genre.length; i++) {
+            if (data.genre[i].id == id) {
+                found = true;
+            } else {
+                updatedGenres.push(data.genre[i])
+            }
+        }
+
+        if (!found) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        }
+
+        let isUsedInMovie = false;
+        for (let i = 0; i < data.movies.length; i++) {
+            if (data.movies[i].genreId == id) {
+                isUsedInMovie = true;
+                break;
+            }
+        }
+
+        //VI MÅSTE kontrollera så att genre inte används i en film innan det kan raderas. 409 betyder conflict :)
+        if (isUsedInMovie) {
+            return new Response(JSON.stringify({}), {
+                status: 409,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        }
+
+        data.genre = updatedGenres;
+        writeData(data);
+
+        return new Response(null, {
+            status: 204,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    }
+}
+
+function getUserMovieTitles(request) {
+    try {
+        const data = readData();
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
 
-        } catch (error) {
-            console.log(error.message);
+        }
+
+        const movieTitles = [];
+        for (let i = 0; i < data.movies.length; i++) {
+            const movie = data.movies[i];
+            if (movie.userId === userId) {
+                movieTitles.push({
+                    id: movie.id,
+                    title: movie.title
+                });
+            }
+        }
+
+        return new Response(JSON.stringify(movieTitles), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    }
+
+}
+
+async function createCustomList(request) {
+    try {
+        const data = readData();
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
             return new Response(JSON.stringify({}), {
-                status: 500,
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+        }
+
+        const body = await request.json();
+        if (!body.name) {
+            return new Response(JSON.stringify({}), {
+                status: 400,
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
         }
-    }
 
-    async function postGenres(request) {
-        try {
-            const data = readData();
-            const body = await request.json();
+        let maxId = 0;
+        for (let i = 0; i < data.lists.length; i++) {
+            const id = parseInt(data.lists[i].id);
+            if (id > maxId) { maxId = id };
+        }
+        const newId = `${maxId + 1}`;
 
-            if (!body.name) {
-                return new Response(JSON.stringify({}), {
-                    status: 400,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
+        const newList = {
+            id: newId,
+            userId: userId,
+            name: body.name,
+            type: "custom",
+            movieIds: []
+        }
+
+        data.lists.push(newList);
+        writeData(data);
+
+        return new Response(JSON.stringify(newList), {
+            status: 201,
+            headers: {
+                "Content-Type": "application/json"
             }
+        })
 
-            let genreExists = false;
-            for (let genre of data.genre) {
-                if (genre.name === body.name) {
-                    genreExists = true;
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    }
+}
+
+function getAllCustomLists(request) {
+    try {
+
+        const data = readData();
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+        }
+
+        const customLists = [];
+        for (let i = 0; i < data.lists.length; i++) {
+            const list = data.lists[i];
+            if (list.userId === userId && list.type == "custom") {
+                customLists.push(list);
+            }
+        }
+
+        return new Response(JSON.stringify(customLists), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    }
+}
+
+function deleteCustomList(request, id) {
+    try {
+        const data = readData();
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+        }
+
+        let listToDelete = null;
+        for (let i = 0; i < data.lists.length; i++) {
+            if (data.lists[i].id === id) {
+                listToDelete = data.lists[i];
+                break;
+            }
+        }
+
+        if (!listToDelete) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+        }
+
+        if (listToDelete.type !== "custom" || listToDelete.userId !== userId) {
+            return new Response(JSON.stringify({}), {
+                status: 403,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+        }
+
+        const newLists = [];
+        for (let i = 0; i < data.lists.length; i++) {
+            if (data.lists[i].id !== id) {
+                newLists.push(data.lists[i]);
+            }
+        }
+        data.lists = newLists;
+        writeData(data);
+
+        return new Response(null, {
+            status: 204
+        });
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+    }
+}
+
+function getMoviesByListId(request, listId) {
+    try {
+        const data = readData();
+        const userId = getUserIdFromSession(request);
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+        }
+
+        let targetList = null;
+        for (let i = 0; i < data.lists.length; i++) {
+            if (data.lists[i].id === listId && data.lists[i].userId === userId) {
+                targetList = data.lists[i];
+                break;
+            }
+        }
+
+        if (!targetList) {
+            return new Response(JSON.stringify({}), {
+                status: 404,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+        }
+
+        const moviesInList = [];
+        for (let i = 0; i < data.movies.length; i++) {
+            const movie = data.movies[i];
+            for (let j = 0; j < targetList.movieIds.length; j++) {
+                if (movie.id === targetList.movieIds[j]) {
+                    moviesInList.push(movie);
                     break;
                 }
             }
-
-            if (genreExists) {
-                return new Response(JSON.stringify({}), {
-                    status: 409,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-            }
-
-            let maxId = 0;
-            for (let genre of data.genre) {
-                const id = parseInt(genre.id);
-                if (id > maxId) {
-                    maxId = id;
-                }
-            }
-
-            const newId = `${maxId + 1}`;
-
-            const newGenre = {
-                id: newId,
-                name: body.name
-            }
-
-            data.genre.push(newGenre);
-            writeData(data)
-
-            return new Response(JSON.stringify({}), {
-                status: 201,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-
-        } catch (error) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
         }
+        return new Response(JSON.stringify(moviesInList), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
     }
+}
 
-    function deleteGenre(request, id) {
-        try {
-            const data = readData();
-            let found = false;
-            const updatedGenres = [];
-
-            for (let i = 0; i < data.genre.length; i++) {
-                if (data.genre[i].id == id) {
-                    found = true;
-                } else {
-                    updatedGenres.push(data.genre[i])
-                }
-            }
-
-            if (!found) {
-                return new Response(JSON.stringify({}), {
-                    status: 404,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-            }
-
-            let isUsedInMovie = false;
-            for (let i = 0; i < data.movies.length; i++) {
-                if (data.movies[i].genreId == id) {
-                    isUsedInMovie = true;
-                    break;
-                }
-            }
-
-            //VI MÅSTE kontrollera så att genre inte används i en film innan det kan raderas. 409 betyder conflict :)
-            if (isUsedInMovie) {
-                return new Response(JSON.stringify({}), {
-                    status: 409,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-            }
-
-            data.genre = updatedGenres;
-            writeData(data);
-
-            return new Response(null, {
-                status: 204,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-
-        } catch (error) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-        }
-    }
-
-    function getUserMovieTitles(request) {
-        try {
-            const data = readData();
-            const userId = getUserIdFromSession(request);
-
-            if (!userId) {
-                return new Response(JSON.stringify({}), {
-                    status: 401,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-
-            }
-
-            const movieTitles = [];
-            for (let i = 0; i < data.movies.length; i++) {
-                const movie = data.movies[i];
-                if (movie.userId === userId) {
-                    movieTitles.push({
-                        id: movie.id,
-                        title: movie.title
-                    });
-                }
-            }
-
-            return new Response(JSON.stringify(movieTitles), {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-
-        } catch (error) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-        }
-
-    }
-
-    async function createCustomList(request) {
-        try {
-            const data = readData();
-            const userId = getUserIdFromSession(request);
-
-            if (!userId) {
-                return new Response(JSON.stringify({}), {
-                    status: 401,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-
-            }
-
-            const body = await request.json();
-            if (!body.name) {
-                return new Response(JSON.stringify({}), {
-                    status: 400,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-            }
-
-            let maxId = 0;
-            for (let i = 0; i < data.lists.length; i++) {
-                const id = parseInt(data.lists[i].id);
-                if (id > maxId) { maxId = id };
-            }
-            const newId = `${maxId + 1}`;
-
-            const newList = {
-                id: newId,
-                userId: userId,
-                name: body.name,
-                type: "custom",
-                movieIds: []
-            }
-
-            data.lists.push(newList);
-            writeData(data);
-
-            return new Response(JSON.stringify(newList), {
-                status: 201,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-
-        } catch (error) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-        }
-    }
-
-    function getAllCustomLists(request) {
-        try {
-
-            const data = readData();
-            const userId = getUserIdFromSession(request);
-
-            if (!userId) {
-                return new Response(JSON.stringify({}), {
-                    status: 401,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-
-            }
-
-            const customLists = [];
-            for (let i = 0; i < data.lists.length; i++) {
-                const list = data.lists[i];
-                if (list.userId === userId && list.type == "custom") {
-                    customLists.push(list);
-                }
-            }
-
-            return new Response(JSON.stringify(customLists), {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-
-        } catch (error) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-        }
-    }
-
-    function deleteCustomList(request, id) {
-        try {
-            const data = readData();
-            const userId = getUserIdFromSession(request);
-            if (!userId) {
-                return new Response(JSON.stringify({}), {
-                    status: 401,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-
-            }
-
-            let listToDelete = null;
-            for (let i = 0; i < data.lists.length; i++) {
-                if (data.lists[i].id === id) {
-                    listToDelete = data.lists[i];
-                    break;
-                }
-            }
-
-            if (!listToDelete) {
-                return new Response(JSON.stringify({}), {
-                    status: 404,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-            }
-
-            if (listToDelete.type !== "custom" || listToDelete.userId !== userId) {
-                return new Response(JSON.stringify({}), {
-                    status: 403,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-            }
-
-            const newLists = [];
-            for (let i = 0; i < data.lists.length; i++) {
-                if (data.lists[i].id !== id) {
-                    newLists.push(data.lists[i]);
-                }
-            }
-            data.lists = newLists;
-            writeData(data);
-
-            return new Response(null, {
-                status: 204
-            });
-
-        } catch (error) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-        }
-    }
-
-    function getMoviesByListId(request, listId) {
-        try {
-            const data = readData();
-            const userId = getUserIdFromSession(request);
-            if (!userId) {
-                return new Response(JSON.stringify({}), {
-                    status: 401,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-
-            }
-
-            let targetList = null;
-            for (let i = 0; i < data.lists.length; i++) {
-                if (data.lists[i].id === listId && data.lists[i].userId === userId) {
-                    targetList = data.lists[i];
-                    break;
-                }
-            }
-
-            if (!targetList) {
-                return new Response(JSON.stringify({}), {
-                    status: 404,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                });
-            }
-
-            const moviesInList = [];
-            for (let i = 0; i < data.movies.length; i++) {
-                const movie = data.movies[i];
-                for (let j = 0; j < targetList.movieIds.length; j++) {
-                    if (movie.id === targetList.movieIds[j]) {
-                        moviesInList.push(movie);
-                        break;
-                    }
-                }
-            }
-            return new Response(JSON.stringify(moviesInList), {
-                status: 200,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-
-        } catch (error) {
-            return new Response(JSON.stringify({}), {
-                status: 500,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-        }
-    }
-
-    export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, getUserIdFromSession };
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, getUserIdFromSession };
 
 
