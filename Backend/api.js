@@ -733,9 +733,9 @@ function getUserIdFromSession(request) {
     const cookies = cookieHeader.split(";");
     let sessionId = null;
 
-    for(let i=0; i < cookie.length; i++)
-
+    for(let i=0; i < cookies.length; i++)
         const cookie = cookies[i].trim();
+
         if(cookie.includes("sessionId=")){
 
             sessionId = cookie.split("=")[1];
@@ -1457,6 +1457,6 @@ function getMoviesByListId(request, listId) {
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, postGenres, deleteGenre,getUserIdFromSession};
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId,getUserIdFromSession};
 
 
