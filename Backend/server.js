@@ -14,6 +14,7 @@ function handler(request) {
         return new Response(null, {
             status: 204,
             headers: {
+                "Content-Type": "application/json",
                 "Access-Control-Allow-Origin":  ALLOWED_ORIGINS,
                 "Access-Control-Allow-Methods": "GET, POST, PATCH, DELETE, OPTIONS",
                 "Access-Control-Allow-Headers": "Authorization, Content-Type, Accept",
