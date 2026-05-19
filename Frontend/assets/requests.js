@@ -28,7 +28,7 @@ class API {
         try {
             const credentials = { username: username, password: password };
 
-            const response = await fetch("/auth/login", {
+            const response = await fetch("http://localhost:8000/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
