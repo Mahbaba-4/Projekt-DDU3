@@ -27,8 +27,7 @@ function getMovieById(request, id) {
             return new Response(JSON.stringify({}), {
                 status: 404,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
 
@@ -38,8 +37,7 @@ function getMovieById(request, id) {
         return new Response(JSON.stringify(movie), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
 
@@ -49,8 +47,7 @@ function getMovieById(request, id) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -64,16 +61,14 @@ function getGenres(request) {
         return new Response(JSON.stringify(genres), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     } catch (error) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -89,9 +84,6 @@ async function createMovieReview(request) {
         if (!userId) {
             return new Response(JSON.stringify({ error: "Not logged in" }), {
                 status: 401,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
             });
         }
 
@@ -99,8 +91,7 @@ async function createMovieReview(request) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
         }
@@ -109,8 +100,7 @@ async function createMovieReview(request) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
 
@@ -176,16 +166,12 @@ async function createMovieReview(request) {
 
         return new Response(null, {
             status: 204,
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            }
         });
     } catch (error) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -211,8 +197,7 @@ function deleteMovieById(request, id) {
             return new Response(JSON.stringify({}), {
                 status: 404,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             })
         }
@@ -236,18 +221,14 @@ function deleteMovieById(request, id) {
         writeData(data);
 
         return new Response(null, {
-            status: 204,
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            }
+            status: 204
         })
 
     } catch (err) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -273,8 +254,7 @@ async function patchMovieById(request, id) {
             return new Response(JSON.stringify({}), {
                 status: 404,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
         }
@@ -286,7 +266,6 @@ async function patchMovieById(request, id) {
             movieToUpdate.year = body.year;
         }
 
-        //SAMMA SOM I createMovieReview för genre :)
         if (body.genre) {
             let genreId = null;
             for (let genre of data.genre) {
@@ -360,18 +339,14 @@ async function patchMovieById(request, id) {
         writeData(data);
 
         return new Response(null, {
-            status: 200,
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            }
+            status: 200
         });
 
     } catch (error) {
         return new Response(JSON.stringify({ error: error.message }), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -417,8 +392,7 @@ function getMovies(request) {
                 return new Response(JSON.stringify({ error: "No movies found with this status" }), {
                     status: 400,
                     headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "*"
+                        "Content-Type": "application/json"
                     }
                 });
             }
@@ -427,16 +401,14 @@ function getMovies(request) {
         return new Response(JSON.stringify(movies), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     } catch (error) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -451,7 +423,9 @@ function searchFilterMovies(request) {
         if (!searchQuery || searchQuery === "") {
             return new Response(JSON.stringify({}), {
                 status: 400,
-                headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }
+                headers: { 
+                    "Content-Type": "application/json"
+                }
             });
         }
 
@@ -473,8 +447,7 @@ function searchFilterMovies(request) {
         return new Response(JSON.stringify(matchedMovies), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
 
@@ -482,8 +455,7 @@ function searchFilterMovies(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
 
@@ -548,8 +520,7 @@ async function postSignUp(request) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             })
         }
@@ -570,8 +541,7 @@ async function postSignUp(request) {
             return new Response(JSON.stringify({}), {
                 status: 409,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             })
         }
@@ -606,8 +576,7 @@ async function postSignUp(request) {
         return new Response(JSON.stringify(userWithoutPassword), {
             status: 201,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
 
@@ -615,8 +584,7 @@ async function postSignUp(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
     }
@@ -631,8 +599,7 @@ async function postLogIn(request) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             })
         }
@@ -653,8 +620,7 @@ async function postLogIn(request) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             })
         }
@@ -698,7 +664,6 @@ async function postLogIn(request) {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*",
                 "Set-Cookie": "sessionId=" + newSessionId + "; Max-Age=86400; Path=/"
             }
         })
@@ -707,8 +672,7 @@ async function postLogIn(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
     }
@@ -722,9 +686,6 @@ function postLogOut(request) {
         if (!cookieHeader) {
             return new Response(JSON.stringify({}), {
                 status: 401,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
             })
         }
 
@@ -746,8 +707,7 @@ function postLogOut(request) {
             return new Response(JSON.stringify({}), {
                 status: 404,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             })
         }
@@ -758,7 +718,6 @@ function postLogOut(request) {
         return new Response(null, {
             status: 204,
             headers: {
-                "Access-Control-Allow-Origin": "*",
                 "Set-Cookie": "sessionId=; Max-Age=0; Path=/"
             }
         })
@@ -766,8 +725,7 @@ function postLogOut(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
     }
@@ -810,10 +768,7 @@ function getUserProfile(request) {
 
         if (!userId) {
             return new Response(JSON.stringify({}), {
-                status: 401,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
+                status: 401
             });
         }
 
@@ -828,10 +783,7 @@ function getUserProfile(request) {
 
         if (!userFound) {
             return new Response(JSON.stringify({}), {
-                status: 404,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
+                status: 404
             });
         }
 
@@ -845,16 +797,14 @@ function getUserProfile(request) {
         return new Response(JSON.stringify(user), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     } catch (error) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -871,10 +821,7 @@ async function patchUserProfile(request) {
 
         if (!userId) {
             return new Response(JSON.stringify({}), {
-                status: 401,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
+                status: 401
             });
         }
 
@@ -889,10 +836,7 @@ async function patchUserProfile(request) {
 
         if (!userFound) {
             return new Response(JSON.stringify({}), {
-                status: 404,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
+                status: 404
             });
         }
 
@@ -908,8 +852,7 @@ async function patchUserProfile(request) {
         return new Response(null, {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
 
@@ -918,8 +861,7 @@ async function patchUserProfile(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -932,9 +874,6 @@ async function postProfileImage(request) {
         if (!userId) {
             return new Response(JSON.stringify({ error: "Not logged in" }), {
                 status: 401,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
             });
         }
 
@@ -943,20 +882,14 @@ async function postProfileImage(request) {
 
         if (!imageFile) {
             return new Response(JSON.stringify({ error: "No image file provided" }), {
-                status: 400,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
+                status: 400
             });
         }
 
         const MAX_FILE_SIZE = 5 * 1024 * 1024;
         if (imageFile.size > MAX_FILE_SIZE) {
             return new Response(JSON.stringify({ error: "File too large" }), {
-                status: 400,
-                headers: {
-                    "Access-Control-Allow-Origin": "*"
-                }
+                status: 400
             });
         }
 
@@ -994,16 +927,14 @@ async function postProfileImage(request) {
         return new Response(JSON.stringify({ message: "Image uploaded", path: user.profileImage }), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     } catch (error) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -1018,8 +949,7 @@ function getUsersStatistics(request) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
         }
@@ -1048,7 +978,7 @@ function getUsersStatistics(request) {
         let averageRating = 0;
         if (watchedCount > 0) {
             averageRating = ratingTotal / watchedCount;
-            averageRating = Math.round(averageRating * 10) / 10; // Det här gör att vi avrundar till en decimal annars fick vi 3,9312... osv på testet
+            averageRating = Math.round(averageRating * 10) / 10; 
         }
 
         let statistics = {
@@ -1062,8 +992,7 @@ function getUsersStatistics(request) {
         return new Response(JSON.stringify(statistics), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
 
@@ -1072,8 +1001,7 @@ function getUsersStatistics(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -1088,8 +1016,7 @@ function monthlyStatistics(request) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
         }
@@ -1126,8 +1053,7 @@ function monthlyStatistics(request) {
         return new Response(JSON.stringify(monthlyStats), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
 
@@ -1136,8 +1062,7 @@ function monthlyStatistics(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -1152,8 +1077,7 @@ async function postGenres(request) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             })
         }
@@ -1170,8 +1094,7 @@ async function postGenres(request) {
             return new Response(JSON.stringify({}), {
                 status: 409,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             })
         }
@@ -1197,8 +1120,7 @@ async function postGenres(request) {
         return new Response(JSON.stringify({}), {
             status: 201,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
 
@@ -1206,8 +1128,7 @@ async function postGenres(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
     }
@@ -1231,8 +1152,7 @@ function deleteGenre(request, id) {
             return new Response(JSON.stringify({}), {
                 status: 404,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             })
         }
@@ -1250,8 +1170,7 @@ function deleteGenre(request, id) {
             return new Response(JSON.stringify({}), {
                 status: 409,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             })
         }
@@ -1262,8 +1181,7 @@ function deleteGenre(request, id) {
         return new Response(null, {
             status: 204,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
 
@@ -1271,8 +1189,7 @@ function deleteGenre(request, id) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
     }
@@ -1287,8 +1204,7 @@ function getUserMovieTitles(request) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
 
@@ -1308,8 +1224,7 @@ function getUserMovieTitles(request) {
         return new Response(JSON.stringify(movieTitles), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
 
@@ -1317,8 +1232,7 @@ function getUserMovieTitles(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
@@ -1334,8 +1248,7 @@ async function createCustomList(request) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
 
@@ -1346,8 +1259,7 @@ async function createCustomList(request) {
             return new Response(JSON.stringify({}), {
                 status: 400,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
         }
@@ -1373,8 +1285,7 @@ async function createCustomList(request) {
         return new Response(JSON.stringify(newList), {
             status: 201,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
 
@@ -1382,8 +1293,7 @@ async function createCustomList(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
     }
@@ -1400,8 +1310,7 @@ function getAllCustomLists(request) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
 
@@ -1418,8 +1327,7 @@ function getAllCustomLists(request) {
         return new Response(JSON.stringify(customLists), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
 
@@ -1427,8 +1335,7 @@ function getAllCustomLists(request) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
     }
@@ -1442,8 +1349,7 @@ function deleteCustomList(request, id) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
 
@@ -1461,8 +1367,7 @@ function deleteCustomList(request, id) {
             return new Response(JSON.stringify({}), {
                 status: 404,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
         }
@@ -1471,8 +1376,7 @@ function deleteCustomList(request, id) {
             return new Response(JSON.stringify({}), {
                 status: 403,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
         }
@@ -1487,16 +1391,14 @@ function deleteCustomList(request, id) {
         writeData(data);
 
         return new Response(null, {
-            status: 204,
-            headers: { "Access-Control-Allow-Origin": "*" }
+            status: 204
         });
 
     } catch (error) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         })
     }
@@ -1511,8 +1413,7 @@ function getMoviesByListId(request, listId) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
 
@@ -1530,8 +1431,7 @@ function getMoviesByListId(request, listId) {
             return new Response(JSON.stringify({}), {
                 status: 404,
                 headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*"
+                    "Content-Type": "application/json"
                 }
             });
         }
@@ -1549,8 +1449,7 @@ function getMoviesByListId(request, listId) {
          return new Response(JSON.stringify(moviesInList), {
             status: 200,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
 
@@ -1558,17 +1457,11 @@ function getMoviesByListId(request, listId) {
         return new Response(JSON.stringify({}), {
             status: 500,
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "*"
+                "Content-Type": "application/json"
             }
         });
     }
 }
-
-
-
-
-
 
 export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId };
 
