@@ -1,7 +1,7 @@
 import { extname } from "jsr:@std/path";
 
 
-let sessions = [];
+export let sessions = [];
 
 
 function readData() {
@@ -606,8 +606,9 @@ async function postSignUp(request) {
 
 async function postLogIn(request) {
     try {
-        const data = readData();
+       const data = readData();
         const body = await request.json();
+
 
         if (!body.username || !body.password) {
             return new Response(JSON.stringify({}), {
@@ -618,19 +619,21 @@ async function postLogIn(request) {
             })
         }
 
-        if (!data.users) {
-            data.users = [];
-        }
+        const username = body.username;
+        const password = body.password;
 
-        let foundUser = null;
+
+
+
+        let user = null;
         for (let i = 0; i < data.users.length; i++) {
-            if (data.users[i].username === body.username && data.users[i].passwordHash === body.password) {
-                foundUser = data.users[i];
+            if (data.users[i].username === username && data.users[i].passwordHash === password) {
+                user = data.users[i];
                 break;
             }
         }
 
-        if (!foundUser) {
+        if (!user) {
             return new Response(JSON.stringify({}), {
                 status: 401,
                 headers: {
@@ -639,42 +642,20 @@ async function postLogIn(request) {
             })
         }
 
+        const sessionId = crypto.randomUUID();
 
-        let newSessions = [];
-        for (let i = 0; i < sessions.length; i++) {
-            if (sessions[i].userId !== foundUser.id) {
-                newSessions.push(sessions[i]);
-            }
-        }
-        sessions = newSessions;
+        sessions.push({
+            sessionId: sessionId,
+            userId: user.id
+        });
 
-        let maxId = 0;
-        for (let session of sessions) {
-            const id = parseInt(session.id);
-            if (id > maxId) {
-                maxId = id
-            }
-        }
-        let newSessionId = `${maxId + 1}`;
 
-        let newSession = {
-            id: newSessionId,
-            userId: foundUser.id,
-            username: foundUser.username
-        }
 
-        sessions.push(newSession);
-
-        let userWithoutPasswordForLogIn = {
-            id: foundUser.id,
-            username: foundUser.username,
-        }
-
-        return new Response(JSON.stringify(userWithoutPasswordForLogIn), {
+        return new Response(JSON.stringify({message: "Login successful", userId: user.id}), {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
-                "Set-Cookie": "sessionId=" + newSessionId + "; Max-Age=86400;"
+                "Set-Cookie": "sessionId=" + sessionId + "; Max-Age=86400;"
             }
         })
 
@@ -742,26 +723,31 @@ function postLogOut(request) {
 }
 
 function getUserIdFromSession(request) {
-    const data = readData();
+    
     const cookieHeader = request.headers.get("Cookie");
 
     if (!cookieHeader) {
         return null;
     }
 
-    const cookieHeaderSplit = cookieHeader.split("=");
+    const cookies = cookieHeader.split(";");
     let sessionId = null;
 
-    if (cookieHeaderSplit[0] === "sessionId") {
-        sessionId = cookieHeaderSplit[1];
-    }
+    for(let i=0; i < cookie.length; i++)
+
+        const cookie = cookies[i].trim();
+        if(cookie.includes("sessionId=")){
+
+            sessionId = cookie.split("=")[1];
+            break;
+        }
 
     if (!sessionId) {
         return null;
     }
 
     for (let i = 0; i < sessions.length; i++) {
-        if (sessions[i].id === sessionId) {
+        if (sessions[i].sessionId === sessionId) {
             return sessions[i].userId;
         }
     }
@@ -1471,6 +1457,6 @@ function getMoviesByListId(request, listId) {
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, postGenres, deleteGenre };
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, postGenres, deleteGenre,getUserIdFromSession};
 
 

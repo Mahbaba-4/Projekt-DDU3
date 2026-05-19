@@ -1,10 +1,19 @@
 
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId,postGenres, deleteGenre} from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId,postGenres, deleteGenre, sessions, getUserIdFromSession} from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 const genreByIdRoute = new URLPattern({ pathname: "/movie/genre/:id" })
 const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
 
+function authorization(request){
+    const userId = getUserIdFromSession(request);
+
+    if(!userId){
+        return null;
+    }
+
+    return userId; 
+}
 
 function handler(request) {
     let url = new URL(request.url);
@@ -21,23 +30,15 @@ function handler(request) {
         return postLogOut(request)
     }
 
-    /*  if (/* kolla om den cookien som dom skickade finns och är aktiv cookie ){
-        return new Response(JSON.stringify({}), {
-            status: 401
-        })
-    }*/
-
     if (url.pathname == "/") {
-        // const userCookie = request.headers.get("Cookie");
-        // for (let cookie of cookies) {
-        //     if (cookie.value.includes(userCookie)) {
-        //         const userId = cookie.userId;
-        //         // ..  nu vet vi vem det är
-        //         // visa rätt HTMLsida
+        const userId = authorization(request);
+
+       if(!userId){
+        return serveFile(request, "login.html");
+       }
 
         return serveFile(request, "main-page.html");
-        //     }
-        // }
+       
     }
 
   
