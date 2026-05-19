@@ -19,17 +19,11 @@ function authorization(request) {
 async function handler(request) {
     let url = new URL(request.url);
 
-    const frontendResponse = serveDir(request, { fsRoot: "../Frontend" })
-    if (frontendResponse.status !== 404) {
-        return frontendResponse;
-    }
-
     if (url.pathname == "/auth/signup") {
         if (request.method === "POST") {
             return await postSignUp(request)
         }
     }
-
 
     if (url.pathname === "/auth/login" && request.method === "POST") {
         return await postLogIn(request);
@@ -38,26 +32,6 @@ async function handler(request) {
     if (url.pathname === "/auth/logout" && request.method === "POST") {
         return postLogOut(request)
     }
-
-    if (url.pathname == "/") {
-        const userId = authorization(request);
-
-
-        let filePath;
-
-        if (!userId) {
-            filePath = "../Frontend/login.html";
-        } else {
-            filePath = "../Frontend/main-page.html";
-
-        }
-
-
-        return new Response(await Deno.readTextFile(filePath), {
-            headers: { "Content-Type": "text/html" }
-        })
-    }
-
 
     if (url.pathname === "/user/profile" && request.method === "GET") {
         return getUserProfile(request);
@@ -179,6 +153,26 @@ async function handler(request) {
     if (movieMatch && request.method === "PATCH") {
         let id = movieMatch.pathname.groups.id;
         return patchMovieById(request, id);
+    }
+ //route for localhost//
+     if (url.pathname == "/") {
+        const userId = authorization(request);
+        let filePath;
+
+        if (!userId) {
+            filePath = "../Frontend/login.html";
+        } else {
+            filePath = "../Frontend/main-page.html";
+
+        }
+        return new Response(await Deno.readTextFile(filePath), {
+            headers: { "Content-Type": "text/html" }
+        })
+    }
+//file frontend serves// 
+    const frontendResponse = serveDir(request, { fsRoot: "../Frontend" })
+    if (frontendResponse.status !== 404) {
+        return frontendResponse;
     }
 
     return new Response(JSON.stringify({}), {
