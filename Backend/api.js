@@ -16,6 +16,15 @@ function writeData(data) {
 function getMovieById(request, id) {
     try {
         const db = readData();
+
+        const userId = getUserIdFromSession(request);
+
+        if (!userId) {
+            return new Response(JSON.stringify({}), {
+                status: 401
+            });
+        }
+
         const movies = db.movies;
 
         let movie = null;
@@ -696,11 +705,11 @@ function postLogOut(request) {
         let found = false;
         let newSessions = [];
 
-        for (let i = 0; i < data.sessions.length; i++) {
+        for (let i = 0; i < sessions.length; i++) {
             if (sessions[i].id == sessionId) {
                 found = true;
             } else {
-                newSessions.push(data.sessions[i])
+                newSessions.push(sessions[i])
             }
         }
 
@@ -713,13 +722,13 @@ function postLogOut(request) {
             })
         }
 
-        data.sessions = newSessions;
+        sessions = newSessions;
         writeData(data);
 
         return new Response(null, {
             status: 204,
             headers: {
-                "Set-Cookie": "sessionId=; Max-Age=0; Path=/"
+                "Set-Cookie": "sessionId=; Max-Age=0; "
             }
         })
     } catch (err) {
