@@ -8,7 +8,6 @@ const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
 
 function handler(request) {
     let url = new URL(request.url);
-
     if (request.method === "OPTIONS") {
         return new Response(null, {
             status: 204,
