@@ -45,17 +45,6 @@ class UI {
 
     }
 
-    logOutButton(){
-        const logOutButton = document.getElementById("logOut");
-        if(logOutButton){
-            logOutButton.addEventListener("click", async function (e){
-                e.preventDefault();
-
-                alert("Du kommer att loggas ut");
-                await this.api.logOut();
-            })
-        }
-    }
 }
 
 
