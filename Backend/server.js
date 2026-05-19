@@ -6,7 +6,6 @@ const genreByIdRoute = new URLPattern({ pathname: "/movie/genre/:id" })
 const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
 
 
-
 function handler(request) {
     let url = new URL(request.url);
 
