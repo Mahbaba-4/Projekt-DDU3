@@ -169,7 +169,7 @@ async function createMovieReview(request) {
         writeData(data);
 
         return new Response(null, {
-            status: 204,
+            status: 200,
         });
     } catch (error) {
         return new Response(JSON.stringify({}), {
@@ -343,7 +343,7 @@ async function patchMovieById(request, id) {
         writeData(data);
 
         return new Response(null, {
-            status: 200
+            status: 204
         });
 
     } catch (error) {
@@ -1462,6 +1462,6 @@ function getMoviesByListId(request, listId) {
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId };
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, postGenres, deleteGenre };
 
 
