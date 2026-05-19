@@ -558,12 +558,5 @@
       "passwordHash": "123456",
       "username": "test2"
     }
-  ],
-  "sessions": [
-    {
-      "id": "1",
-      "userId": "1",
-      "username": "testuser"
-    }
   ]
 }

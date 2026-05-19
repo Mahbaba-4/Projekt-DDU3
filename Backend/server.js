@@ -22,25 +22,26 @@ function handler(request) {
         return postLogOut(request)
     }
 
-
-    if (url.pathname == "/main-page") {
-        const userCookie = request.headers.get("Cookie");
-        for (let cookie of cookies) {
-            if (cookie.value.includes(userCookie)) {
-                const userId = cookie.userId;
-                // ..  nu vet vi vem det är
-                // visa rätt HTMLsida
-
-                return serveFile(request, "main-page.html");
-            }
-        }
-    }
-
-    if (request.headers.get("Authorization") !== "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6") {
+      if (/* kolla om den cookien som dom skickade finns och är aktiv */cookie ){
         return new Response(JSON.stringify({}), {
             status: 401
         })
     }
+
+    if (url.pathname == "/") {
+        // const userCookie = request.headers.get("Cookie");
+        // for (let cookie of cookies) {
+        //     if (cookie.value.includes(userCookie)) {
+        //         const userId = cookie.userId;
+        //         // ..  nu vet vi vem det är
+        //         // visa rätt HTMLsida
+
+        return serveFile(request, "main-page.html");
+        //     }
+        // }
+    }
+
+  
 
 
 
