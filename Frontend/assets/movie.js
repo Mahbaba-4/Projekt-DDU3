@@ -7,7 +7,7 @@ class UI {
     signUpForm(){
         const signUpForm = document.getElementById("movieForm");
 
-        signUpForm.addEventListener("submit", async (e) => {e.preventDefault()
+        signUpForm.addEventListener("submit", async function (e) {e.preventDefault()
 
             const usernameInput = document.getElementById("username").value;
             const emailInput = document.getElementById("email").value;
@@ -29,7 +29,7 @@ class UI {
     logInForm(){
         const logInForm = document.getElementById("logInForm");
 
-        logInForm.addEventListener("submit", async (e) => {
+        logInForm.addEventListener("submit", async function (e) {
             e.preventDefault();
 
             const usernameInput = document.getElementById("username").value;
@@ -48,7 +48,7 @@ class UI {
     logOutButton(){
         const logOutButton = document.getElementById("logOut");
         if(logOutButton){
-            logOutButton.addEventListener("click", async (e) =>{
+            logOutButton.addEventListener("click", async function (e){
                 e.preventDefault();
 
                 alert("Du kommer att loggas ut");
