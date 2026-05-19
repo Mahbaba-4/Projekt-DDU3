@@ -1299,7 +1299,6 @@ async function createCustomList(request) {
     }
 }
 
-
 function getAllCustomLists(request) {
     try {
 
