@@ -6,6 +6,7 @@ class UI {
 
     signUpForm(){
         const signUpForm = document.getElementById("movieForm");
+        const api = this.api;
 
         signUpForm.addEventListener("submit", async function (e) {e.preventDefault()
 
@@ -28,6 +29,7 @@ class UI {
 
     logInForm(){
         const logInForm = document.getElementById("logInForm");
+        const api = this.api
 
         logInForm.addEventListener("submit", async function (e) {
             e.preventDefault();
@@ -40,7 +42,7 @@ class UI {
                 return;
             }
 
-            await this.api.logIn(usernameInput, passwordInput)
+            await api.logIn(usernameInput, passwordInput)
         })
 
     }
