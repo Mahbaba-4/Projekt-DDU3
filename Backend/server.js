@@ -59,7 +59,6 @@ function handler(request) {
         })
     }*/
 
-    
     if (request.method === "GET") {
         if (request.headers.get("Accept") !== "application/json") {
             return new Response(JSON.stringify({}), {

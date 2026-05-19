@@ -589,8 +589,7 @@ async function postSignUp(request) {
             id: newId,
             email: body.email,
             passwordHash: body.password,
-            username: body.username,
-            token: `Bearer ${crypto.randomUUID()}`
+            username: body.username
         }
 
         data.users.push(newUser);

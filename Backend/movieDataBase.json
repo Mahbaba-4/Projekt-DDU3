@@ -564,22 +564,13 @@
       "id": "1",
       "email": "test@example.com",
       "passwordHash": "123456",
-      "username": "testuser",
-      "token": "Bearer 55fcaa69-8af2-4033-902a-c3adc44d2039"
+      "username": "testuser"
     },
     {
       "id": "2",
       "email": "test2@example.com",
       "passwordHash": "123456",
-      "username": "test2",
-      "token": "Bearer 55fcaa69-8af2-4033-902a-c3adc44d2039"
-    },
-    {
-      "id": "3",
-      "email": "test4@gmail.com",
-      "passwordHash": "12345",
-      "username": "test4",
-      "token": "Bearer 52ffb50f-ba4e-49c6-ad93-069743298ec5"
+      "username": "test2"
     }
   ],
   "sessions": [
