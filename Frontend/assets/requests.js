@@ -38,11 +38,8 @@ class API {
             });
 
             if (response.ok) {
-                // const data = await response.json();
-                // Svar: { success: true, token: "Bearer 780be64f-1fa4-477a-949a-ab3270c31be6" }
-                // this.bearerToken = data.token;
                 window.location.href = "http://localhost:8000/main-page.html";
-                // return data;
+      
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -75,9 +72,6 @@ class API {
         try {
             const response = await fetch('http://localhost:8000/user/profile', {
                 method: 'GET',
-                // headers: {
-                //     "Authorization": this.bearerToken // använd token! (efter man loggat in)
-                // },
                 credentials: 'include'
             });
 
