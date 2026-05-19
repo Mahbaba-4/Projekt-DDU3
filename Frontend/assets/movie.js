@@ -1,7 +1,7 @@
 class UI {
     constructor(apiInstance) {
         this.api = apiInstance;
-        this.currentProductId = null;
+        this.currentMovieId = null;
     }
 
     signUpForm(){
