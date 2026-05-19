@@ -1,5 +1,5 @@
 
-import {serveDir} from "jsr:@std/http/file-server";
+import { serveDir } from "jsr:@std/http/file-server";
 import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, postGenres, deleteGenre, sessions, getUserIdFromSession } from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
@@ -19,17 +19,20 @@ function authorization(request) {
 async function handler(request) {
     let url = new URL(request.url);
 
-    const frontendResponse = serveDir(request, {fsRoot: "Frontend"})
-    
+    const frontendResponse = serveDir(request, { fsRoot: "../Frontend" })
+    if (frontendResponse.status !== 404) {
+        return frontendResponse;
+    }
+
     if (url.pathname == "/auth/signup") {
         if (request.method === "POST") {
-            return postSignUp(request)
+            return await postSignUp(request)
         }
     }
 
 
     if (url.pathname === "/auth/login" && request.method === "POST") {
-        return postLogIn(request);
+        return await postLogIn(request);
     }
 
     if (url.pathname === "/auth/logout" && request.method === "POST") {
@@ -39,19 +42,19 @@ async function handler(request) {
     if (url.pathname == "/") {
         const userId = authorization(request);
 
+
         let filePath;
 
         if (!userId) {
             filePath = "../Frontend/login.html";
-        }else{
+        } else {
             filePath = "../Frontend/main-page.html";
 
         }
 
-        const html = await Deno.readTextFile(filePath);
 
-        return new Response(html, {
-            headers:{"Content-Type": "text/html"}
+        return new Response(await Deno.readTextFile(filePath), {
+            headers: { "Content-Type": "text/html" }
         })
     }
 
@@ -84,21 +87,27 @@ async function handler(request) {
         }
     }
 
-    if (request.method === "POST") {
-        if (request.headers.get("Content-Type") !== "application/json") {
-            return new Response(JSON.stringify({}), {
-                status: 406,
-            })
-        }
-    }
+    /* if (request.method === "POST") {
+         if (request.headers.get("Content-Type") !== "application/json") {
+             return new Response(JSON.stringify({}), {
+                 status: 406,
+             })
+         }
+     }*/
 
     if (url.pathname === "/user/lists" && request.method === "GET") {
         return getAllCustomLists(request);
     }
 
     if (url.pathname === "/user/lists" && request.method === "POST") {
+        if (request.headers.get("Content-Type") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         return createCustomList(request);
     }
+
 
     let listMatch = listByIdRoute.exec(request.url);
 
@@ -121,16 +130,30 @@ async function handler(request) {
     }
 
     if (url.pathname === "/movies/genre" && request.method === "POST") {
+        if (request.headers.get("Content-Type") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         return postGenres(request);
     }
+
+
 
     if (url.pathname == "/user/movies" && request.method === "GET") {
         return getMovies(request);
     }
 
-    if (url.pathname == "/user/movies" && request.method == "POST") {
+    if (url.pathname == "/user/movies" && request.method === "POST") {
+        if (request.headers.get("Content-Type") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         return createMovieReview(request);
     }
+
+
 
     if (url.pathname == "/user/movies/search" && request.method === "GET") {
         return searchFilterMovies(request);
