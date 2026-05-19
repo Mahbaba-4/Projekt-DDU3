@@ -6,7 +6,6 @@ class UI {
 
     signUpForm(){
         const signUpForm = document.getElementById("movieForm");
-        const api = this.api;
 
         signUpForm.addEventListener("submit", async function (e) {e.preventDefault()
 
