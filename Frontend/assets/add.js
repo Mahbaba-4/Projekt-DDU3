@@ -6,11 +6,7 @@ const watchedExtra = document.getElementById("watchedExtra");
 const stars = document.querySelectorAll(".rating-stars span");
 const statusSelect = document.getElementById("statusSelect");
 const ratingInput = document.getElementById("rating");
-// const addGenreForm = document.getElementById("add-box-genre");
 
-// addGenreForm.addEventListener("submit", function (event){
-//     ui.addGenre(event)
-// })
 
 statusSelect.addEventListener("click", function () {
     if (statusSelect.value === 'Watched') {
