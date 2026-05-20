@@ -82,7 +82,7 @@ class UI {
                     <img class="movie-poster" src="${movie.posterUrl}">
                     <div class="movie-info">
                         <div class="movie-card-title">${movie.title}</div>
-                        <div class="movie-year-genre">${movie.year} - ${genreName} </div>
+                        <div class="movie-year-genre">${movie.year} • ${genreName} </div>
                     </div>
 
                 `
@@ -93,8 +93,6 @@ class UI {
 
                     for (let i = 0; i < 5; i++) {
                         let star = document.createElement("span");
-                        star.style.fontSize = "30px";
-                        star.style.color = "#DB2424";
 
                         if (i < movie.rating) {
                             star.innerHTML = "★";
