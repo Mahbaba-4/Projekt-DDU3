@@ -124,6 +124,7 @@ class UI {
 
         logOutLink.addEventListener("click", async function (e) {
              e.preventDefault();
+             console.log("CLICKED LOGOUT");
 
             try{
                 await api.logOut();
