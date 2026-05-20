@@ -684,7 +684,7 @@ function postLogOut(request) {
 
         const cookieHeader = request.headers.get("Cookie");
 
-        if (!cookieHeader) {
+        /*if (!cookieHeader) {
             return new Response(null, {
                 status: 204,
                 headers: {
@@ -692,7 +692,7 @@ function postLogOut(request) {
                 }
             })
 
-        }
+        }*/
 
         const cookies = cookieHeader.split(";");
         let sessionId = null;
