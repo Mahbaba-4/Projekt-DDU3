@@ -70,6 +70,11 @@ async function handler(request) {
      }*/
 
     if (url.pathname === "/user/lists" && request.method === "GET") {
+        if (request.headers.get("Accept") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         return getAllCustomLists(request);
     }
 
@@ -86,6 +91,11 @@ async function handler(request) {
     let listMatch = listByIdRoute.exec(request.url);
 
     if (listMatch && request.method === "GET") {
+        if (request.headers.get("Accept") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         let id = listMatch.pathname.groups.id;
         return getMoviesByListId(request, id);
     }
@@ -96,10 +106,20 @@ async function handler(request) {
     }
 
     if (url.pathname === "/user/movies/title" && request.method === "GET") {
+        if (request.headers.get("Accept") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         return getUserMovieTitles(request);
     }
 
     if (url.pathname === "/movies/genre" && request.method === "GET") {
+        if (request.headers.get("Accept") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         return getGenres(request);
     }
 
@@ -115,6 +135,11 @@ async function handler(request) {
 
 
     if (url.pathname == "/user/movies" && request.method === "GET") {
+        if (request.headers.get("Accept") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         return getMovies(request);
     }
 
@@ -130,6 +155,11 @@ async function handler(request) {
 
 
     if (url.pathname == "/user/movies/search" && request.method === "GET") {
+        if (request.headers.get("Accept") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         return searchFilterMovies(request);
     }
 
@@ -141,6 +171,11 @@ async function handler(request) {
 
     let movieMatch = movieByIdRoute.exec(request.url);
     if (movieMatch && request.method === "GET") {
+        if (request.headers.get("Accept") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         let id = movieMatch.pathname.groups.id;
         return getMovieById(request, id);
     }
