@@ -762,8 +762,8 @@ function getUserIdFromSession(request) {
         if (sessions[i].sessionId === sessionId) {
             return sessions[i].userId;
         }
-        return null;
     }
+      return null;
 
 
 }
