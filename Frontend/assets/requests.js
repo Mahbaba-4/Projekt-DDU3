@@ -57,6 +57,8 @@ class API {
                 credentials: "include"
             });
 
+            return response;
+
             if (response.ok) {
                 window.location.href = "front-page.html";
             } else {
