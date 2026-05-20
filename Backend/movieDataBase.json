@@ -599,24 +599,6 @@
       "email": "test2@example.com",
       "passwordHash": "123456",
       "username": "test2"
-    },
-    {
-      "id": "3",
-      "email": "sarah@gmail.com",
-      "passwordHash": "12345",
-      "username": "sarah"
-    },
-    {
-      "id": "4",
-      "email": "orin@gmail.com",
-      "passwordHash": "12345",
-      "username": "orin"
-    },
-    {
-      "id": "5",
-      "email": "ibbe@gmail.com",
-      "passwordHash": "12345",
-      "username": "ibbe"
     }
   ]
 }
