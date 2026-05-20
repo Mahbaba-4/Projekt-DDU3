@@ -133,6 +133,11 @@ class UI {
             }
         })
     }
+
+    async getMoviesById(){
+        
+    }
+
 }
 
 
