@@ -1,3 +1,7 @@
+const api = new API();
+const ui = new UI(api);
+ui.showGenres();
+
 const watchedExtra = document.getElementById("watchedExtra");
 const stars = document.querySelectorAll(".rating-stars span");
 const statusSelect = document.getElementById("statusSelect");
@@ -29,5 +33,7 @@ for (let i = 0; i < stars.length; i++) {
         }
     });
 }
+
+
 
 //INTE KLAR!

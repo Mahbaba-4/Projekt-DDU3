@@ -5,6 +5,7 @@ class UI {
     }
 
     signUpForm() {
+        const api = this.api
         const signUpForm = document.getElementById("movieForm");
 
         signUpForm.addEventListener("submit", async function (e) {
@@ -48,7 +49,7 @@ class UI {
     }
 
     async getMovies() {
-
+        const api = this.api
         console.log("getMovies method called");
 
         let allCount = document.getElementById("all-count");
@@ -122,6 +123,7 @@ class UI {
     }
 
     async logOut() {
+        
         const logOutLink = document.getElementById("logOut");
 
         const api = this.api;
@@ -206,6 +208,31 @@ class UI {
 
         }
     }
+
+  async showGenres(){
+        try{
+           
+            const genres = await this.api.getGenre();
+    
+            const genreSelect = document.getElementById("genreSelect"); 
+
+            genreSelect.innerHTML = `<option value="">Select genre</option>`;
+
+            for(let genre of genres){
+                const option = document.createElement("option");
+                option.value = genre.id;
+                option.textContent = genre.name;
+                genreSelect.appendChild(option); 
+            }
+
+        }catch(error){
+            console.error("Failed to load genres:", error.message);
+            const genreSelect = document.getElementById("genreSelect");
+            genreSelect.innerHTML = `<option value="">Error loading generes</option>`;
+        }
+    }
+  
+    
 
 }
 
