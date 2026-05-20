@@ -571,6 +571,20 @@
       "name": "Already Watched",
       "type": "Watched",
       "movieIds": []
+    },
+    {
+      "id": "9",
+      "userId": "5",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "10",
+      "userId": "5",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
     }
   ],
   "users": [
@@ -597,6 +611,12 @@
       "email": "orin@gmail.com",
       "passwordHash": "12345",
       "username": "orin"
+    },
+    {
+      "id": "5",
+      "email": "ibbe@gmail.com",
+      "passwordHash": "12345",
+      "username": "ibbe"
     }
   ]
 }
