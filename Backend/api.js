@@ -684,15 +684,15 @@ function postLogOut(request) {
 
         const cookieHeader = request.headers.get("Cookie");
 
-        /*if (!cookieHeader) {
+        if (!cookieHeader) {
             return new Response(null, {
                 status: 204,
                 headers: {
-                    "Set-Cookie": "sessionId=; Max-Age=0; "
+                    "Set-Cookie": "sessionId=; Max-Age=0; Path=/; SameSite=Lax;"
                 }
-            })
+            });
+        }
 
-        }*/
 
         const cookies = cookieHeader.split(";");
         let sessionId = null;
@@ -719,7 +719,7 @@ function postLogOut(request) {
         return new Response(null, {
             status: 204,
             headers: {
-                "Set-Cookie": "sessionId=; Max-Age=0; "
+                "Set-Cookie": "sessionId=; Max-Age=0; Path=/; SameSite=Lax;"
             }
         });
     } catch (err) {
@@ -764,7 +764,7 @@ function getUserIdFromSession(request) {
             return sessions[i].userId;
         }
     }
-      return null;
+    return null;
 
 
 }
