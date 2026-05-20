@@ -754,7 +754,6 @@ function getUserIdFromSession(request) {
         }
 
     }
-
     if (!sessionId) {
         return null;
     }

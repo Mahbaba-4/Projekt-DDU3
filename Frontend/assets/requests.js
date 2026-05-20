@@ -187,6 +187,7 @@ class API {
                 headers: {
                     "Accept": "application/json",
                 },
+                credentials: "include"
             });
 
             if (response.ok) {
