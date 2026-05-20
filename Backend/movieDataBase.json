@@ -76,21 +76,6 @@
       "listId": "2"
     },
     {
-      "id": "6",
-      "userId": "1",
-      "title": "The Lost City of Z",
-      "year": 2016,
-      "genreId": "2",
-      "director": "James Gray",
-      "runtime": 141,
-      "posterUrl": "https://image.tmdb.org/t/p/w500/9ggVLcOjWH7R9aQGpDkG5KQY8Zg.jpg",
-      "description": "High expectations...",
-      "status": "Watchlist",
-      "rating": null,
-      "dateWatched": null,
-      "listId": "1"
-    },
-    {
       "id": "7",
       "userId": "1",
       "title": "A Cinderella Story",
@@ -491,7 +476,6 @@
       "type": "Watchlist",
       "movieIds": [
         "4",
-        "6",
         "7",
         "14",
         "16",
