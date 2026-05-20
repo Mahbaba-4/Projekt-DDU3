@@ -129,7 +129,7 @@ class UI {
                 const response = await api.logOut();
 
                 if(response && response.status == 204){
-                    window.location.href ="login.html"
+                    window.location.href ="front-page.html"
                 }else{
                     console.log("Logout misslyckades")
                 }
