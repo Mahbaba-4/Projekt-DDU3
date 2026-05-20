@@ -209,7 +209,7 @@ class UI {
         }
     }
 
-  async showGenres(){
+    async showGenres(){
         try{
            
             const genres = await this.api.getGenre();
@@ -232,7 +232,20 @@ class UI {
         }
     }
   
-    
+    async addGenre(){
+        try{
+
+            const genreNameInput = document.getElementById("genreInput");
+           
+            await this.api.postGenre(genreNameInput.value);
+            await this.api.showGenres();
+
+            genreNameInput.value = "";
+
+        }catch(error){
+            console.log("Failed to add genre", error.message)
+        }
+    }
 
 }
 
