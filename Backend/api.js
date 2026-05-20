@@ -665,7 +665,7 @@ async function postLogIn(request) {
             headers: {
                 "Content-Type": "application/json",
                 "Set-Cookie": "sessionId=" + sessionId + "; Max-Age=86400; Path=/; SameSite=Lax;"
-                //Path vilka path cookies ska skickas till, SameSite=None; Secure; krävs för att cookies ska skickas i cross-site requests 
+                //Path vilka path cookies ska skickas till, SameSite=Lax; Secure; krävs för att cookies ska skickas i cross-site requests (för login, bilder åch sånt ska skickas)
             }
         })
 
@@ -684,7 +684,7 @@ function postLogOut(request) {
 
         const cookieHeader = request.headers.get("Cookie");
 
-        if (!cookieHeader) {
+        /*if (!cookieHeader) {
             return new Response(null, {
                 status: 204,
                 headers: {
@@ -692,7 +692,7 @@ function postLogOut(request) {
                 }
             })
 
-        }
+        }*/
 
         const cookies = cookieHeader.split(";");
         let sessionId = null;
