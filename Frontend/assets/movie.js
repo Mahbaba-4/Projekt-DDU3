@@ -121,7 +121,6 @@ class UI {
     async logOut(){
 
         const logOutLink = document.getElementById("logOut");
-        const api = this.api
 
         logOutLink.addEventListener("click", async function (e) {
             e.preventDefault();
