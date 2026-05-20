@@ -74,14 +74,14 @@
 
 #search-movies {
     display: flex;
-    width: 400px;
+    width: 310px;
 }
 
 #searchInput {
     border-radius: 15px;
-    padding: 12px 12px;
-    width: 290px;
-    color: #cec2c2;
+    padding: 2px 12px;
+    width: 200px;
+    color: #fbf8f8;
 }
 
 #searchBtn {
@@ -89,7 +89,7 @@
     margin-left: 4px;
     border: none;
     background-color: #0f0f0f;
-    color: #a0a0a0;
+    color: #e6e2e2;
 }
 
 #searchBtn:hover{
