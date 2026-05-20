@@ -2,7 +2,6 @@ import { extname } from "jsr:@std/path";
 
 export let sessions = [];
 
-
 function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
 }
@@ -715,7 +714,7 @@ function postLogOut(request) {
                 }
             }
         }
-        
+
         return new Response(null, {
             status: 204,
             headers: {
@@ -764,8 +763,9 @@ function getUserIdFromSession(request) {
         if (sessions[i].sessionId === sessionId) {
             return sessions[i].userId;
         }
+        return null;
     }
-    return null;
+   
 
 
 }
