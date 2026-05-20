@@ -65,3 +65,34 @@
     color: #db2424;
 }
 
+#filter-movies {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: -40px 10px;
+}
+
+#search-movies {
+    display: flex;
+    width: 400px;
+}
+
+#searchInput {
+    border-radius: 20px;
+    padding: 12px 12px;
+    width: 290px;
+    color: #db2424;
+}
+
+#searchBtn {
+    border-radius: 48%;
+    margin-left: 4px;
+    border: none;
+    background-color: #0f0f0f;
+    color: #a0a0a0;
+}
+
+#searchBtn:hover{
+    background: #db2424;
+    color: #ffffff;
+}
