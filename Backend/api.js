@@ -680,6 +680,7 @@ async function postLogIn(request) {
 }
 
 function postLogOut(request) {
+ 
     try {
 
         const cookieHeader = request.headers.get("Cookie");
