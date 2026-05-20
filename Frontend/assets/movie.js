@@ -238,12 +238,21 @@ class UI {
             const genreNameInput = document.getElementById("genreInput");
            
             await this.api.postGenre(genreNameInput.value);
-            await this.api.showGenres();
+            await this.showGenres();
 
             genreNameInput.value = "";
 
         }catch(error){
             console.log("Failed to add genre", error.message)
+        }
+    }
+
+    async deleteGenre(genreId){
+        try{
+            await this.api.deleteGenres(genreId);
+            await this.showGenres();
+        }catch(error){
+            console.log("Failed to delete genre", error.message)
         }
     }
 

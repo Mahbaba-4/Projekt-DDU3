@@ -370,8 +370,8 @@ class API {
     async deleteGenres(genreId) {
         try {
 
-            const response = await fetch(`http://localhost:8000/movies/genre/${genreId}`, {
-                method: "Delete",
+            const response = await fetch(`http://localhost:8000/movie/genre/${genreId}`, {
+                method: "DELETE",
                 credentials: "include"
             });
 
