@@ -47,7 +47,7 @@ class UI {
 
     }
 
-    /*async getMovies() {
+    async getMovies() {
 
         console.log("getMovies method called");
 
@@ -114,7 +114,7 @@ class UI {
            console.log(error.message) ;
         }
 
-    }*/
+    }
 }
 
 
