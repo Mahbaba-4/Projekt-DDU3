@@ -125,11 +125,11 @@ class UI {
 
         logOutLink.addEventListener("click", async function (e) {
              e.preventDefault();
-             console.log("CLICKED LOGOUT");
+            
 
             try{
                 await api.logOut();
-                
+                 console.log("CLICKED LOGOUT");
             }catch(error){
                 console.log("Something went wrong while trying to log out", error.message);
             }
