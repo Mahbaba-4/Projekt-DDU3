@@ -664,7 +664,7 @@ async function postLogIn(request) {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
-                "Set-Cookie": "sessionId=" + sessionId + "; Max-Age=86400; Path=/; SameSite=Lax;"
+                "Set-Cookie": "sessionId=" + sessionId + "; Max-Age=86400; Path=/; SameSite=None;"
             }
         })
 
