@@ -369,7 +369,7 @@ function getMovies(request) {
 
         const userId = getUserIdFromSession(request);
 
-         if (!userId) {
+        if (!userId) {
             return new Response(JSON.stringify("Not logged in"), {
                 status: 401
             })
