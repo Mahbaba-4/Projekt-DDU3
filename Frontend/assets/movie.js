@@ -59,9 +59,11 @@ class UI {
         try {
             const allMovies = await api.getMovies();
             const allGenres = await api.getGenre();
+            
 
             if (allCount) {
                 allCount.textContent = allMovies.length;
+                console.log(allCount.textContent)
             }
 
             for (let movie of allMovies) {
