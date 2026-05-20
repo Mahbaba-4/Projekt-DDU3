@@ -58,7 +58,7 @@ class API {
             });
 
             if (response.ok) {
-                window.location.href = "login.html";
+                window.location.href = "front-page.html";
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
