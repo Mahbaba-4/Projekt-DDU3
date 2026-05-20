@@ -212,7 +212,10 @@ class API {
 
             const response = await fetch(url, {
                 method: "GET",
-                credentials: "include"
+                credentials: "include",
+                 headers: {
+                    "Accept": "application/json",
+                }
             });
 
             if (response.ok) {

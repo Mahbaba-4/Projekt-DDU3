@@ -765,7 +765,6 @@ function getUserIdFromSession(request) {
         }
         return null;
     }
-   
 
 
 }
