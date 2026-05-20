@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <link rel="icon" type="image/png" href="assets/images/icon-logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    
+</head>
+
+<body>
+    <div class="updateMovieDiv">
+        <form id="editMovieForm">
+
+            <div class="form-field">
+                <label>Title</label>
+                    <input type="text" id="title">
+            </div>
+
+            <div class="form-field half">
+                <label>Year</label>
+                    <input type="number" id="year">
+            </div>
+
+            <div class="form-field half">
+                <label>Genre</label>
+                    <input type="text" id="genre">
+                </div>
+
+            <div class="form-field half">
+                <label>Director</label>
+                    <input type="text" id="director">
+            </div>
+
+            <div class="form-field half">
+                <label>Runtime</label>
+                    <input type="number" id="runtime">
+            </div>
+
+            <div class="form-field half">
+                <label>Poster URL</label>
+                    <input type="text" id="posterUrl">
+            </div>
+
+            <div class="form-field">
+                <label>Description</label>
+                    <textarea id="description"></textarea>
+                </div>
+
+            <div class="form-field">
+                <label>Status</label>
+                    <select id="status">
+                        <option>Want to Watch</option>
+                        <option>Watched</option>
+                    </select>
+            </div>
+
+            <div id="watchedExtra" style="display:none;">
+                <input type="number" id="rating" placeholder="Rating 1-5">
+                <input type="date" id="dateWatched">
+            </div>
+
+            <button type="submit" id="UpdateMovieButton">Update Movie</button>
+        </form>
+    </div>
+
+    <footer>
+        <p> © 2026 CineLog.</p>
+    </footer>
+</body>
+</html>
