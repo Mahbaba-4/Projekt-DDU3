@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie review</title>
     <link rel="stylesheet" href="assets/css/add-profile.css">
+    <link rel="stylesheet" href="assets/css/one-movie.css">
 </head>
 
 <body>
@@ -21,11 +22,64 @@
             <a href="add-movie.html">+ Add</a>
             <a href="profile.html">Profile</a>
             <a href="genre.html">Manage genre</a>
-            <a href="" id ="logOut">Log out</a>
+            <a href="" id="logOut">Log out</a>
         </div>
     </div>
 
-    
+    <div id="movie-one-container">
+        <div class="movie-detail-card">
+            <img id="movie-poster" class="movie-backdrop">
+
+            <div id="movie-detail-content">
+                <h1 style="border-bottom: none;" id="movie-title">Loading...</h1>
+
+                <div class="movie-meta">
+                    <div class="meta-item">
+                        <img src="assets/images/calendar-grey.png" class="meta-icon">
+                        <span id="movie-year"></span>
+                    </div>
+                    <div class="meta-item">
+
+                        <span id="movie-genre"></span>
+                    </div>
+                    <div class="meta-item">
+                        <img src="assets/images/clock-grey.png" alt="Runtime" class="meta-icon">
+                        <span id="movie-runtime"></span>
+                    </div>
+                </div>
+
+                <div class="movie-info-row">
+                    <div class="info-item">
+                        <img src="assets/images/user-grey.png" class="info-icon">
+                        <span id="movie-director"></span>
+                    </div>
+                    <div class="info-item" id="watched-date-container">
+                        <img src="assets/images/calendar-grey.png" class="info-icon">
+                        <span id="watched-date"></span>
+                    </div>
+                </div>
+
+                <div class="review-section">
+                    <h3>REVIEW</h3>
+                    <p id="movie-review"></p>
+                </div>
+
+                <div class="rating-section">
+                    <h3>MY RATING</h3>
+                    <div class="movie-rating" id="movie-rating"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="updateMovie.html" id="edit-movie-btn" class="action-btn edit-btn">
+                        <img class="edit-icon" src="assets/images/pencil-grey.png"> Edit Movie
+                    </a>
+                    <button id="delete-movie-btn" class="action-btn delete-btn">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <p> © 2026 CineLog.</p>
@@ -33,6 +87,7 @@
 
     <script src="assets/requests.js"></script>
     <script src="assets/movie.js"></script>
+    <script src="assets/one-movie.js"></script>
 </body>
 
 </html>

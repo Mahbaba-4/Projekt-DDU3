@@ -17,6 +17,7 @@
     transition: transform 0.2s ease;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .movie-card:hover {
@@ -59,8 +60,8 @@
     margin-top: 8px;
 }
 
-
 .movie-rating span {
     font-size: 25px;
     color: #db2424;
 }
+
