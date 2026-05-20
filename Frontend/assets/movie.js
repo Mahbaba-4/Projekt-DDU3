@@ -115,6 +115,27 @@ class UI {
         }
 
     }
+
+    async logOut(){
+        const logOutLink = document.getElementById("logOut");
+        const api = this.api
+
+        logOutLink.addEventListener("click", async function (e) {
+            e.preventDefault();
+
+            try{
+                const response = await api.logOut();
+
+                if(response && response.status == 204){
+                    window.location.href ="login.html"
+                }else{
+                    console.log("Logout misslyckades")
+                }
+            }catch(error){
+                console.log("fel vid utloggning", error)
+            }
+        })
+    }
 }
 
 
