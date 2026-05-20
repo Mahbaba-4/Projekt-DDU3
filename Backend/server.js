@@ -135,7 +135,11 @@ async function handler(request) {
 
 
     if (url.pathname == "/user/movies" && request.method === "GET") {
-    
+        if (request.headers.get("Accept") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
         return getMovies(request);
     }
 
