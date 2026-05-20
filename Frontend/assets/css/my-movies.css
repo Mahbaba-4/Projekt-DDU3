@@ -78,14 +78,14 @@
 }
 
 #searchInput {
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 12px 12px;
     width: 290px;
-    color: #db2424;
+    color: #cec2c2;
 }
 
 #searchBtn {
-    border-radius: 48%;
+    border-radius: 15px;
     margin-left: 4px;
     border: none;
     background-color: #0f0f0f;
@@ -93,6 +93,6 @@
 }
 
 #searchBtn:hover{
-    background: #db2424;
+    background: #292727;
     color: #ffffff;
 }
