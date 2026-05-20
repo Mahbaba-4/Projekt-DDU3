@@ -5,7 +5,7 @@ class UI {
     }
 
     signUpForm() {
-        const api = this.api
+
         const signUpForm = document.getElementById("movieForm");
 
         signUpForm.addEventListener("submit", async function (e) {
@@ -49,7 +49,7 @@ class UI {
     }
 
     async getMovies() {
-        const api = this.api
+    
         console.log("getMovies method called");
 
         let allCount = document.getElementById("all-count");
@@ -123,7 +123,7 @@ class UI {
     }
 
     async logOut() {
-        
+
         const logOutLink = document.getElementById("logOut");
 
         const api = this.api;
