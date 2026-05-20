@@ -543,6 +543,34 @@
         "26",
         "27"
       ]
+    },
+    {
+      "id": "5",
+      "userId": "3",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "6",
+      "userId": "3",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
+    },
+    {
+      "id": "7",
+      "userId": "4",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "8",
+      "userId": "4",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
     }
   ],
   "users": [
@@ -557,6 +585,18 @@
       "email": "test2@example.com",
       "passwordHash": "123456",
       "username": "test2"
+    },
+    {
+      "id": "3",
+      "email": "sarah@gmail.com",
+      "passwordHash": "12345",
+      "username": "sarah"
+    },
+    {
+      "id": "4",
+      "email": "orin@gmail.com",
+      "passwordHash": "12345",
+      "username": "orin"
     }
   ]
 }
