@@ -100,6 +100,8 @@ class API {
             if (response.ok) {
                 console.log("Profil uppdaterad!")
                 return true;
+            } else {
+                return false;
             }
 
         } catch (error) {

@@ -530,7 +530,8 @@
       "id": "1",
       "email": "test@example.com",
       "passwordHash": "123456",
-      "username": "testuser"
+      "username": "testuser",
+      "profileImage": "/uploads/profile-images/21ae8f69-d75c-42a6-9aec-1956dd56779a.jpg"
     },
     {
       "id": "2",

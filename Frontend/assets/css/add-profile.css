@@ -494,6 +494,35 @@ footer {
     color: #938c8c;
 }
 
+#editPreviewImage{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-top: 10px;
+}
+
+
+.choose-image-btn {
+    background-color: #933b5b;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.choose-image-btn:hover {
+    background-color: #7a2e4a;
+}
+
+.file-name {
+    font-size: 12px;
+    color: #888;
+    margin-left: 10px;
+}
+
 @media (max-width: 768px) {
     .profile-header {
         flex-direction: column;

@@ -1,7 +1,6 @@
 class UI {
     constructor(apiInstance) {
         this.api = apiInstance;
-        //this.currentMovieId = null; <-- används inte i koden just nu så kommenterar ut den, men har kvar den ifall att vi väljer att vi vill använda det som vi gjorde på U1. Men tror inte det kommer behövas. :)
     }
 
     signUpForm() {
@@ -258,8 +257,8 @@ class UI {
     }
 
 
-    async getUserGenre(){
-        try{
+    async getUserGenre() {
+        try {
 
             const genres = await this.api.getUserGenre();
             const genreDelete = document.getElementById("genreDelete");
@@ -272,7 +271,7 @@ class UI {
                 genreDelete.appendChild(option);
             }
 
-        }catch(error){
+        } catch (error) {
             console.error("Failed to load genres:", error.message);
             const genreDelete = document.getElementById("genreDelete");
             genreDelete.innerHTML = `<option value="">Error loading generes</option>`;
@@ -306,12 +305,12 @@ class UI {
 
     async filteredMovies() {
 
-        await this.showGenres(); 
+        await this.showGenres();
 
         let currentGenre = "";
         let currentStatus = "all";
 
-        const self = this; 
+        const self = this;
 
         const allBtn = document.querySelector('.filter-btn:first-child');
         const watchedBtn = document.querySelector('.filter-btn:nth-child(2)');
@@ -347,7 +346,7 @@ class UI {
                 let statusValue = "";
                 if (currentGenre !== "") genreValue = currentGenre;
                 if (currentStatus !== "all") statusValue = currentStatus;
-                 self.getMovies(genreValue, statusValue);
+                self.getMovies(genreValue, statusValue);
             });
         }
 
@@ -363,19 +362,19 @@ class UI {
                 let statusValue = "";
                 if (currentGenre !== "") genreValue = currentGenre;
                 if (currentStatus !== "all") statusValue = currentStatus;
-                 self.getMovies(genreValue, statusValue);
+                self.getMovies(genreValue, statusValue);
             });
         }
 
         if (genresSelect) {
-            genresSelect.addEventListener("change", function(e) {
+            genresSelect.addEventListener("change", function (e) {
                 currentGenre = e.target.value;
 
                 let genreValue = "";
                 let statusValue = "";
                 if (currentGenre !== "") genreValue = currentGenre;
                 if (currentStatus !== "all") statusValue = currentStatus;
-                 self.getMovies(genreValue, statusValue);
+                self.getMovies(genreValue, statusValue);
             });
         }
 
@@ -383,33 +382,33 @@ class UI {
         let statusValue = "";
         if (currentGenre !== "") genreValue = currentGenre;
         if (currentStatus !== "all") statusValue = currentStatus;
-         self.getMovies(genreValue, statusValue);
+        self.getMovies(genreValue, statusValue);
 
     }
 
-    async searchMovies(){
+    async searchMovies() {
+        try {
+            let allCount = document.getElementById("all-count");
+            let watchedCount = document.getElementById("watched-count");
+            let watchlistCount = document.getElementById("watchlist-count");
+            let container = document.getElementById("movies-container");
 
-         let allCount = document.getElementById("all-count");
-        let watchedCount = document.getElementById("watched-count");
-        let watchlistCount = document.getElementById("watchlist-count");
-        let container = document.getElementById("movies-container");
+            container.innerHTML = "";
 
-        container.innerHTML = "";
-    
-        const allGenres = await api.getGenre();
-        const searchInput = document.getElementById("searchInput");
-        const query = searchInput.value;
+            const allGenres = await api.getGenre();
+            const searchInput = document.getElementById("searchInput");
+            const query = searchInput.value;
 
-        if (query === "") return;
+            if (query === "") return;
 
 
-        const result = await api.searchMovies(query);
+            const result = await api.searchMovies(query);
 
-        if (!result) return;
+            if (!result) return;
 
-        const movies = result.data;
+            const movies = result.data;
 
-        for (let movie of result) {
+            for (let movie of result) {
                 const a = document.createElement("a");
                 a.href = `one-movie.html?id=${movie.id}`;
                 a.style.textDecoration = "none";
@@ -457,9 +456,171 @@ class UI {
                 a.appendChild(movieCard);
                 container.appendChild(a);
             }
+        } catch (error) {
+            console.error('Could not load movies');
+        }
 
     }
 
+    async loadProfile() {
+        try {
+            const user = await this.api.getUserProfile();
+
+            if (user) {
+                let displayName;
+                if (user.username) {
+                    displayName = user.username;
+                } else {
+                    displayName = user.email;
+                }
+                document.getElementById("profileUsername").textContent = displayName;
+                document.getElementById("profileEmail").textContent = user.email;
+
+                let displayBio;
+                if (user.bio) {
+                    displayBio = user.bio;
+                } else {
+                    displayBio = "No bio yet!";
+                }
+                document.getElementById("profileBio").textContent = displayBio;
+
+                if (user.profileImage) {
+                    document.getElementById("profileImage").src = user.profileImage;
+                } else {
+                    document.getElementById("profileImage").src = 'assets/images/avatar-default.png';
+                }
+            } else {
+                window.location.href = '/login.html';
+            }
+        } catch (error) {
+            console.error('Could not load profile:', error);
+
+        }
+    }
+
+    showEditForm() {
+        const currentUsername = document.getElementById("profileUsername").textContent;
+        const currentEmail = document.getElementById("profileEmail").textContent;
+        const currentBio = document.getElementById("profileBio").textContent;
+        const currentImage = document.getElementById("profileImage").src;
+
+        document.getElementById("editUsername").value = currentUsername;
+        document.getElementById("editEmail").value = currentEmail;
+
+        let bioValue;
+        if (currentBio !== "No bio yet!") {
+            bioValue = currentBio;
+        } else {
+            bioValue = "";
+        }
+
+        document.getElementById("editBio").value = bioValue;
+        document.getElementById("editImageUpload").value = "";
+
+        document.getElementById("editProfileForm").style.display = "block";
+
+    }
+
+    hideEditForm() {
+        document.getElementById("editProfileForm").style.display = "none";
+    }
+
+    async saveProfileChanges() {
+        const newUsername = document.getElementById("editUsername").value;
+        const newEmail = document.getElementById("editEmail").value;
+        const newBio = document.getElementById("editBio").value;
+        const imageFile = document.getElementById("editImageUpload").files[0];
+
+        const currentUsername = document.getElementById("profileUsername").textContent;
+        const currentEmail = document.getElementById("profileEmail").textContent;
+        const currentBio = document.getElementById("profileBio").textContent;
+
+        const profileData = {};
+
+        if (newUsername !== currentUsername && newUsername !== "") {
+            profileData.username = newUsername;
+        }
+
+        if (newEmail !== currentEmail && newEmail !== "") {
+            profileData.email = newEmail;
+        }
+
+        if (newBio !== currentBio && newBio !== "") {
+            profileData.bio = newBio;
+        }
+
+        let hasChanges = false;
+        for (let key in profileData) {
+            hasChanges = true;
+            break;
+        }
+
+        if (hasChanges) {
+            const success = await this.api.updateUserProfile(profileData);
+            if (!success) {
+                alert("Kunde inte uppdatera profil");
+                return;
+            }
+        }
+
+        if (imageFile) {
+            const result = await this.api.uploadProfileImage(imageFile);
+            if (!result) {
+                alert("Kunde inte ladda upp bild");
+                return;
+            }
+        }
+
+        await this.loadProfile();
+
+        this.hideEditForm();
+
+        alert("Profil uppdaterad");
+    }
+
+    initProfile() {
+        const self = this;
+
+        this.loadProfile();
+
+        const editBtn = document.getElementById("editProfileBtn");
+        editBtn.addEventListener("click", function () {
+            self.showEditForm();
+        });
+
+        const chooseImageBtn = document.getElementById("chooseImageBtn");
+        chooseImageBtn.addEventListener("click", function () {
+            document.getElementById("editImageUpload").click();
+        });
+        //Visa filnamn 
+        const imageUpload = document.getElementById('editImageUpload');
+        if (imageUpload) {
+            imageUpload.addEventListener('change', function (event) {
+                const file = event.target.files[0];
+                const fileNameSpan = document.getElementById('selectedFileName');
+
+                if (file) {
+                    fileNameSpan.textContent = file.name;
+                } else {
+                    fileNameSpan.textContent = "No file chosen";
+                }
+            });
+
+        }
+
+        const saveBtn = document.getElementById("saveProfileBtn");
+        saveBtn.addEventListener("click", function () {
+            self.saveProfileChanges();
+        });
+
+        const cancelBtn = document.getElementById("cancelEditBtn");
+        cancelBtn.addEventListener("click", function () {
+            self.hideEditForm();
+        });
+
+
+
+    }
 }
 
 

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <link rel="icon" type="image/png" href="assets/images/icon-logo.png">
+    <link rel="icon" type="image/png" href="assets/images/icon-logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/add-profile.css">
@@ -21,65 +21,59 @@
             <a href="add-movie.html">+ Add</a>
             <a style="background-color:#222020; color: #DB2424;" href="profile.html">Profile</a>
             <a href="genre.html">Manage genre</a>
-            <a href="">Log out</a>
+            <a href="#" id="logOut">Log out</a>
         </div>
     </div>
 
     <br>
     <h1 style="border-bottom: none; color:#f3e3e3; margin-top: 40px;">PROFILE</h1>
 
-<div class="profile-header">
-    <div class="profile-avatar">
-        <img id="profileImage" src="assets/images/avatar-default.png" alt="">
+    <div class="profile-header">
+        <div class="profile-avatar">
+            <img id="profileImage" src="assets/images/avatar-default.png" alt="">
+        </div>
+        <div class="profile-info">
+            <h2 id="profileUsername">Loading...</h2>
+            <p id="profileEmail">Loading...</p>
+            <p id="profileBio" class="bio-text">No bio yet!</p>
+        </div>
+        <div class="profile-actions">
+            <button id="editProfileBtn" class="edit-profile-btn">Edit Profile</button>
+        </div>
     </div>
-    <div class="profile-info">
-        <h2 id="profileUsername">Loading...</h2>
-        <p id="profileEmail">Loading...</p>
-        <p id="profileBio" class="bio-text">No bio yet!</p>
-    </div>
-    <div class="profile-actions">
-        <button id="editProfileBtn" class="edit-profile-btn">Edit Profile</button>
-    </div>
-</div>
 
-<div id="editProfileForm" class="edit-form" style="display: none;">
-    <h3>Edit Profile</h3>
-    
-    <div class="form-group">
-        <label>Profile Picture</label>
-        <input type="file" id="editImageUpload" accept="image/*">
-  
-        <div class="current-image-preview">
-            <img id="editPreviewImage" src="" width="60" height="60" style="border-radius: 50%; margin-top: 10px;">
+    <div id="editProfileForm" class="edit-form" style="display: none;">
+        <h3>Edit Profile</h3>
+
+        <div class="form-group">
+            <label>Profile Picture</label>
+
+            <input type="file" id="editImageUpload" accept="image/*" style="display: none;">
+
+            <button type="button" id="chooseImageBtn" class="choose-image-btn">Choose Image</button>
+            <span id="selectedFileName" class="file-name">No file chosen</span>
         </div>
-        
-       
-        <div style="margin-top: 10px;">
-            <input type="checkbox" id="removeImageCheckbox">
-            <label for="removeImageCheckbox">Remove current picture (use default)</label>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="editUsername" placeholder="Username">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="editEmail" placeholder="Email">
+        </div>
+
+        <div class="form-group">
+            <label>Bio</label>
+            <textarea id="editBio" rows="3" placeholder="Tell us about yourself..."></textarea>
+        </div>
+
+        <div class="form-buttons">
+            <button id="saveProfileBtn" class="save-btn">Save Changes</button>
+            <button id="cancelEditBtn" class="cancel-btn">Cancel</button>
         </div>
     </div>
-    
-    <div class="form-group">
-        <label>Username</label>
-        <input type="text" id="editUsername" placeholder="Username">
-    </div>
-    
-    <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="editEmail" placeholder="Email">
-    </div>
-    
-    <div class="form-group">
-        <label>Bio</label>
-        <textarea id="editBio" rows="3" placeholder="Tell us about yourself..."></textarea>
-    </div>
-    
-    <div class="form-buttons">
-        <button id="saveProfileBtn" class="save-btn">Save Changes</button>
-        <button id="cancelEditBtn" class="cancel-btn">Cancel</button>
-    </div>
-</div>
 
     <br>
 
@@ -112,10 +106,13 @@
     </div>
 
     <!--Något för månad/år statestikenn-->
+    <script src="assets/requests.js"></script>
+    <script src="assets/movie.js"></script>
+    <script src="assets/profile.js"></script>
 
     <footer>
         <p> © 2026 CineLog.</p>
     </footer>
 </body>
 
-</html> 
+</html>
