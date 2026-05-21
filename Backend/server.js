@@ -132,8 +132,6 @@ async function handler(request) {
         return postGenres(request);
     }
 
-
-
     if (url.pathname == "/user/movies" && request.method === "GET") {
         if (request.headers.get("Accept") !== "application/json") {
             return new Response(JSON.stringify({}), {
@@ -151,8 +149,6 @@ async function handler(request) {
         }
         return createMovieReview(request);
     }
-
-
 
     if (url.pathname == "/user/movies/search" && request.method === "GET") {
         if (request.headers.get("Accept") !== "application/json") {
@@ -191,7 +187,7 @@ async function handler(request) {
 
     if (movieMatch && request.method === "DELETE") {
         let id = movieMatch.pathname.groups.id;
-        return deleteMovieById(request, id)
+        return deleteMovieById(request, id);
     }
 
     if (movieMatch && request.method === "PATCH") {
