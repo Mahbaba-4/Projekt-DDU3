@@ -1,0 +1,195 @@
+a,
+.back {
+    margin-top: 40px;
+    margin-left: 20px;
+    text-decoration: none;
+    color: #DB2424;
+}
+
+a:hover,
+.back:hover {
+    text-decoration: underline;
+    color: #ff5555;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0a0a0a;
+    color: #ffffff;
+}
+
+.lists-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.create-list-box {
+    background-color: #111111;
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 40px;
+    border: 1px solid #2a2a2a;
+}
+
+.create-list-box h2 {
+    color: #DB2424;
+    font-size: 24px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.create-list-box h3 {
+    color: #a0a0a0;
+    font-size: 16px;
+    margin: 20px 0 15px 0;
+    font-weight: 500;
+}
+
+.create-list-box input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.movies-list {
+    background-color: #0d0d0d;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 20px 0;
+    max-height: 250px;
+    overflow-y: auto; 
+}
+
+.movie-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #151515;
+    border-radius: 4px;
+}
+
+.movie-checkbox:hover {
+    background-color: #1e1e1e;
+}
+
+.movie-checkbox input {
+    width: 18px;
+    height: 18px;
+    background-color: #333;
+    cursor: pointer;
+    max-width: 18px;
+    accent-color: #DB2424;  
+}
+
+.movie-checkbox label {
+    color: #e0e0e0;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.movie-checkbox label:hover {
+    color: #DB2424;
+}
+
+.create-list-box button {
+    background-color: #DB2424;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+.create-list-box button:hover {
+    background-color: #b01b1b;
+}
+
+.existing-lists {
+    background-color: #111111;
+    border-radius: 8px;
+    padding: 30px;
+    border: 1px solid #2a2a2a;
+}
+
+.existing-lists h2 {
+    color: #DB2424;
+    font-size: 24px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+#listsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+}
+
+.list-item:hover {
+    border-color: #DB2424;
+}
+
+.list-item span {
+    color: #e0e0e0;
+    font-size: 16px;
+}
+
+.delete-list-btn {
+    background-color: transparent;
+    border: 1px solid #DB2424;
+    color: #DB2424;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.delete-list-btn:hover {
+    background-color: #DB2424;
+    color: white;
+}
+
+#listsContainer p {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    background-color: #1a1a1a;
+    border-radius: 6px;
+    border: 1px dashed #2a2a2a;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-size: 12px;
+    border-top: 1px solid #2a2a2a;
+    margin-top: 60px;
+}

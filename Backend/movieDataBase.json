@@ -523,6 +523,53 @@
         "26",
         "27"
       ]
+    },
+    {
+      "id": "5",
+      "userId": "1",
+      "name": "funny movies",
+      "type": "custom",
+      "movieIds": [
+        "3",
+        "9",
+        "13",
+        "14",
+        "17",
+        "18",
+        "19",
+        "20",
+        "22"
+      ]
+    },
+    {
+      "id": "6",
+      "userId": "1",
+      "name": "Travel",
+      "type": "custom",
+      "movieIds": [
+        "20",
+        "21",
+        "25"
+      ]
+    },
+    {
+      "id": "7",
+      "userId": "2",
+      "name": "must watch",
+      "type": "custom",
+      "movieIds": [
+        "28"
+      ]
+    },
+    {
+      "id": "8",
+      "userId": "2",
+      "name": "REWATCH",
+      "type": "custom",
+      "movieIds": [
+        "26",
+        "27"
+      ]
     }
   ],
   "users": [

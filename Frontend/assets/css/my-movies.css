@@ -115,5 +115,15 @@ div #search-movies{
     border-radius: 15px;
 }
 
+#custom-lists {
+    background-color: #151414;
+    padding-top: 5px;
+    border: none;
+    font-size: 12px;
+    color: #bfbdbd;
+    margin-right: 10px;
+    border-radius: 15px;
+}
+
 
 

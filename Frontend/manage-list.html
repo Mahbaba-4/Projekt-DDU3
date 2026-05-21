@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="assets/images/icon-logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Lists</title>
+    <link rel="stylesheet" href="assets/css/manage-lists.css">
+</head>
+
+<body>
+    <a href="main-page.html">
+        <h3 class="back">⬅ To Main Page</h3>
+    </a>
+
+    <div class="lists-container">
+        <div class="create-list-box">
+            <h2>Create New List</h2>
+            <form id="createListForm">
+                <input type="text" id="listName" placeholder="List name (Favorites, Watch Later, etc.)" required>
+
+                <div class="movies-list">
+                    <h3>Select movies to add:</h3>
+                    <div id="moviesCheckboxes"></div>
+                </div>
+
+                <button type="submit">Create List</button>
+            </form>
+        </div>
+
+        <div class="existing-lists">
+            <h2>Your Lists</h2>
+            <div id="listsContainer"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p> © 2026 CineLog.</p>
+    </footer>
+
+    <script src="assets/requests.js"></script>
+    <script src="assets/movie.js"></script>
+    <script src="assets/lists.js"></script>
+
+</body>
+
+</html>

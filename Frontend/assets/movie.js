@@ -4,6 +4,59 @@ class UI {
         //this.currentMovieId = null; <-- används inte i koden just nu så kommenterar ut den, men har kvar den ifall att vi väljer att vi vill använda det som vi gjorde på U1. Men tror inte det kommer behövas. :)
     }
 
+    // BEHÅLL DENNA FUNKTION!! DET ÄR 2 ANDRA FUNKTIONER OSM ANVÄNDER SIG AV DEN OCH DET ÄR ANLEDNINGEN TILL ATT LISTS FUNGERAR SOM DET SKA, jag förklarar varför det är så när vi ses!
+    async renderMovies(moviesToShow, container) {
+        try {
+            if (!moviesToShow || moviesToShow.length === 0) {
+                container.innerHTML = "<p style='text-align: center; padding: 60px; color: #666;'>No movies found.</p>";
+                return;
+            }
+
+            const allGenres = await this.api.getGenre();
+
+            for (let movie of moviesToShow) {
+                const a = document.createElement("a");
+                a.href = `one-movie.html?id=${movie.id}`;
+                a.style.textDecoration = "none";
+
+                const movieCard = document.createElement("div");
+                movieCard.classList.add("movie-card");
+
+                let genreName = "";
+                for (let genre of allGenres) {
+                    if (genre.id == movie.genreId) {
+                        genreName = genre.name;
+                        break;
+                    }
+                }
+
+                movieCard.innerHTML = `
+            <img class="movie-poster" src="${movie.posterUrl}">
+            <div class="movie-info">
+                <div class="movie-card-title">${movie.title}</div>
+                <div class="movie-year-genre">${movie.year} • ${genreName} </div>
+            </div>
+        `;
+
+                if (movie.status == "Watched") {
+                    const ratingContainer = document.createElement("div");
+                    ratingContainer.classList.add("movie-rating");
+                    for (let i = 0; i < 5; i++) {
+                        let star = document.createElement("span");
+                        star.innerHTML = i < movie.rating ? "★" : "☆";
+                        ratingContainer.appendChild(star);
+                    }
+                    movieCard.querySelector(".movie-info").appendChild(ratingContainer);
+                }
+
+                a.appendChild(movieCard);
+                container.appendChild(a);
+            }
+        } catch (error) {
+            console.log(error.meessage)
+        }
+    }
+
     signUpForm() {
 
         const signUpForm = document.getElementById("movieForm");
@@ -61,6 +114,7 @@ class UI {
 
         try {
             const allMovies = await api.getMovies();
+
             const allGenres = await api.getGenre();
             const filteredMovies = await this.api.getMoviesWithFilter(genreId, status);
 
@@ -92,54 +146,7 @@ class UI {
             }
 
 
-            for (let movie of filteredMovies) {
-                const a = document.createElement("a");
-                a.href = `one-movie.html?id=${movie.id}`;
-                a.style.textDecoration = "none";
-
-                const movieCard = document.createElement("div");
-                movieCard.classList.add("movie-card");
-
-                let genreName = "";
-                for (let genre of allGenres) {
-                    if (genre.id == movie.genreId) {
-                        genreName = genre.name;
-                        break;
-                    }
-                }
-
-                movieCard.innerHTML = `
-                    <img class="movie-poster" src="${movie.posterUrl}">
-                    <div class="movie-info">
-                        <div class="movie-card-title">${movie.title}</div>
-                        <div class="movie-year-genre">${movie.year} • ${genreName} </div>
-                    </div>
-
-                `
-
-                if (movie.status == "Watched") {
-                    const ratingContainer = document.createElement("div");
-                    ratingContainer.classList.add("movie-rating")
-
-                    for (let i = 0; i < 5; i++) {
-                        let star = document.createElement("span");
-
-                        if (i < movie.rating) {
-                            star.innerHTML = "★";
-                        } else {
-                            star.innerHTML = "☆";
-                        }
-
-                        ratingContainer.appendChild(star);
-                    }
-
-                    let movieInfo = movieCard.querySelector(".movie-info");
-                    movieInfo.appendChild(ratingContainer)
-                }
-
-                a.appendChild(movieCard);
-                container.appendChild(a);
-            }
+            await this.renderMovies(filteredMovies, container);
 
         } catch (error) {
             console.log(error.message);
@@ -258,8 +265,8 @@ class UI {
     }
 
 
-    async getUserGenre(){
-        try{
+    async getUserGenre() {
+        try {
 
             const genres = await this.api.getUserGenre();
             const genreDelete = document.getElementById("genreDelete");
@@ -272,7 +279,7 @@ class UI {
                 genreDelete.appendChild(option);
             }
 
-        }catch(error){
+        } catch (error) {
             console.error("Failed to load genres:", error.message);
             const genreDelete = document.getElementById("genreDelete");
             genreDelete.innerHTML = `<option value="">Error loading generes</option>`;
@@ -306,12 +313,12 @@ class UI {
 
     async filteredMovies() {
 
-        await this.showGenres(); 
+        await this.showGenres();
 
         let currentGenre = "";
         let currentStatus = "all";
 
-        const self = this; 
+        const self = this;
 
         const allBtn = document.querySelector('.filter-btn:first-child');
         const watchedBtn = document.querySelector('.filter-btn:nth-child(2)');
@@ -347,7 +354,7 @@ class UI {
                 let statusValue = "";
                 if (currentGenre !== "") genreValue = currentGenre;
                 if (currentStatus !== "all") statusValue = currentStatus;
-                 self.getMovies(genreValue, statusValue);
+                self.getMovies(genreValue, statusValue);
             });
         }
 
@@ -363,19 +370,19 @@ class UI {
                 let statusValue = "";
                 if (currentGenre !== "") genreValue = currentGenre;
                 if (currentStatus !== "all") statusValue = currentStatus;
-                 self.getMovies(genreValue, statusValue);
+                self.getMovies(genreValue, statusValue);
             });
         }
 
         if (genresSelect) {
-            genresSelect.addEventListener("change", function(e) {
+            genresSelect.addEventListener("change", function (e) {
                 currentGenre = e.target.value;
 
                 let genreValue = "";
                 let statusValue = "";
                 if (currentGenre !== "") genreValue = currentGenre;
                 if (currentStatus !== "all") statusValue = currentStatus;
-                 self.getMovies(genreValue, statusValue);
+                self.getMovies(genreValue, statusValue);
             });
         }
 
@@ -383,19 +390,19 @@ class UI {
         let statusValue = "";
         if (currentGenre !== "") genreValue = currentGenre;
         if (currentStatus !== "all") statusValue = currentStatus;
-         self.getMovies(genreValue, statusValue);
+        self.getMovies(genreValue, statusValue);
 
     }
 
-    async searchMovies(){
+    async searchMovies() {
 
-         let allCount = document.getElementById("all-count");
+        let allCount = document.getElementById("all-count");
         let watchedCount = document.getElementById("watched-count");
         let watchlistCount = document.getElementById("watchlist-count");
         let container = document.getElementById("movies-container");
 
         container.innerHTML = "";
-    
+
         const allGenres = await api.getGenre();
         const searchInput = document.getElementById("searchInput");
         const query = searchInput.value;
@@ -410,22 +417,22 @@ class UI {
         const movies = result.data;
 
         for (let movie of result) {
-                const a = document.createElement("a");
-                a.href = `one-movie.html?id=${movie.id}`;
-                a.style.textDecoration = "none";
+            const a = document.createElement("a");
+            a.href = `one-movie.html?id=${movie.id}`;
+            a.style.textDecoration = "none";
 
-                const movieCard = document.createElement("div");
-                movieCard.classList.add("movie-card");
+            const movieCard = document.createElement("div");
+            movieCard.classList.add("movie-card");
 
-                let genreName = "";
-                for (let genre of allGenres) {
-                    if (genre.id == movie.genreId) {
-                        genreName = genre.name;
-                        break;
-                    }
+            let genreName = "";
+            for (let genre of allGenres) {
+                if (genre.id == movie.genreId) {
+                    genreName = genre.name;
+                    break;
                 }
+            }
 
-                movieCard.innerHTML = `
+            movieCard.innerHTML = `
                     <img class="movie-poster" src="${movie.posterUrl}">
                     <div class="movie-info">
                         <div class="movie-card-title">${movie.title}</div>
@@ -434,33 +441,123 @@ class UI {
 
                 `
 
-                if (movie.status == "Watched") {
-                    const ratingContainer = document.createElement("div");
-                    ratingContainer.classList.add("movie-rating")
+            if (movie.status == "Watched") {
+                const ratingContainer = document.createElement("div");
+                ratingContainer.classList.add("movie-rating")
 
-                    for (let i = 0; i < 5; i++) {
-                        let star = document.createElement("span");
+                for (let i = 0; i < 5; i++) {
+                    let star = document.createElement("span");
 
-                        if (i < movie.rating) {
-                            star.innerHTML = "★";
-                        } else {
-                            star.innerHTML = "☆";
-                        }
-
-                        ratingContainer.appendChild(star);
+                    if (i < movie.rating) {
+                        star.innerHTML = "★";
+                    } else {
+                        star.innerHTML = "☆";
                     }
 
-                    let movieInfo = movieCard.querySelector(".movie-info");
-                    movieInfo.appendChild(ratingContainer)
+                    ratingContainer.appendChild(star);
                 }
 
-                a.appendChild(movieCard);
-                container.appendChild(a);
+                let movieInfo = movieCard.querySelector(".movie-info");
+                movieInfo.appendChild(ratingContainer)
             }
+
+            a.appendChild(movieCard);
+            container.appendChild(a);
+        }
 
     }
 
+    async createLists(listName, selectedMovieIds) {
+        if (!listName) {
+            alert("Enter a list name!")
+            return;
+        }
+
+        try {
+
+            await api.createCustomList(listName, selectedMovieIds);
+            await this.showMoviesAndLists();
+
+            alert(`List "${listName}" created!!`)
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    async showMoviesAndLists() {
+        try {
+            const movies = await api.getMovies();
+            const movieContainer = document.getElementById("moviesCheckboxes");
+            const lists = await api.getAllCustomLists();
+            const listContainer = document.getElementById("listsContainer");
+
+            if (movies.length === 0) {
+                movieContainer.innerHTML = "<p style='color: #DB2424; text-align: center; padding: 20px;'>No movies yet. Add some movies first!</p>"
+            } else {
+                movieContainer.innerHTML = "";
+                for (let movie of movies) {
+                    const div = document.createElement("div");
+                    div.className = "movie-checkbox";
+                    div.innerHTML = `
+                        <input type = "checkbox" value="${movie.id}">
+                        <span>${movie.title} - (${movie.year})</span>
+                    `
+                    movieContainer.appendChild(div);
+                }
+            }
+
+            if (lists.length === 0) {
+                listContainer.innerHTML = "<p style='color: #DB2424; text-align: center; padding: 20px;'>No custom lists yet. create your first list above!!</p>"
+            } else {
+                listContainer.innerHTML = "";
+
+
+                for (let list of lists) {
+                    let count = 0;
+                    if (list.movieIds) {
+                        count = list.movieIds.length;
+                    }
+
+                    const div = document.createElement("div");
+                    div.className = "list-item";
+                    div.innerHTML = `
+                        <span> ${list.name} - (${count})</span>
+                        <button class="delete-list-btn" data-id="${list.id}">Delete</button>
+                    `;
+                    listContainer.appendChild(div);
+                }
+            }
+
+            const deleteButtons = document.querySelectorAll(".delete-list-btn");
+            const self = this;
+
+            for (let oneBtn of deleteButtons) {
+                oneBtn.addEventListener("click", async function () {
+                    const listId = oneBtn.getAttribute("data-id");
+                    if (confirm("Do you really want to delete this?")) {
+                        await api.deleteCustomList(listId);
+                        await self.showMoviesAndLists();
+                    }
+                })
+            }
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    async showMovieInList(listId) {
+        try {
+            const container = document.getElementById("movies-container");
+            container.innerHTML = "";
+
+            const movies = await api.getMoviesByListId(listId);
+
+            await this.renderMovies(movies, container);
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 }
-
-
-
