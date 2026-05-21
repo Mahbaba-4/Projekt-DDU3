@@ -108,7 +108,7 @@ class UI {
                 }
 
                 movieCard.innerHTML = `
- <img class="movie-poster" src="${movie.posterUrl}">
+        <img class="movie-poster" src="${movie.posterUrl}">
  <div class="movie-info">
  <div class="movie-card-title">${movie.title}</div>
  <div class="movie-year-genre">${movie.year} • ${genreName} </div>
@@ -595,5 +595,97 @@ class UI {
 
     }
 
-    
+    async createLists(listName, selectedMovieIds) {
+        if (!listName) {
+            alert("Enter a list name!")
+            return;
+        }
+
+        try {
+
+            await api.createCustomList(listName, selectedMovieIds);
+            await this.showMoviesAndLists();
+
+            alert(`List "${listName}" created!!`)
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    async showMoviesAndLists() {
+        try {
+            const movies = await api.getMovies();
+            const movieContainer = document.getElementById("moviesCheckboxes");
+            const lists = await api.getAllCustomLists();
+            const listContainer = document.getElementById("listsContainer");
+
+            if (movies.length === 0) {
+                movieContainer.innerHTML = "<p style='color: #DB2424; text-align: center; padding: 20px;'>No movies yet. Add some movies first!</p>"
+            } else {
+                movieContainer.innerHTML = "";
+                for (let movie of movies) {
+                    const div = document.createElement("div");
+                    div.className = "movie-checkbox";
+                    div.innerHTML = `
+                        <input type = "checkbox" value="${movie.id}">
+                        <span>${movie.title} - (${movie.year})</span>
+                    `
+                    movieContainer.appendChild(div);
+                }
+            }
+
+            if (lists.length === 0) {
+                listContainer.innerHTML = "<p style='color: #DB2424; text-align: center; padding: 20px;'>No custom lists yet. create your first list above!!</p>"
+            } else {
+                listContainer.innerHTML = "";
+
+
+                for (let list of lists) {
+                    let count = 0;
+                    if (list.movieIds) {
+                        count = list.movieIds.length;
+                    }
+
+                    const div = document.createElement("div");
+                    div.className = "list-item";
+                    div.innerHTML = `
+                        <span> ${list.name} - (${count})</span>
+                        <button class="delete-list-btn" data-id="${list.id}">Delete</button>
+                    `;
+                    listContainer.appendChild(div);
+                }
+            }
+
+            const deleteButtons = document.querySelectorAll(".delete-list-btn");
+            const self = this;
+
+            for (let oneBtn of deleteButtons) {
+                oneBtn.addEventListener("click", async function () {
+                    const listId = oneBtn.getAttribute("data-id");
+                    if (confirm("Do you really want to delete this?")) {
+                        await api.deleteCustomList(listId);
+                        await self.showMoviesAndLists();
+                    }
+                })
+            }
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    async showMovieInList(listId) {
+        try {
+            const container = document.getElementById("movies-container");
+            container.innerHTML = "";
+
+            const movies = await api.getMoviesByListId(listId);
+
+            await this.renderMovies(movies, container);
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 }
