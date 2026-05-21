@@ -1,72 +1,109 @@
 <!DOCTYPE html>
-<html>
-    <head>
+
+<head>
     <link rel="icon" type="image/png" href="assets/images/icon-logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Movie</title>
     <link rel="stylesheet" href="assets/css/add-profile.css">
-    <title>Sign Up</title>
-    
 </head>
 
 <body>
-    <div class="updateMovieDiv">
-        <form id="editMovieForm">
+    <div class="container">
 
-            <div class="form-field">
-                <label>Title</label>
-                    <input type="text" id="title">
-            </div>
+        <h1>Edit Movie</h1>
 
-            <div class="form-field half">
-                <label>Year</label>
-                    <input type="number" id="year">
-            </div>
-
-            <div class="form-field half">
-                <label>Genre</label>
-                    <input type="text" id="genre">
+        <form id="movieForm" autocomplete="off">
+            <div class="form-row">
+                <div class="form-field half">
+                    <label>Title</label>
+                    <input type="text" placeholder="Movie title">
                 </div>
 
-            <div class="form-field half">
-                <label>Director</label>
-                    <input type="text" id="director">
+                <div class="form-field half">
+                    <label>Year</label>
+                    <input type="text" value="" placeholder="2026">
+                </div>
             </div>
 
-            <div class="form-field half">
-                <label>Runtime</label>
-                    <input type="text" id="runTime">
+            <div class="form-row">
+                <div class="form-field half">
+                    <label>Genre</label>
+                    <select id="genreSelect">
+                        <option value="">Select genre</option>
+                    </select>
+                    <p class="genre">
+                        <a href="genre.html" style="color: #746363; text-decoration: none; font-size: 13px;">
+                            + Add new genre if not found, <span class="new-genre">klick here</span>
+                        </a>
+                    </p>
+                </div>
+                <div class="form-field half">
+                    <label>Director</label>
+                    <input type="text" placeholder="Director name">
+                </div>
             </div>
 
-            <div class="form-field half">
-                <label>Poster URL</label>
-                    <input type="text" id="posterUrl">
+            <div class="form-row">
+                <div class="form-field half">
+                    <label>Runtime (minutes)</label>
+                    <input type="text" value="">
+                </div>
+
+                <div class="form-field half">
+                    <label>Poster URL</label>
+                    <input type="text" placeholder="...">
+                </div>
             </div>
 
             <div class="form-field">
-                <label>Description</label>
-                    <textarea id="description"></textarea>
-                </div>
+                <label>My comment</label>
+                <textarea rows="3" placeholder="write something..."></textarea>
+            </div>
 
             <div class="form-field">
                 <label>Status</label>
-                    <select id="status">
-                        <option>Want to Watch</option>
-                        <option>Watched</option>
-                    </select>
+                <select id="statusSelect">
+                    <option selected>Want to Watch</option>
+                    <option>Watched</option>
+                </select>
             </div>
 
-            <div id="watchedExtra" style="display:none;">
-                <input type="number" id="rating" placeholder="Rating 1-5">
-                <input type="date" id="dateWatched">
+            <div id="watchedExtra" style="display: none;">
+                <div class="form-row">
+                    <div class="form-field half">
+                        <label>Rating</label>
+                        <div class="rating-stars">
+                            <span>☆</span>
+                            <span>☆</span>
+                            <span>☆</span>
+                            <span>☆</span>
+                            <span>☆</span>
+                        </div>
+                        <input type="hidden" id="rating">
+                    </div>
+                    <div class="form-field half">
+                        <label>Date Watched</label>
+                        <input type="date" value="" placeholder="01/12/2026">
+                    </div>
+                </div>
             </div>
 
-            <button type="submit" id="UpdateMovieButton">Update Movie</button>
+            <div class="button-group">
+                <button type="submit" class="btn-add">Add Movie</button>
+                <a href="main-page.html">
+                    <button type="button" class="btn-cancel">Cancel</button>
+                </a>
+            </div>
         </form>
     </div>
+    <script src="assets/requests.js"></script>
+    <script src="assets/movie.js"></script>
+    <script src="assets/add.js"></script>
 
     <footer>
         <p> © 2026 CineLog.</p>
     </footer>
 </body>
+
 </html>
