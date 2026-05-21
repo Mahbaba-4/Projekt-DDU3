@@ -476,14 +476,6 @@ class UI {
                 document.getElementById("profileUsername").textContent = displayName;
                 document.getElementById("profileEmail").textContent = user.email;
 
-                let displayBio;
-                if (user.bio) {
-                    displayBio = user.bio;
-                } else {
-                    displayBio = "No bio yet!";
-                }
-                document.getElementById("profileBio").textContent = displayBio;
-
                 if (user.profileImage) {
                     document.getElementById("profileImage").src = user.profileImage;
                 } else {
@@ -507,16 +499,7 @@ class UI {
         document.getElementById("editUsername").value = currentUsername;
         document.getElementById("editEmail").value = currentEmail;
 
-        let bioValue;
-        if (currentBio !== "No bio yet!") {
-            bioValue = currentBio;
-        } else {
-            bioValue = "";
-        }
-
-        document.getElementById("editBio").value = bioValue;
         document.getElementById("editImageUpload").value = "";
-
         document.getElementById("editProfileForm").style.display = "block";
 
     }
@@ -528,12 +511,10 @@ class UI {
     async saveProfileChanges() {
         const newUsername = document.getElementById("editUsername").value;
         const newEmail = document.getElementById("editEmail").value;
-        const newBio = document.getElementById("editBio").value;
         const imageFile = document.getElementById("editImageUpload").files[0];
 
         const currentUsername = document.getElementById("profileUsername").textContent;
         const currentEmail = document.getElementById("profileEmail").textContent;
-        const currentBio = document.getElementById("profileBio").textContent;
 
         const profileData = {};
 
@@ -545,9 +526,6 @@ class UI {
             profileData.email = newEmail;
         }
 
-        if (newBio !== currentBio && newBio !== "") {
-            profileData.bio = newBio;
-        }
 
         let hasChanges = false;
         for (let key in profileData) {
