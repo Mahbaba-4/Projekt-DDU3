@@ -1108,7 +1108,7 @@ async function postGenres(request) {
             }
         }
 
-        if (!genreExists) {
+        if (genreExists) {
             return new Response(JSON.stringify({}), {
                 status: 409,
                 headers: {

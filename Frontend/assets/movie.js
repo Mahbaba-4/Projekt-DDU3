@@ -493,7 +493,6 @@ class UI {
     showEditForm() {
         const currentUsername = document.getElementById("profileUsername").textContent;
         const currentEmail = document.getElementById("profileEmail").textContent;
-        const currentBio = document.getElementById("profileBio").textContent;
         const currentImage = document.getElementById("profileImage").src;
 
         document.getElementById("editUsername").value = currentUsername;
