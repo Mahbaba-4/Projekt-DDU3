@@ -1,7 +1,7 @@
 class UI {
     constructor(apiInstance) {
         this.api = apiInstance;
-        this.currentMovieId = null;
+        //this.currentMovieId = null; <-- används inte i koden just nu så kommenterar ut den, men har kvar den ifall att vi väljer att vi vill använda det som vi gjorde på U1. Men tror inte det kommer behövas. :)
     }
 
     signUpForm() {
