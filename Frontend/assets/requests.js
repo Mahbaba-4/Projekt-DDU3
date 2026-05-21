@@ -295,7 +295,6 @@ class API {
 
     async getMoviesById(movieId) {
         try {
-
             const response = await fetch(`/user/movies/${movieId}`, {
                 method: "GET",
                 headers: {
