@@ -1159,6 +1159,10 @@ async function postGenres(request) {
 function deleteGenre(request, id) {
     try {
         const data = readData();
+
+        
+
+
         let found = false;
         const updatedGenres = [];
 
