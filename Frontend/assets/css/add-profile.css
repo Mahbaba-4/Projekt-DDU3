@@ -469,6 +469,7 @@ footer {
     border: 1px solid #2a2a2a;
     border-radius: 20px;
     padding: 2px 2px;
+    width: 750px;
 }
 
 .filter-btn {
@@ -489,7 +490,7 @@ footer {
     background: #151414;
     padding: 6px 12px;
     border-radius: 30px;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     color: #938c8c;
 }

@@ -1314,7 +1314,7 @@ async function createCustomList(request) {
             userId: userId,
             name: body.name,
             type: "custom",
-            movieIds: []
+            movieIds: body.movieIds || []
         }
 
         data.lists.push(newList);
