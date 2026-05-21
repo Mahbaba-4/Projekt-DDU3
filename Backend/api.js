@@ -1160,9 +1160,6 @@ function deleteGenre(request, id) {
     try {
         const data = readData();
 
-        
-
-
         let found = false;
         const updatedGenres = [];
 
@@ -1220,6 +1217,8 @@ function deleteGenre(request, id) {
         })
     }
 }
+
+
 
 function getUserMovieTitles(request) {
     try {
