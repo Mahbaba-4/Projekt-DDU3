@@ -332,9 +332,12 @@ class UI {
         }
 
         if (watchedBtn) {
-            watchedBtn.addEventListener("click", function () {
+            watchedBtn.addEventListener("click", function (e) {
                 currentStatus = "Watched";
-              
+
+                e.target.style.backgroundColor = "#161515";
+                watchlistBtn.style.backgroundColor = "transparent";
+                allBtn.style.backgroundColor = "transparent";
 
                 let genreValue = "";
                 let statusValue = "";
@@ -345,9 +348,12 @@ class UI {
         }
 
         if (watchlistBtn) {
-            watchlistBtn.addEventListener("click", function () {
+            watchlistBtn.addEventListener("click", function (e) {
                 currentStatus = "Watchlist";
-            
+
+                e.target.style.backgroundColor = "#161515";
+                allBtn.style.backgroundColor = "transparent";
+                watchedBtn.style.backgroundColor = "transparent";
 
                 let genreValue = "";
                 let statusValue = "";
