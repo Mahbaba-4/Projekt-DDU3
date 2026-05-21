@@ -908,7 +908,7 @@ async function postProfileImage(request) {
 
         const bytes = await imageFile.bytes();
 
-        const filePath = `./uploads/profile-images/${newFilename}`;
+        const filePath = `../Frontend/uploads/profile-images/${newFilename}`;
         await Deno.writeFile(filePath, bytes);
 
         const data = readData();
