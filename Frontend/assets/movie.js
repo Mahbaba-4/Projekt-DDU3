@@ -318,18 +318,10 @@ class UI {
         const watchlistBtn = document.querySelector('.filter-btn:nth-child(3)');
         const genresSelect = document.getElementById("genreSelect");
 
-        function updateButtons(activeBtn) {
-            const allBtns = document.querySelectorAll(".filter-btn");
-            for (let i = 0; i < allBtn.length; i++) {
-                activeBtn.style.backgroundColor = "#161515";
-                activeBtn.style.color = "#DB2424";
-            }
-        }
 
         if (allBtn) {
             allBtn.addEventListener("click", function () {
                 currentStatus = "all";
-                updateButtons(allBtn);
 
                 let genreValue = "";
                 let statusValue = "";
@@ -342,7 +334,7 @@ class UI {
         if (watchedBtn) {
             watchedBtn.addEventListener("click", function () {
                 currentStatus = "Watched";
-                updateButtons(watchedBtn);
+              
 
                 let genreValue = "";
                 let statusValue = "";
@@ -355,7 +347,7 @@ class UI {
         if (watchlistBtn) {
             watchlistBtn.addEventListener("click", function () {
                 currentStatus = "Watchlist";
-                updateButtons(watchlistBtn);
+            
 
                 let genreValue = "";
                 let statusValue = "";

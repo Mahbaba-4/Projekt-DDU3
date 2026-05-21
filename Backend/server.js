@@ -150,8 +150,6 @@ async function handler(request) {
         return createMovieReview(request);
     }
 
-
-
     if (url.pathname == "/user/movies/search" && request.method === "GET") {
         if (request.headers.get("Accept") !== "application/json") {
             return new Response(JSON.stringify({}), {
