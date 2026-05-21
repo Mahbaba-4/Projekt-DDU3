@@ -82,19 +82,27 @@
     padding: 2px 12px;
     width: 200px;
     color: #fbf8f8;
+    background-color: transparent;
+    border: none;
 }
 
 #searchBtn {
-    border-radius: 15px;
-    margin-left: 4px;
+    margin-left: -9px;
+    margin-top: -6px;
+    padding-right: -10px;
+    max-width: 100px;
     border: none;
-    background-color: #0f0f0f;
+    background-color: transparent;
     color: #e6e2e2;
 }
 
-#searchBtn:hover{
-    background: #292727;
-    color: #ffffff;
+#searchBtn img {
+    height: 20px;
+}
+
+
+div #search-movies{
+    max-width: 250px;
 }
 
 #genreSelect {
