@@ -253,7 +253,7 @@ class UI {
         } catch (error) {
             console.error("Failed to load genres:", error.message);
             const genreSelect = document.getElementById("genreSelect");
-            genreSelect.innerHTML = `<option value="">Error loading generes</option>`;
+            genreSelect.innerHTML = `<option value="">Error loading genres</option>`;
         }
     }
 
@@ -374,6 +374,79 @@ class UI {
         if (currentGenre !== "") genreValue = currentGenre;
         if (currentStatus !== "all") statusValue = currentStatus;
          self.getMovies(genreValue, statusValue);
+
+    }
+
+    async searchMovies(){
+
+         let allCount = document.getElementById("all-count");
+        let watchedCount = document.getElementById("watched-count");
+        let watchlistCount = document.getElementById("watchlist-count");
+        let container = document.getElementById("movies-container");
+
+        container.innerHTML = "";
+    
+        const allGenres = await api.getGenre();
+        const searchInput = document.getElementById("searchInput");
+        const query = searchInput.value;
+
+        if (query === "") return;
+
+
+        const result = await api.searchMovies(query);
+
+        if (!result) return;
+
+        const movies = result.data;
+
+        for (let movie of result) {
+                const a = document.createElement("a");
+                a.href = `one-movie.html?id=${movie.id}`;
+                a.style.textDecoration = "none";
+
+                const movieCard = document.createElement("div");
+                movieCard.classList.add("movie-card");
+
+                let genreName = "";
+                for (let genre of allGenres) {
+                    if (genre.id == movie.genreId) {
+                        genreName = genre.name;
+                        break;
+                    }
+                }
+
+                movieCard.innerHTML = `
+                    <img class="movie-poster" src="${movie.posterUrl}">
+                    <div class="movie-info">
+                        <div class="movie-card-title">${movie.title}</div>
+                        <div class="movie-year-genre">${movie.year} • ${genreName} </div>
+                    </div>
+
+                `
+
+                if (movie.status == "Watched") {
+                    const ratingContainer = document.createElement("div");
+                    ratingContainer.classList.add("movie-rating")
+
+                    for (let i = 0; i < 5; i++) {
+                        let star = document.createElement("span");
+
+                        if (i < movie.rating) {
+                            star.innerHTML = "★";
+                        } else {
+                            star.innerHTML = "☆";
+                        }
+
+                        ratingContainer.appendChild(star);
+                    }
+
+                    let movieInfo = movieCard.querySelector(".movie-info");
+                    movieInfo.appendChild(ratingContainer)
+                }
+
+                a.appendChild(movieCard);
+                container.appendChild(a);
+            }
 
     }
 

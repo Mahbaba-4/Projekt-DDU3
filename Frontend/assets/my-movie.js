@@ -5,3 +5,11 @@ ui.logOut();
 ui.showGenres(); 
 
 
+
+const searchBtn = document.getElementById("searchBtn");
+
+if (searchBtn) {
+    searchBtn.addEventListener("click", function() {
+       ui.searchMovies(); 
+    });
+}
