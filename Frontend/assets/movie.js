@@ -320,8 +320,12 @@ class UI {
 
 
         if (allBtn) {
-            allBtn.addEventListener("click", function () {
+            allBtn.addEventListener("click", function (e) {
                 currentStatus = "all";
+
+                e.target.style.backgroundColor = "#161515";
+                watchedBtn.style.backgroundColor = "transparent";
+                watchlistBtn.style.backgroundColor = "transparent";
 
                 let genreValue = "";
                 let statusValue = "";
