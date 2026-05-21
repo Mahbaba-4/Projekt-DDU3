@@ -257,6 +257,7 @@ class UI {
         }
     }
 
+
     async getUserGenre(){
         try{
 
@@ -277,6 +278,7 @@ class UI {
             genreDelete.innerHTML = `<option value="">Error loading generes</option>`;
         }
     }
+
 
     async addGenre() {
         try {
