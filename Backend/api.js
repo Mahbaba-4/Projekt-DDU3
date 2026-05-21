@@ -1084,7 +1084,7 @@ async function postGenres(request) {
 
         if(!userId){
             return new Response(JSON.stringify({}), {
-                status: 401,
+                status: 404,
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -1179,24 +1179,6 @@ function deleteGenre(request, id) {
             })
         }
 
-        let isUsedInMovie = false;
-        for (let i = 0; i < data.movies.length; i++) {
-            if (data.movies[i].genreId == id) {
-                isUsedInMovie = true;
-                break;
-            }
-        }
-
-        //VI MÅSTE kontrollera så att genre inte används i en film innan det kan raderas. 409 betyder conflict :)
-        if (isUsedInMovie) {
-            return new Response(JSON.stringify({}), {
-                status: 409,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-        }
-
         data.genre = updatedGenres;
         writeData(data);
 
@@ -1217,7 +1199,39 @@ function deleteGenre(request, id) {
     }
 }
 
+function getUserGenre(request){
+    try {
+        const data = readData();
+        const userId = getUserIdFromSession(request);
 
+        if(!userId){
+            return new Response(JSON.stringify("Not logged in"), {
+                status: 404,
+            })
+        }
+
+        let genre = [];
+        for(let i = 0; i < data.genre.length; i++){
+            if(data.genre[i].userId === userId){
+                genre.push(data.genre[i]);
+            }
+        }
+
+        return new Response(JSON.stringify(genre), {
+            status: 200,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    } catch (error) {
+        return new Response(JSON.stringify({}), {
+            status: 500,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+    }
+}
 
 function getUserMovieTitles(request) {
     try {
@@ -1485,6 +1499,6 @@ function getMoviesByListId(request, listId) {
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, getUserIdFromSession };
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, getUserIdFromSession, getUserGenre };
 
 

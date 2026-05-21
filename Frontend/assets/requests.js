@@ -410,14 +410,37 @@ class API {
     async deleteGenres(genreId) {
         try {
 
-            const response = await fetch(`/movie/genre/${genreId}`, {
+            const response = await fetch(`/movies/genre/${genreId}`, {
                 method: "DELETE",
-                credentials: "include"
+                credentials: "include",
             });
 
             if (response.ok) {
                 console.log("Genre raderad");
-                return true
+                return;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    async getUserGenre(){
+         try {
+
+            const response = await fetch("/movies/user/genre", {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json",
+                },
+                credentials: "include"
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data;
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

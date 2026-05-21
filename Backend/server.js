@@ -1,9 +1,9 @@
 
 import { serveDir } from "jsr:@std/http/file-server";
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, postGenres, deleteGenre, sessions, getUserIdFromSession } from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, postGenres, deleteGenre, sessions, getUserIdFromSession, getUserGenre } from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
-const genreByIdRoute = new URLPattern({ pathname: "/movie/genre/:id" })
+const genreByIdRoute = new URLPattern({ pathname: "/movies/genre/:id" })
 const listByIdRoute = new URLPattern({ pathname: "/user/lists/:id" })
 
 function authorization(request) {
@@ -167,6 +167,15 @@ async function handler(request) {
     if (genreMatch && request.method === "DELETE") {
         let id = genreMatch.pathname.groups.id;
         return deleteGenre(request, id);
+    }
+
+    if(url.pathname == "/movies/user/genre" && request.method == "GET"){
+        if (request.headers.get("Accept") !== "application/json") {
+            return new Response(JSON.stringify({}), {
+                status: 406,
+            })
+        }
+        return getUserGenre(request);
     }
 
     let movieMatch = movieByIdRoute.exec(request.url);

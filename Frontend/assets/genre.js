@@ -1,6 +1,6 @@
 const api = new API();
 const ui = new UI(api);
-ui.showGenres();
+ui.getUserGenre();
 
 const addGenreForm = document.getElementById("add-box-genre");
 const deleteGenreForm = document.getElementById("delete-box-genre");
@@ -12,8 +12,8 @@ addGenreForm.addEventListener("submit", function (event){
 
 deleteGenreForm.addEventListener("submit", async function (event){
     event.preventDefault();
-    const genreSelect = document.getElementById("genreSelect");
-    const genreId = genreSelect.value;
+    const genreDelete = document.getElementById("genreDelete");
+    const genreId = genreDelete.value;
 
     if(genreId){
         await ui.deleteGenre(genreId);
