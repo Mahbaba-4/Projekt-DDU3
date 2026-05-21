@@ -257,6 +257,8 @@ class UI {
         }
     }
 
+    
+
     async addGenre() {
         try {
 

@@ -371,7 +371,7 @@ function getMovies(request) {
 
         if (!userId) {
             return new Response(JSON.stringify("Not logged in"), {
-                status: 401
+                status: 404
             })
         }
 
@@ -1108,7 +1108,7 @@ async function postGenres(request) {
             }
         }
 
-        if (genreExists) {
+        if (!genreExists) {
             return new Response(JSON.stringify({}), {
                 status: 409,
                 headers: {
