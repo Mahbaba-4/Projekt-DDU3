@@ -67,9 +67,25 @@ function getMovieById(request, id) {
 function getGenres(request) {
     try {
         const data = readData();
-        let genres = data.genre;
+        const userId = getUserIdFromSession(request);
 
-        return new Response(JSON.stringify(genres), {
+        if(!userId){
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        }
+
+        let oneUserGenres = [];
+        for(let genre of data.genre){
+            if(genre.userId === userId){
+                oneUserGenres.push(genre)
+            }
+        }
+
+        return new Response(JSON.stringify(oneUserGenres), {
             status: 200,
             headers: {
                 "Content-Type": "application/json"
@@ -1083,6 +1099,16 @@ async function postGenres(request) {
     try {
         const data = readData();
         const body = await request.json();
+        const userId = getUserIdFromSession(request);
+
+        if(!userId){
+            return new Response(JSON.stringify({}), {
+                status: 401,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+        }
 
         if (!body.name) {
             return new Response(JSON.stringify({}), {
@@ -1095,7 +1121,7 @@ async function postGenres(request) {
 
         let genreExists = false;
         for (let genre of data.genre) {
-            if (genre.name === body.name) {
+            if (genre.name === body.name && genre.userId === userId) {
                 genreExists = true;
                 break;
             }
@@ -1112,9 +1138,11 @@ async function postGenres(request) {
 
         let maxId = 0;
         for (let genre of data.genre) {
-            const id = parseInt(genre.id);
-            if (id > maxId) {
-                maxId = id;
+            if(genre.userId === userId){
+                const id = parseInt(genre.id);
+                if (id > maxId) {
+                    maxId = id;
+                }
             }
         }
 
@@ -1122,7 +1150,8 @@ async function postGenres(request) {
 
         const newGenre = {
             id: newId,
-            name: body.name
+            name: body.name,
+            userId:  userId
         }
 
         data.genre.push(newGenre);
