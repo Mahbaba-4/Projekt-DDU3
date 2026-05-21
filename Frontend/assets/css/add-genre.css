@@ -36,7 +36,7 @@ h1 {
     margin-bottom: 16px;
 }
 
-#genreInput, #genreSelect {
+#genreInput, #genreDelete {
     width: 100%;
     padding: 12px 14px;
     border: 1px solid #2a2a2a;
@@ -51,7 +51,7 @@ h1 {
     margin-bottom: 60px;
 }
 
-#genreInput:focus, #genreSelect:focus {
+#genreInput:focus, #genreDelete:focus {
     outline: none;
     border-color: #DB2424;
 }
