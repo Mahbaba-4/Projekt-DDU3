@@ -67,25 +67,9 @@ function getMovieById(request, id) {
 function getGenres(request) {
     try {
         const data = readData();
-        const userId = getUserIdFromSession(request);
+        let genres = data.genre;
 
-        if(!userId){
-            return new Response(JSON.stringify({}), {
-                status: 401,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-        }
-
-        let oneUserGenres = [];
-        for(let genre of data.genre){
-            if(genre.userId === userId){
-                oneUserGenres.push(genre)
-            }
-        }
-
-        return new Response(JSON.stringify(oneUserGenres), {
+        return new Response(JSON.stringify(genres), {
             status: 200,
             headers: {
                 "Content-Type": "application/json"
