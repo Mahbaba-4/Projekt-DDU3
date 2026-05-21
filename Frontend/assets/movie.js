@@ -257,7 +257,28 @@ class UI {
         }
     }
 
-    
+
+    async getUserGenre(){
+        try{
+
+            const genres = await this.api.getUserGenre();
+            const genreDelete = document.getElementById("genreDelete");
+            genreDelete.innerHTML = `<option value="">Delete genre</option>`;
+
+            for (let genre of genres) {
+                const option = document.createElement("option");
+                option.value = genre.id;
+                option.textContent = genre.name;
+                genreDelete.appendChild(option);
+            }
+
+        }catch(error){
+            console.error("Failed to load genres:", error.message);
+            const genreDelete = document.getElementById("genreDelete");
+            genreDelete.innerHTML = `<option value="">Error loading generes</option>`;
+        }
+    }
+
 
     async addGenre() {
         try {
@@ -265,7 +286,6 @@ class UI {
             const genreNameInput = document.getElementById("genreInput");
 
             await this.api.postGenre(genreNameInput.value);
-            await this.showGenres();
 
             genreNameInput.value = "";
 
@@ -277,7 +297,6 @@ class UI {
     async deleteGenre(genreId) {
         try {
             await this.api.deleteGenres(genreId);
-            await this.showGenres();
         } catch (error) {
             console.log("Failed to delete genre", error.message)
         }
