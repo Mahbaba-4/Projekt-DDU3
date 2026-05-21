@@ -1,5 +1,5 @@
 class API {
- 
+
 
     async postSignUp(sign) {
         try {
@@ -39,7 +39,7 @@ class API {
 
             if (response.ok) {
                 window.location.href = "/main-page.html";
-      
+
             } else {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -50,7 +50,7 @@ class API {
     }
 
     async logOut() {
-    
+
         try {
             const response = await fetch("http://localhost:8000/auth/logout", {
                 method: "POST",
@@ -214,7 +214,7 @@ class API {
             const response = await fetch(url, {
                 method: "GET",
                 credentials: "include",
-                 headers: {
+                headers: {
                     "Accept": "application/json"
                 }
             });
@@ -228,6 +228,46 @@ class API {
 
         } catch (error) {
             console.log(error.message);
+        }
+    }
+
+    async getMoviesWithFilter(genreId = "", status = "") {
+        try {
+
+            let params = [];
+
+            if (genreId !== "") {
+                params.push(`genre=${genreId}`);
+            }
+
+            if (status !== "") {
+                params.push(`status=${status}`);
+            }
+
+        
+            let url = "http://localhost:8000/user/movies";
+            if (params.length > 0) {
+                url += "?" + params.join("&");
+            }
+
+            const response = await fetch(url, {
+                method: "GET",
+                credentials: "include",
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            } else {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+        } catch (error) {
+            console.log(error.message);
+            return [];
         }
     }
 

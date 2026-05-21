@@ -48,11 +48,13 @@ class UI {
 
     }
 
-    async getMovies() {
-    
+    async getMovies(genreId = "", status = "") {
+
         console.log("getMovies method called");
 
         let allCount = document.getElementById("all-count");
+        let watchedCount = document.getElementById("watched-count");
+        let watchlistCount = document.getElementById("watchlist-count");
         let container = document.getElementById("movies-container");
 
         container.innerHTML = "";
@@ -60,14 +62,37 @@ class UI {
         try {
             const allMovies = await api.getMovies();
             const allGenres = await api.getGenre();
+            const filteredMovies = await this.api.getMoviesWithFilter(genreId, status);
 
+            let allMoviesCount = 0;
+            let watchedMoviesCount = 0;
+            let watchlistMoviesCount = 0;
+
+            for (let i = 0; i < allMovies.length; i++) {
+                allMoviesCount++;
+                if (allMovies[i].status == "Watched") {
+                    watchedMoviesCount++;
+                } else if (allMovies[i].status == "Watchlist") {
+                    watchlistMoviesCount++;
+                }
+
+            }
 
             if (allCount) {
-                allCount.textContent = allMovies.length;
+                allCount.textContent = allMoviesCount;
                 console.log(allCount.textContent)
             }
 
-            for (let movie of allMovies) {
+            if (watchedCount) {
+                watchedCount.textContent = watchedMoviesCount;
+            }
+
+            if (watchlistCount) {
+                watchlistCount.textContent = watchlistMoviesCount;
+            }
+
+
+            for (let movie of filteredMovies) {
                 const a = document.createElement("a");
                 a.href = `one-movie.html?id=${movie.id}`;
                 a.style.textDecoration = "none";
@@ -209,51 +234,134 @@ class UI {
         }
     }
 
-    async showGenres(){
-        try{
-           
+    async showGenres() {
+        try {
+
             const genres = await this.api.getGenre();
-    
-            const genreSelect = document.getElementById("genreSelect"); 
+
+            const genreSelect = document.getElementById("genreSelect");
 
             genreSelect.innerHTML = `<option value="">Select genre</option>`;
 
-            for(let genre of genres){
+            for (let genre of genres) {
                 const option = document.createElement("option");
                 option.value = genre.id;
                 option.textContent = genre.name;
-                genreSelect.appendChild(option); 
+                genreSelect.appendChild(option);
             }
 
-        }catch(error){
+        } catch (error) {
             console.error("Failed to load genres:", error.message);
             const genreSelect = document.getElementById("genreSelect");
             genreSelect.innerHTML = `<option value="">Error loading generes</option>`;
         }
     }
-  
-    async addGenre(){
-        try{
+
+    async addGenre() {
+        try {
 
             const genreNameInput = document.getElementById("genreInput");
-           
+
             await this.api.postGenre(genreNameInput.value);
             await this.showGenres();
 
             genreNameInput.value = "";
 
-        }catch(error){
+        } catch (error) {
             console.log("Failed to add genre", error.message)
         }
     }
 
-    async deleteGenre(genreId){
-        try{
+    async deleteGenre(genreId) {
+        try {
             await this.api.deleteGenres(genreId);
             await this.showGenres();
-        }catch(error){
+        } catch (error) {
             console.log("Failed to delete genre", error.message)
         }
+    }
+
+
+
+    async filteredMovies() {
+
+        await this.showGenres(); 
+
+        let currentGenre = "";
+        let currentStatus = "all";
+
+        const self = this; 
+
+        const allBtn = document.querySelector('.filter-btn:first-child');
+        const watchedBtn = document.querySelector('.filter-btn:nth-child(2)');
+        const watchlistBtn = document.querySelector('.filter-btn:nth-child(3)');
+        const genresSelect = document.getElementById("genreSelect");
+
+        function updateButtons(activeBtn) {
+            const allBtns = document.querySelectorAll(".filter-btn");
+            for (let i = 0; i < allBtn.length; i++) {
+                activeBtn.style.backgroundColor = "#161515";
+                activeBtn.style.color = "#DB2424";
+            }
+        }
+
+        if (allBtn) {
+            allBtn.addEventListener("click", function () {
+                currentStatus = "all";
+                updateButtons(allBtn);
+
+                let genreValue = "";
+                let statusValue = "";
+                if (currentGenre !== "") genreValue = currentGenre;
+                if (currentStatus !== "all") statusValue = currentStatus;
+                self.getMovies(genreValue, statusValue);
+            });
+        }
+
+        if (watchedBtn) {
+            watchedBtn.addEventListener("click", function () {
+                currentStatus = "Watched";
+                updateButtons(watchedBtn);
+
+                let genreValue = "";
+                let statusValue = "";
+                if (currentGenre !== "") genreValue = currentGenre;
+                if (currentStatus !== "all") statusValue = currentStatus;
+                 self.getMovies(genreValue, statusValue);
+            });
+        }
+
+        if (watchlistBtn) {
+            watchlistBtn.addEventListener("click", function () {
+                currentStatus = "Watchlist";
+                updateButtons(watchlistBtn);
+
+                let genreValue = "";
+                let statusValue = "";
+                if (currentGenre !== "") genreValue = currentGenre;
+                if (currentStatus !== "all") statusValue = currentStatus;
+                 self.getMovies(genreValue, statusValue);
+            });
+        }
+
+        if (genresSelect) {
+            genresSelect.addEventListener("change", function(e) {
+                currentGenre = e.target.value;
+
+                let genreValue = "";
+                let statusValue = "";
+                if (currentGenre !== "") genreValue = currentGenre;
+                if (currentStatus !== "all") statusValue = currentStatus;
+                 self.getMovies(genreValue, statusValue);
+            });
+        }
+
+        let genreValue = "";
+        let statusValue = "";
+        if (currentGenre !== "") genreValue = currentGenre;
+        if (currentStatus !== "all") statusValue = currentStatus;
+         self.getMovies(genreValue, statusValue);
+
     }
 
 }
