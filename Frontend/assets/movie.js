@@ -3,6 +3,58 @@ class UI {
         this.api = apiInstance;
     }
 
+    async renderMovies(moviesToShow, container) {
+        try {
+            if (!moviesToShow || moviesToShow.length === 0) {
+                container.innerHTML = "<p style='text-align: center; padding: 60px; color: #666;'>No movies found.</p>";
+                return;
+            }
+
+            const allGenres = await this.api.getGenre();
+
+            for (let movie of moviesToShow) {
+                const a = document.createElement("a");
+                a.href = `one-movie.html?id=${movie.id}`;
+                a.style.textDecoration = "none";
+
+                const movieCard = document.createElement("div");
+                movieCard.classList.add("movie-card");
+
+                let genreName = "";
+                for (let genre of allGenres) {
+                    if (genre.id == movie.genreId) {
+                        genreName = genre.name;
+                        break;
+                    }
+                }
+
+                movieCard.innerHTML = `
+                    <img class="movie-poster" src="${movie.posterUrl}">
+                    <div class="movie-info">
+                    <div class="movie-card-title">${movie.title}</div>
+                    <div class="movie-year-genre">${movie.year} • ${genreName} </div>
+                </div>
+                `;
+
+                if (movie.status == "Watched") {
+                    const ratingContainer = document.createElement("div");
+                    ratingContainer.classList.add("movie-rating");
+                    for (let i = 0; i < 5; i++) {
+                        let star = document.createElement("span");
+                        star.innerHTML = i < movie.rating ? "★" : "☆";
+                        ratingContainer.appendChild(star);
+                    }
+                    movieCard.querySelector(".movie-info").appendChild(ratingContainer);
+                }
+
+                a.appendChild(movieCard);
+                container.appendChild(a);
+            }
+        } catch (error) {
+            console.log(error.meessage)
+        }
+    }
+
     signUpForm() {
 
         const signUpForm = document.getElementById("movieForm");
@@ -90,55 +142,7 @@ class UI {
                 watchlistCount.textContent = watchlistMoviesCount;
             }
 
-
-            for (let movie of filteredMovies) {
-                const a = document.createElement("a");
-                a.href = `one-movie.html?id=${movie.id}`;
-                a.style.textDecoration = "none";
-
-                const movieCard = document.createElement("div");
-                movieCard.classList.add("movie-card");
-
-                let genreName = "";
-                for (let genre of allGenres) {
-                    if (genre.id == movie.genreId) {
-                        genreName = genre.name;
-                        break;
-                    }
-                }
-
-                movieCard.innerHTML = `
-        <img class="movie-poster" src="${movie.posterUrl}">
- <div class="movie-info">
- <div class="movie-card-title">${movie.title}</div>
- <div class="movie-year-genre">${movie.year} • ${genreName} </div>
- </div>
-
- `
-
-                if (movie.status == "Watched") {
-                    const ratingContainer = document.createElement("div");
-                    ratingContainer.classList.add("movie-rating")
-
-                    for (let i = 0; i < 5; i++) {
-                        let star = document.createElement("span");
-
-                        if (i < movie.rating) {
-                            star.innerHTML = "★";
-                        } else {
-                            star.innerHTML = "☆";
-                        }
-
-                        ratingContainer.appendChild(star);
-                    }
-
-                    let movieInfo = movieCard.querySelector(".movie-info");
-                    movieInfo.appendChild(ratingContainer)
-                }
-
-                a.appendChild(movieCard);
-                container.appendChild(a);
-            }
+            await this.renderMovies(filteredMovies, container);
 
         } catch (error) {
             console.log(error.message);
