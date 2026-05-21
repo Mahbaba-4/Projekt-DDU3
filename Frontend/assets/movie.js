@@ -692,4 +692,142 @@ class UI {
             console.log(error.message);
         }
     }
+
+    async updateMovie() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieId = urlParams.get("id");
+    
+        if (!movieId) {
+            console.log("No movie ID found");
+            return;
+        }
+    
+        try {
+            const movie = await this.api.getMoviesById(movieId);
+            const allGenres = await this.api.getGenre();
+
+            document.getElementById("titleInput").value = movie.title;
+            document.getElementById("yearInput").value = movie.year;
+            document.getElementById("directorInput").value = movie.director;
+            document.getElementById("runtimeInput").value = movie.runtime;
+            document.getElementById("posterInput").value = movie.posterUrl;
+            document.getElementById("commetInput").value = movie.description;
+        
+
+            let genreName = "";
+            for (let i = 0; i < allGenres.length; i++) {
+                if (allGenres[i].id == movie.genreId) {
+                    genreName = allGenres[i].name;
+                    break;
+                }
+            }
+
+            const genreSelect = document.getElementById("genreSelect");
+            genreSelect.innerHTML = '<option value="">Select genre</option>';
+        
+            for (let i = 0; i < allGenres.length; i++) {
+                const option = document.createElement("option");
+                option.value = allGenres[i].id;
+                option.textContent = allGenres[i].name;
+                if (allGenres[i].name === genreName) {
+                    option.selected = true;
+                }
+                genreSelect.appendChild(option);
+            }
+        
+            const statusSelect = document.getElementById("statusSelect");
+            const watchedExtra = document.getElementById("watchedExtra");
+            const stars = document.querySelectorAll(".rating-stars span");
+            const ratingInput = document.getElementById("rating");
+            const dateInput = document.getElementById("dateWatched");
+        
+            if (movie.status === "Watched") {
+                statusSelect.value = "Watched";
+                watchedExtra.style.display = "block";
+            
+                ratingInput.value = movie.rating;
+                for (let i = 0; i < stars.length; i++) {
+                    if (i < movie.rating) {
+                        stars[i].innerHTML = "★";
+                        stars[i].style.fontSize = "30px";
+                        stars[i].style.color = "#DB2424";
+                    } else {
+                        stars[i].innerHTML = "☆";
+                        stars[i].style.color = "#DB2424";
+                    }
+                }
+            
+                if (movie.dateWatched) {
+                    dateInput.value = movie.dateWatched;
+                }
+            } else {
+                statusSelect.value = "Watchlist";
+                watchedExtra.style.display = "none";
+            }
+        
+            const form = document.getElementById("movieForm");
+            let self = this;
+        
+            form.addEventListener("submit", async function(e) {
+                e.preventDefault();
+            
+                const title = document.getElementById("titleInput").value;
+                const year = parseInt(document.getElementById("yearInput").value);
+                const genreSelect = document.getElementById("genreSelect");
+                const selectedIndex = genreSelect.selectedIndex;
+                const genreName = genreSelect.options[selectedIndex].textContent;
+                const director = document.getElementById("directorInput").value;
+                const runtime = parseInt(document.getElementById("runtimeInput").value);
+                const posterUrl = document.getElementById("posterInput").value;
+                const description = document.getElementById("commetInput").value;
+            
+                let status = "";
+                if (document.getElementById("statusSelect").value === "Watched") {
+                    status = "Watched";
+                } else {
+                    status = "Watchlist";
+                }
+            
+                let rating = null;
+                let dateWatched = null;
+            
+                if (status === "Watched") {
+                    const ratingValue = document.getElementById("rating").value;
+                    if (ratingValue !== "") {
+                        rating = parseInt(ratingValue);
+                    }
+                    dateWatched = document.getElementById("dateWatched").value;
+                }
+            
+                const updateData = {
+                    title: title,
+                    year: year,
+                    genre: genreName,
+                    director: director,
+                    runtime: runtime,
+                    posterUrl: posterUrl,
+                    description: description,
+                    status: status,
+                    rating: rating,
+                    dateWatched: dateWatched
+                };
+            
+                try {
+                    const success = await this.api.updateMovie(movieId, updateData);
+                    if (success) {
+                        alert("You updated the movie successfully!");
+                        window.location.href = "main-page.html";
+                    } else {
+                        alert("Failed to update movie");
+                    }
+                } catch (error) {
+                    console.log("Failed to update movie:", error.message);
+                    alert("Failed to update movie");
+                }
+            });
+        
+        } catch (error) {
+            console.log("Failed to load movie data:", error.message);
+        }
+    } //not done with this one, måste kolla igenom
 }
