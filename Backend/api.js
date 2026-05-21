@@ -664,9 +664,7 @@ async function postLogIn(request) {
             status: 200,
             headers: {
                 "Content-Type": "application/json",
-                "Set-Cookie": "sessionId=" + sessionId + "; Max-Age=86400; Path=/; SameSite=Lax;"
-                //Path vilka path delar av webbplatsen cookies ska skickas till alla i detta fall, SameSite=Lax; Secure; krävs för att cookies ska skickas i cross-site requests (för login, bilder åch sånt ska skickas)
-                //Och skicka bara cookien i säkra situationer mellan webbplatser alltså när den ska skickas. 
+                "Set-Cookie": "sessionId=" + sessionId + "; Max-Age=86400; Path=/; SameSite=Lax;" 
             }
         })
 

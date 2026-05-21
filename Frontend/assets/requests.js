@@ -3,7 +3,7 @@ class API {
 
     async postSignUp(sign) {
         try {
-            const response = await fetch("http://localhost:8000/auth/signup", {
+            const response = await fetch("/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -28,7 +28,7 @@ class API {
         try {
             const credentials = { username: username, password: password };
 
-            const response = await fetch("http://localhost:8000/auth/login", {
+            const response = await fetch("/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -52,7 +52,7 @@ class API {
     async logOut() {
 
         try {
-            const response = await fetch("http://localhost:8000/auth/logout", {
+            const response = await fetch("/auth/logout", {
                 method: "POST",
                 credentials: "include"
             });
@@ -70,7 +70,7 @@ class API {
 
     async getUserProfile() {
         try {
-            const response = await fetch('http://localhost:8000/user/profile', {
+            const response = await fetch('/user/profile', {
                 method: 'GET',
                 credentials: 'include'
             });
@@ -88,7 +88,7 @@ class API {
 
     async updateUserProfile(profileData) {
         try {
-            const response = await fetch('http://localhost:8000/user/profile', {
+            const response = await fetch('/user/profile', {
                 method: 'PATCH',
                 headers: {
                     "Content-Type": "application/json",
@@ -113,7 +113,7 @@ class API {
             const formData = new FormData();
             formData.append('image', imageFile);
 
-            const response = await fetch('http://localhost:8000/user/profile/image', {
+            const response = await fetch('/user/profile/image', {
                 method: 'POST',
                 body: formData,
                 credentials: 'include'
@@ -134,7 +134,7 @@ class API {
     async getStatistics() {
         try {
 
-            const response = await fetch("http://localhost:8000/user/statistics", {
+            const response = await fetch("/user/statistics", {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
@@ -159,7 +159,7 @@ class API {
     async getMonthlyStatistics() {
         try {
 
-            const response = await fetch("http://localhost:8000/user/statistics/monthly", {
+            const response = await fetch("/user/statistics/monthly", {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
@@ -182,7 +182,7 @@ class API {
     async getGenre() {
         try {
 
-            const response = await fetch("http://localhost:8000/movies/genre", {
+            const response = await fetch("/movies/genre", {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
@@ -205,7 +205,7 @@ class API {
     async getMovies(filter) {
         try {
 
-            let url = "http://localhost:8000/user/movies";
+            let url = "/user/movies";
 
             if (filter) {
                 url += `?status=${filter}`;
@@ -245,7 +245,7 @@ class API {
             }
 
         
-            let url = "http://localhost:8000/user/movies";
+            let url = "/user/movies";
             if (params.length > 0) {
                 url += "?" + params.join("&");
             }
@@ -273,7 +273,7 @@ class API {
 
     async searchMovies(query) {
         try {
-            const response = await fetch(`http://localhost:8000/user/movies/search?q=${encodeURIComponent(query)}`, {
+            const response = await fetch(`/user/movies/search?q=${encodeURIComponent(query)}`, {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
@@ -296,7 +296,7 @@ class API {
     async getMoviesById(movieId) {
         try {
 
-            const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
+            const response = await fetch(`/user/movies/${movieId}`, {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
@@ -319,7 +319,7 @@ class API {
     async createMovie(movieData) {
         try {
 
-            const response = await fetch("http://localhost:8000/user/movies", {
+            const response = await fetch("/user/movies", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -340,7 +340,7 @@ class API {
 
     async updateMovie(movieId, updatedData) {
         try {
-            const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
+            const response = await fetch(`/user/movies/${movieId}`, {
                 method: 'PATCH',
                 headers: {
                     "Content-Type": "application/json",
@@ -365,7 +365,7 @@ class API {
 
     async deleteMovie(movieId) {
         try {
-            const response = await fetch(`http://localhost:8000/user/movies/${movieId}`, {
+            const response = await fetch(`/user/movies/${movieId}`, {
                 method: "DELETE",
                 credentials: 'include'
             });
@@ -386,7 +386,7 @@ class API {
     async postGenre(genreName) {
         try {
 
-            const response = await fetch("http://localhost:8000/movies/genre", {
+            const response = await fetch("/movies/genre", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -410,7 +410,7 @@ class API {
     async deleteGenres(genreId) {
         try {
 
-            const response = await fetch(`http://localhost:8000/movie/genre/${genreId}`, {
+            const response = await fetch(`/movie/genre/${genreId}`, {
                 method: "DELETE",
                 credentials: "include"
             });
@@ -429,7 +429,7 @@ class API {
 
     async getAllCustomLists() {
         try {
-            const response = await fetch("http://localhost:8000/user/lists", {
+            const response = await fetch("/user/lists", {
                 method: "GET",
                 headers: {
                     "Accept": "application/json"
@@ -454,7 +454,7 @@ class API {
 
     async createCustomList(listName, movieIds = []) {
         try {
-            const response = await fetch("http://localhost:8000/user/lists", {
+            const response = await fetch("/user/lists", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -477,7 +477,7 @@ class API {
 
     async deleteCustomList(listId) {
         try {
-            const response = await fetch(`http://localhost:8000/user/lists/${listId}`, {
+            const response = await fetch(`/user/lists/${listId}`, {
                 method: "DELETE",
                 credentials: "include"
             });
@@ -496,7 +496,7 @@ class API {
 
     async getMoviesByListId(listId) {
         try {
-            const response = await fetch(`http://localhost:8000/user/lists/${listId}`, {
+            const response = await fetch(`/user/lists/${listId}`, {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
@@ -519,7 +519,7 @@ class API {
 
     async getUserMovieTitles() {
         try {
-            const response = await fetch("http://localhost:8000/user/movies/title", {
+            const response = await fetch("/user/movies/title", {
                 method: "GET",
                 headers: {
                     "Accept": "application/json",
