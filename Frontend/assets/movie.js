@@ -689,158 +689,158 @@ class UI {
                 </div>
             `;
 
-             movieCard.addEventListener("click", function() {
-                 window.location.href = `one-movie.html?id=${movie.id}`;
-            });
+                movieCard.addEventListener("click", function () {
+                    window.location.href = `one-movie.html?id=${movie.id}`;
+                });
 
                 container.appendChild(movieCard);
             }
-        } catch(error) {
-        this.showErrorMessage("Couldn't load movies, please try again later");
+        } catch (error) {
+            this.showErrorMessage("Couldn't load movies, please try again later");
+        }
     }
-}
 
     async createLists(listName, selectedMovieIds) {
-    if (!listName) {
-        this.showErrorMessage("Enter a list name!")
-        return;
-    }
-
-    if (!selectedMovieIds || selectedMovieIds.length === 0) {
-        this.showErrorMessage("Please select at least one movie to add to the list!");
-        return;
-    }
-
-    try {
-
-        await api.createCustomList(listName, selectedMovieIds);
-        await this.showMoviesAndLists();
-
-        this.showSuccessMessage(`List "${listName}" created!!`)
-
-    } catch (error) {
-        console.log(error.message);
-        this.showErrorMessage(" An error occurred while creating the list. Please try again later.");
-    }
-}
-
-    async showMoviesAndLists() {
-    try {
-        const movies = await api.getMovies();
-        const movieContainer = document.getElementById("moviesCheckboxes");
-        const lists = await api.getAllCustomLists();
-        const listContainer = document.getElementById("listsContainer");
-
-        if (!movieContainer || !listContainer) {
-            this.showErrorMessage("Required containers not found");
+        if (!listName) {
+            this.showErrorMessage("Enter a list name!")
             return;
         }
 
-        const oldError = document.getElementById("error-message");
-        if (oldError) {
-            oldError.remove();
+        if (!selectedMovieIds || selectedMovieIds.length === 0) {
+            this.showErrorMessage("Please select at least one movie to add to the list!");
+            return;
         }
 
-        if (movies.length === 0) {
-            movieContainer.innerHTML = "<p style='color: #DB2424; text-align: center; padding: 20px;'>No movies yet. Add some movies first!</p>"
-        } else {
-            movieContainer.innerHTML = "";
-            for (let movie of movies) {
-                const div = document.createElement("div");
-                div.className = "movie-checkbox";
-                div.innerHTML = `
+        try {
+
+            await api.createCustomList(listName, selectedMovieIds);
+            await this.showMoviesAndLists();
+
+            this.showSuccessMessage(`List "${listName}" created!!`)
+
+        } catch (error) {
+            console.log(error.message);
+            this.showErrorMessage(" An error occurred while creating the list. Please try again later.");
+        }
+    }
+
+    async showMoviesAndLists() {
+        try {
+            const movies = await api.getMovies();
+            const movieContainer = document.getElementById("moviesCheckboxes");
+            const lists = await api.getAllCustomLists();
+            const listContainer = document.getElementById("listsContainer");
+
+            if (!movieContainer || !listContainer) {
+                this.showErrorMessage("Required containers not found");
+                return;
+            }
+
+            const oldError = document.getElementById("error-message");
+            if (oldError) {
+                oldError.remove();
+            }
+
+            if (movies.length === 0) {
+                movieContainer.innerHTML = "<p style='color: #DB2424; text-align: center; padding: 20px;'>No movies yet. Add some movies first!</p>"
+            } else {
+                movieContainer.innerHTML = "";
+                for (let movie of movies) {
+                    const div = document.createElement("div");
+                    div.className = "movie-checkbox";
+                    div.innerHTML = `
                         <input type = "checkbox" value="${movie.id}">
                         <span>${movie.title} - (${movie.year})</span>
                     `
-                movieContainer.appendChild(div);
-            }
-        }
-
-        if (lists.length === 0) {
-            listContainer.innerHTML = "<p style='color: #DB2424; text-align: center; padding: 20px;'>No custom lists yet. create your first list above!!</p>"
-        } else {
-            listContainer.innerHTML = "";
-
-
-            for (let list of lists) {
-                let count = 0;
-                if (list.movieIds) {
-                    count = list.movieIds.length;
+                    movieContainer.appendChild(div);
                 }
+            }
 
-                const div = document.createElement("div");
-                div.className = "list-item";
-                div.innerHTML = `
+            if (lists.length === 0) {
+                listContainer.innerHTML = "<p style='color: #DB2424; text-align: center; padding: 20px;'>No custom lists yet. create your first list above!!</p>"
+            } else {
+                listContainer.innerHTML = "";
+
+
+                for (let list of lists) {
+                    let count = 0;
+                    if (list.movieIds) {
+                        count = list.movieIds.length;
+                    }
+
+                    const div = document.createElement("div");
+                    div.className = "list-item";
+                    div.innerHTML = `
                         <span> ${list.name} - (${count})</span>
                         <button class="delete-list-btn" data-id="${list.id}">Delete</button>
                     `;
-                listContainer.appendChild(div);
-            }
-        }
-
-        const deleteButtons = document.querySelectorAll(".delete-list-btn");
-        const self = this;
-
-        for (let oneBtn of deleteButtons) {
-            oneBtn.addEventListener("click", async function () {
-                const listId = oneBtn.getAttribute("data-id");
-                if (confirm("Do you really want to delete this?")) {
-                    await api.deleteCustomList(listId);
-                    await self.showMoviesAndLists();
+                    listContainer.appendChild(div);
                 }
-            })
-        }
+            }
 
-    } catch (error) {
-        this.showErrorMessage(error.message)
+            const deleteButtons = document.querySelectorAll(".delete-list-btn");
+            const self = this;
+
+            for (let oneBtn of deleteButtons) {
+                oneBtn.addEventListener("click", async function () {
+                    const listId = oneBtn.getAttribute("data-id");
+                    if (confirm("Do you really want to delete this?")) {
+                        await api.deleteCustomList(listId);
+                        await self.showMoviesAndLists();
+                    }
+                })
+            }
+
+        } catch (error) {
+            this.showErrorMessage(error.message)
+        }
     }
-}
 
     async showMovieInList(listId) {
-    try {
-        const container = document.getElementById("movies-container");
+        try {
+            const container = document.getElementById("movies-container");
 
-        if (!container) {
-            this.showErrorMessage("Could not display movies. Container not found.");
-            return;
-        }
-        container.innerHTML = "<p>Loading movies...</p>";
+            if (!container) {
+                this.showErrorMessage("Could not display movies. Container not found.");
+                return;
+            }
+            container.innerHTML = "<p>Loading movies...</p>";
 
-        const movies = await api.getMoviesByListId(listId);
+            const movies = await api.getMoviesByListId(listId);
 
-        await this.renderMovies(movies, container);
+            await this.renderMovies(movies, container);
 
-    } catch (error) {
-        console.log(error.message);
-    }
-}
-
-showErrorMessage(message) {
-    let errorContainer = document.getElementById("error-message");
-
-    if (!errorContainer) {
-        errorContainer = document.createElement("div");
-        errorContainer.id = "error-message";
-        errorContainer.style.color = "red";
-        errorContainer.style.textAlign = "center";
-        errorContainer.style.padding = "40px";
-        errorContainer.style.fontSize = "18px";
-
-        const container = document.getElementById("movie-container");
-         if (!container) {
-            container = document.getElementById("recentMoviesContainer");
-        }
-        if (container) {
-            container.innerHTML = "";
-            container.appendChild(errorContainer);
+        } catch (error) {
+            console.log(error.message);
         }
     }
-    errorContainer.innerHTML = `<p>${message}</p>`;
 
-    const movieInfoSection = document.getElementById("movie-info-section");
-    if (movieInfoSection) {
-        movieInfoSection.style.display = "none";
+    showErrorMessage(message) {
+        let errorContainer = document.getElementById("error-message");
+
+        if (!errorContainer) {
+            errorContainer = document.createElement("div");
+            errorContainer.id = "error-message";
+            errorContainer.style.color = "red";
+            errorContainer.style.textAlign = "center";
+            errorContainer.style.padding = "40px";
+            errorContainer.style.fontSize = "18px";
+
+            const container = document.getElementById("movie-container");
+            if (!container) {
+                container = document.getElementById("recentMoviesContainer");
+            }
+            if (container) {
+                container.innerHTML = "";
+                container.appendChild(errorContainer);
+            }
+        }
+        errorContainer.innerHTML = `<p>${message}</p>`;
+
+        const movieInfoSection = document.getElementById("movie-info-section");
+        if (movieInfoSection) {
+            movieInfoSection.style.display = "none";
+        }
+
     }
-
-}
 }
