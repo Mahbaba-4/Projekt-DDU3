@@ -804,7 +804,7 @@ class UI {
                 this.showErrorMessage("Could not display movies. Container not found.");
                 return;
             }
-            container.innerHTML = "<p>Loading movies...</p>";
+            container.innerHTML = "";
 
             const movies = await api.getMoviesByListId(listId);
 
