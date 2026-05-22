@@ -249,6 +249,11 @@ class UI {
             }
 
             movieReview.textContent = movie.description;
+            //detta la jag till så att edit knappen skickar med ID så att svaren som redan finns ska vara ifyllda när man går för att edit en film
+            const editBtn = document.getElementById("edit-movie-btn");
+            if (editBtn && movieId) {
+                editBtn.href = `updateMovie.html?id=${movieId}`;
+            }
 
         } catch (error) {
             this.showErrorMessage("Oops! Something went wrong. Please try again later.");
@@ -847,6 +852,7 @@ class UI {
     async updateMovie() {
         const urlParams = new URLSearchParams(window.location.search);
         const movieId = urlParams.get("id");
+        console.log("Movie ID from URL:", movieId);
     
         if (!movieId) {
             console.log("No movie ID found");
@@ -916,10 +922,10 @@ class UI {
                 watchedExtra.style.display = "none";
             }
         
-            const form = document.getElementById("movieForm");
+            const UpdateForm = document.getElementById("UpdateMovieForm");
             let self = this;
         
-            form.addEventListener("submit", async function(e) {
+            UpdateForm.addEventListener("submit", async function(e) {
                 e.preventDefault();
             
                 const title = document.getElementById("titleInput").value;
@@ -964,7 +970,7 @@ class UI {
                 };
             
                 try {
-                    const success = await this.api.updateMovie(movieId, updateData);
+                    const success = await self.api.updateMovie(movieId, updateData);
                     if (success) {
                         alert("You updated the movie successfully!");
                         window.location.href = "main-page.html";

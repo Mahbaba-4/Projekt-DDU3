@@ -301,10 +301,10 @@ async function patchMovieById(request, id) {
         if (body.description) {
             movieToUpdate.description = body.description;
         }
-        if (body.rating) {
+        if (body.rating !== undefined) {
             movieToUpdate.rating = body.rating;
         }
-        if (body.dateWatched) {
+        if (body.dateWatched !== undefined) {
             movieToUpdate.dateWatched = body.dateWatched;
         }
 

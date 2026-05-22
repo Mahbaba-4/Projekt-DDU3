@@ -13,7 +13,7 @@
 
         <h1>Edit Movie</h1>
 
-        <form id="movieForm" autocomplete="off">
+        <form id="UpdateMovieForm" autocomplete="off">
             <div class="form-row">
                 <div class="form-field half">
                     <label>Title</label>
@@ -64,8 +64,8 @@
             <div class="form-field">
                 <label>Status</label>
                 <select id="statusSelect">
-                    <option selected>Want to Watch</option>
-                    <option>Watched</option>
+                    <option value="Watchlist" selected>Watchlist</option>
+                    <option value="Watched">Watched</option>
                 </select>
             </div>
 
@@ -84,7 +84,7 @@
                     </div>
                     <div class="form-field half">
                         <label>Date Watched</label>
-                        <input type="date" value="" placeholder="01/12/2026">
+                        <input type="date" id="dateWatched" value="" placeholder="01/12/2026">
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@
     </div>
     <script src="assets/requests.js"></script>
     <script src="assets/movie.js"></script>
-    <script src="assets/add.js"></script>
+    <script src="assets/updateMovie.js"></script>
 
     <footer>
         <p> © 2026 CineLog.</p>
