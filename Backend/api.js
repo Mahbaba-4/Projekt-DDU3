@@ -908,7 +908,7 @@ async function postProfileImage(request) {
 
         const bytes = await imageFile.bytes();
 
-        const filePath = `../Frontend/uploads/profile-images/${newFilename}`;
+        const filePath = `../Frontend/uploads/${newFilename}`;
         await Deno.writeFile(filePath, bytes);
 
         const data = readData();
@@ -921,7 +921,7 @@ async function postProfileImage(request) {
         }
 
         if (user.profileImage && user.profileImage.substring(0, 9) === "/uploads/") {
-            const oldPath = `.${user.profileImage}`;
+            const oldPath = `../Frontend${user.profileImage}`;
             try {
                 await Deno.remove(oldPath);
             } catch (error) {
@@ -929,7 +929,7 @@ async function postProfileImage(request) {
             }
         }
 
-        user.profileImage = `/uploads/profile-images/${newFilename}`;
+        user.profileImage = `/uploads/${newFilename}`;
         writeData(data);
 
         return new Response(JSON.stringify({ message: "Image uploaded", path: user.profileImage }), {
