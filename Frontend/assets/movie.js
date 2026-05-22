@@ -67,7 +67,7 @@ class UI {
             const passwordInput = document.getElementById("password").value;
 
             if (!usernameInput || !emailInput || !passwordInput) {
-                console.log("Alla fält måste fyllas in");
+                alert("Alla fält måste fyllas in");
                 return;
             }
 
@@ -90,7 +90,7 @@ class UI {
             const passwordInput = document.getElementById("password").value;
 
             if (!usernameInput || !passwordInput) {
-                console.log("Användarnamn och lösenord krävs för att logga in");
+                alert(" Fel användarnamn eller lösenord");
                 return;
             }
 
@@ -112,8 +112,17 @@ class UI {
 
         try {
             const allMovies = await api.getMovies();
+            if (!allMovies || allMovies.length === 0) {
+                this.showErrorMessage("Couln't load movies, please try again later");
+                return;
+            }
             const allGenres = await api.getGenre();
             const filteredMovies = await this.api.getMoviesWithFilter(genreId, status);
+
+            if (!filteredMovies || filteredMovies.length === 0) {
+                this.showErrorMessage("Couldn't find any movies with this filter");
+                return;
+            }
 
             let allMoviesCount = 0;
             let watchedMoviesCount = 0;
@@ -145,7 +154,7 @@ class UI {
             await this.renderMovies(filteredMovies, container);
 
         } catch (error) {
-            console.log(error.message);
+            this.showErrorMessage("Oops! Something went wrong. Please try again.");
         }
 
     }
@@ -158,6 +167,11 @@ class UI {
 
         logOutLink.addEventListener("click", async function (e) {
             e.preventDefault();
+
+            const userConfirmed = confirm("Are you sure you want to log out?");
+            if (!userConfirmed) {
+                return;
+            }
 
 
             try {
@@ -181,6 +195,10 @@ class UI {
         try {
 
             const movie = await api.getMoviesById(movieId);
+            if (!movie) {
+                this.showErrorMessage("Movie not found");
+                return;
+            }
             const allGenres = await api.getGenre();
 
             let genreName = "";
@@ -233,6 +251,7 @@ class UI {
             movieReview.textContent = movie.description;
 
         } catch (error) {
+            this.showErrorMessage("Oops! Something went wrong. Please try again later.");
 
         }
     }
@@ -291,15 +310,22 @@ class UI {
             genreNameInput.value = "";
 
         } catch (error) {
-            console.log("Failed to add genre", error.message)
+            alert("Couldn't add genre")
         }
     }
 
     async deleteGenre(genreId) {
+        const userConfirmed = confirm("Are you sure you want to delete this genre?");
+        if (!userConfirmed) {
+            return;
+        }
         try {
             await this.api.deleteGenres(genreId);
+            alert("Genre deleted successfully!");
+
+            this.getUserGenre();
         } catch (error) {
-            console.log("Failed to delete genre", error.message)
+            alert("Failed to delete genre");
         }
     }
 
@@ -388,27 +414,25 @@ class UI {
 
     async searchMovies() {
         try {
-            let allCount = document.getElementById("all-count");
-            let watchedCount = document.getElementById("watched-count");
-            let watchlistCount = document.getElementById("watchlist-count");
+
             let container = document.getElementById("movies-container");
 
             container.innerHTML = "";
 
-            const allGenres = await api.getGenre();
+
             const searchInput = document.getElementById("searchInput");
             const query = searchInput.value;
 
             if (query === "") return;
 
+            const allGenres = await api.getGenre();
+            const movies = await api.searchMovies(query);
+            if (!movies || movies.length === 0) {
+                this.showErrorMessage("No movies found matching your search");
+                return;
+            }
 
-            const result = await api.searchMovies(query);
-
-            if (!result) return;
-
-            const movies = result.data;
-
-            for (let movie of result) {
+            for (let movie of movies) {
                 const a = document.createElement("a");
                 a.href = `one-movie.html?id=${movie.id}`;
                 a.style.textDecoration = "none";
@@ -454,8 +478,9 @@ class UI {
                 a.appendChild(movieCard);
                 container.appendChild(a);
             }
+            searchInput.value = "";
         } catch (error) {
-            console.error('Could not load movies');
+            this.showErrorMessage("Oops! Something went wrong. Please try again later.");
         }
 
     }
@@ -463,6 +488,10 @@ class UI {
     async loadProfile() {
         try {
             const user = await this.api.getUserProfile();
+            if (!user) {
+                this.showErrorMessage("Could not load profile");
+                return;
+            }
 
             if (user) {
                 let displayName;
@@ -483,7 +512,7 @@ class UI {
                 window.location.href = '/login.html';
             }
         } catch (error) {
-            console.error('Could not load profile:', error);
+            this.showErrorMessage("Oops! Something went wrong. Please try again later.");
 
         }
     }
@@ -506,94 +535,193 @@ class UI {
     }
 
     async saveProfileChanges() {
-        const newUsername = document.getElementById("editUsername").value;
-        const newEmail = document.getElementById("editEmail").value;
-        const imageFile = document.getElementById("editImageUpload").files[0];
+        try {
+            const newUsername = document.getElementById("editUsername").value;
+            const newEmail = document.getElementById("editEmail").value;
+            const imageFile = document.getElementById("editImageUpload").files[0];
 
-        const currentUsername = document.getElementById("profileUsername").textContent;
-        const currentEmail = document.getElementById("profileEmail").textContent;
+            const currentUsername = document.getElementById("profileUsername").textContent;
+            const currentEmail = document.getElementById("profileEmail").textContent;
 
-        const profileData = {};
+            const profileData = {};
 
-        if (newUsername !== currentUsername && newUsername !== "") {
-            profileData.username = newUsername;
-        }
-
-        if (newEmail !== currentEmail && newEmail !== "") {
-            profileData.email = newEmail;
-        }
-
-
-        let hasChanges = false;
-        for (let key in profileData) {
-            hasChanges = true;
-            break;
-        }
-
-        if (hasChanges) {
-            const success = await this.api.updateUserProfile(profileData);
-            if (!success) {
-                alert("Kunde inte uppdatera profil");
-                return;
+            if (newUsername !== currentUsername && newUsername !== "") {
+                profileData.username = newUsername;
             }
-        }
 
-        if (imageFile) {
-            const result = await this.api.uploadProfileImage(imageFile);
-            if (!result) {
-                alert("Kunde inte ladda upp bild");
-                return;
+            if (newEmail !== currentEmail && newEmail !== "") {
+                profileData.email = newEmail;
             }
+
+
+            let hasChanges = false;
+            for (let key in profileData) {
+                hasChanges = true;
+                break;
+            }
+
+            if (hasChanges) {
+                const success = await this.api.updateUserProfile(profileData);
+                if (!success) {
+                    alert("Kunde inte uppdatera profil");
+                    return;
+                }
+            }
+
+            if (imageFile) {
+                const result = await this.api.uploadProfileImage(imageFile);
+                if (!result) {
+                    alert("Kunde inte ladda upp bild");
+                    return;
+                }
+            }
+
+            await this.loadProfile();
+
+            this.hideEditForm();
+
+            alert("Profil uppdaterad");
+        } catch (error) {
+            this.showErrorMessage("Could not save changes. Please try again.");
         }
-
-        await this.loadProfile();
-
-        this.hideEditForm();
-
-        alert("Profil uppdaterad");
     }
 
     initProfile() {
-        const self = this;
+        try {
+            const self = this;
 
-        this.loadProfile();
+            this.loadProfile();
 
-        const editBtn = document.getElementById("editProfileBtn");
-        editBtn.addEventListener("click", function () {
-            self.showEditForm();
-        });
-
-        const chooseImageBtn = document.getElementById("chooseImageBtn");
-        chooseImageBtn.addEventListener("click", function () {
-            document.getElementById("editImageUpload").click();
-        });
-        //Visa filnamn 
-        const imageUpload = document.getElementById('editImageUpload');
-        if (imageUpload) {
-            imageUpload.addEventListener('change', function (event) {
-                const file = event.target.files[0];
-                const fileNameSpan = document.getElementById('selectedFileName');
-
-                if (file) {
-                    fileNameSpan.textContent = file.name;
-                } else {
-                    fileNameSpan.textContent = "No file chosen";
-                }
+            const editBtn = document.getElementById("editProfileBtn");
+            editBtn.addEventListener("click", function () {
+                self.showEditForm();
             });
 
+            const chooseImageBtn = document.getElementById("chooseImageBtn");
+            chooseImageBtn.addEventListener("click", function () {
+                document.getElementById("editImageUpload").click();
+            });
+            //Visa filnamn 
+            const imageUpload = document.getElementById('editImageUpload');
+            if (imageUpload) {
+                imageUpload.addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    const fileNameSpan = document.getElementById('selectedFileName');
+
+                    if (file) {
+                        fileNameSpan.textContent = file.name;
+                    } else {
+                        fileNameSpan.textContent = "No file chosen";
+                    }
+                });
+
+            }
+
+            const saveBtn = document.getElementById("saveProfileBtn");
+            saveBtn.addEventListener("click", function () {
+                self.saveProfileChanges();
+            });
+
+            const cancelBtn = document.getElementById("cancelEditBtn");
+            cancelBtn.addEventListener("click", function () {
+                self.hideEditForm();
+            });
+        } catch (error) {
+            this.showErrorMessage("Oops! Something went wrong. Please try again later. ");
         }
 
-        const saveBtn = document.getElementById("saveProfileBtn");
-        saveBtn.addEventListener("click", function () {
-            self.saveProfileChanges();
-        });
-
-        const cancelBtn = document.getElementById("cancelEditBtn");
-        cancelBtn.addEventListener("click", function () {
-            self.hideEditForm();
-        });
 
 
+    }
+
+    async loadRecentlyAdded() {
+        try {
+
+            const movies = await this.api.getMovies();
+
+            if (!movies || movies.length === 0) {
+                this.showErrorMessage("Couln't load movies, please try again later");
+                return;
+            }
+
+            const recentMovies = [];
+
+            let startIndex = movies.length - 5;
+            if (startIndex < 0) {
+                startIndex = 0;
+            }
+
+            for (let i = movies.length - 1; i >= startIndex; i--) {
+                recentMovies.push(movies[i]);
+            }
+
+            const container = document.getElementById("recentMoviesContainer");
+            if (!container) return;
+
+            const oldError = document.getElementById("error-message");
+            if (oldError) {
+                oldError.remove();
+            }
+
+            if (recentMovies.length === 0) {
+                container.innerHTML = "<p>No movies to show </p>";
+                return;
+            }
+
+            container.innerHTML = "";
+
+            for (let i = 0; i < recentMovies.length; i++) {
+                const movie = recentMovies[i];
+                const movieCard = document.createElement("div");
+                movieCard.className = "recent-movie-card";
+
+                let posterUrl = movie.posterUrl;
+                if (!posterUrl) {
+                    posterUrl = 'assets/images/default-poster.png';
+                }
+
+                movieCard.innerHTML = `
+            <img src="${posterUrl}" alt="${movie.title}">
+            <div class="recent-movie-info">
+                <h4>${movie.title}</h4>
+                <p>${movie.year}</p>
+                <p>Status: ${movie.status}</p>
+            </div>
+        `;
+
+                container.appendChild(movieCard);
+
+            }
+        } catch (error) {
+            this.showErrorMessage("Couldn't load movies, please try again later");
+        }
+    }
+
+
+
+    showErrorMessage(message) {
+        let errorContainer = document.getElementById("error-message");
+
+        if (!errorContainer) {
+            errorContainer = document.createElement("div");
+            errorContainer.id = "error-message";
+            errorContainer.style.color = "red";
+            errorContainer.style.textAlign = "center";
+            errorContainer.style.padding = "40px";
+            errorContainer.style.fontSize = "18px";
+
+            const container = document.getElementById("movie-container");
+            if (container) {
+                container.innerHTML = "";
+                container.appendChild(errorContainer);
+            }
+        }
+        errorContainer.innerHTML = `<p>${message}</p>`;
+
+        const movieInfoSection = document.getElementById("movie-info-section");
+        if (movieInfoSection) {
+            movieInfoSection.style.display = "none";
+        }
 
     }
 
