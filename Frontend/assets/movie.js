@@ -827,6 +827,9 @@ showErrorMessage(message) {
         errorContainer.style.fontSize = "18px";
 
         const container = document.getElementById("movie-container");
+         if (!container) {
+            container = document.getElementById("recentMoviesContainer");
+        }
         if (container) {
             container.innerHTML = "";
             container.appendChild(errorContainer);
