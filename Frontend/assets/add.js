@@ -1,6 +1,7 @@
 const api = new API();
 const ui = new UI(api);
 ui.showGenres();
+ui.addMovie();
 
 const watchedExtra = document.getElementById("watchedExtra");
 const stars = document.querySelectorAll(".rating-stars span");
@@ -8,7 +9,7 @@ const statusSelect = document.getElementById("statusSelect");
 const ratingInput = document.getElementById("rating");
 
 
-statusSelect.addEventListener("click", function () {
+statusSelect.addEventListener("change", function () {
     if (statusSelect.value === 'Watched') {
         watchedExtra.style.display = "block";
     } else {
@@ -33,7 +34,3 @@ for (let i = 0; i < stars.length; i++) {
         }
     });
 }
-
-
-
-//INTE KLAR!

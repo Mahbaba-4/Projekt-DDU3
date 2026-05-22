@@ -663,43 +663,8 @@ class UI {
             const container = document.getElementById("recentMoviesContainer");
             if (!container) return;
 
-            const oldError = document.getElementById("error-message");
-            if (oldError) {
-                oldError.remove();
-            }
-
-            if (recentMovies.length === 0) {
-                container.innerHTML = "<p>No movies to show </p>";
-                return;
-            }
-
-            container.innerHTML = "";
-
-            for (let i = 0; i < recentMovies.length; i++) {
-                const movie = recentMovies[i];
-                const movieCard = document.createElement("div");
-                movieCard.className = "recent-movie-card";
-
-                let posterUrl = movie.posterUrl;
-                if (!posterUrl) {
-                    posterUrl = 'assets/images/default-poster.png';
-                }
-
-                movieCard.innerHTML = `
-                <img src="${posterUrl}" alt="${movie.title}">
-                <div class="recent-movie-info">
-                    <h4>${movie.title}</h4>
-                    <p>${movie.year}</p>
-                    <p>Status: ${movie.status}</p>
-                </div>
-            `;
-
-                movieCard.addEventListener("click", function () {
-                    window.location.href = `one-movie.html?id=${movie.id}`;
-                });
-
-                container.appendChild(movieCard);
-            }
+            await this.renderMovies(recentMovies, container);
+            
         } catch (error) {
             this.showErrorMessage("Couldn't load movies, please try again later");
         }
@@ -853,12 +818,12 @@ class UI {
         const urlParams = new URLSearchParams(window.location.search);
         const movieId = urlParams.get("id");
         console.log("Movie ID from URL:", movieId);
-    
+
         if (!movieId) {
             console.log("No movie ID found");
             return;
         }
-    
+
         try {
             const movie = await this.api.getMoviesById(movieId);
             const allGenres = await this.api.getGenre();
@@ -869,7 +834,7 @@ class UI {
             document.getElementById("runtimeInput").value = movie.runtime;
             document.getElementById("posterInput").value = movie.posterUrl;
             document.getElementById("commetInput").value = movie.description;
-        
+
 
             let genreName = "";
             for (let i = 0; i < allGenres.length; i++) {
@@ -881,7 +846,7 @@ class UI {
 
             const genreSelect = document.getElementById("genreSelect");
             genreSelect.innerHTML = '<option value="">Select genre</option>';
-        
+
             for (let i = 0; i < allGenres.length; i++) {
                 const option = document.createElement("option");
                 option.value = allGenres[i].id;
@@ -891,17 +856,17 @@ class UI {
                 }
                 genreSelect.appendChild(option);
             }
-        
+
             const statusSelect = document.getElementById("statusSelect");
             const watchedExtra = document.getElementById("watchedExtra");
             const stars = document.querySelectorAll(".rating-stars span");
             const ratingInput = document.getElementById("rating");
             const dateInput = document.getElementById("dateWatched");
-        
+
             if (movie.status === "Watched") {
                 statusSelect.value = "Watched";
                 watchedExtra.style.display = "block";
-            
+
                 ratingInput.value = movie.rating;
                 for (let i = 0; i < stars.length; i++) {
                     if (i < movie.rating) {
@@ -913,7 +878,7 @@ class UI {
                         stars[i].style.color = "#DB2424";
                     }
                 }
-            
+
                 if (movie.dateWatched) {
                     dateInput.value = movie.dateWatched;
                 }
@@ -921,13 +886,13 @@ class UI {
                 statusSelect.value = "Watchlist";
                 watchedExtra.style.display = "none";
             }
-        
+
             const UpdateForm = document.getElementById("UpdateMovieForm");
             let self = this;
-        
-            UpdateForm.addEventListener("submit", async function(e) {
+
+            UpdateForm.addEventListener("submit", async function (e) {
                 e.preventDefault();
-            
+
                 const title = document.getElementById("titleInput").value;
                 const year = parseInt(document.getElementById("yearInput").value);
                 const genreSelect = document.getElementById("genreSelect");
@@ -937,17 +902,17 @@ class UI {
                 const runtime = parseInt(document.getElementById("runtimeInput").value);
                 const posterUrl = document.getElementById("posterInput").value;
                 const description = document.getElementById("commetInput").value;
-            
+
                 let status = "";
                 if (document.getElementById("statusSelect").value === "Watched") {
                     status = "Watched";
                 } else {
                     status = "Watchlist";
                 }
-            
+
                 let rating = null;
                 let dateWatched = null;
-            
+
                 if (status === "Watched") {
                     const ratingValue = document.getElementById("rating").value;
                     if (ratingValue !== "") {
@@ -955,7 +920,7 @@ class UI {
                     }
                     dateWatched = document.getElementById("dateWatched").value;
                 }
-            
+
                 const updateData = {
                     title: title,
                     year: year,
@@ -968,7 +933,7 @@ class UI {
                     rating: rating,
                     dateWatched: dateWatched
                 };
-            
+
                 try {
                     const success = await self.api.updateMovie(movieId, updateData);
                     if (success) {
@@ -982,9 +947,190 @@ class UI {
                     alert("Failed to update movie");
                 }
             });
-        
+
         } catch (error) {
             console.log("Failed to load movie data:", error.message);
         }
     } //not done with this one, måste kolla igenom
+
+    async addMovie() {
+        const form = document.getElementById("movieForm");
+
+        let self = this;
+
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const title = document.getElementById("titleInput").value;
+            const year = parseInt(document.getElementById("yearInput").value);
+            const genreSelect = document.getElementById("genreSelect");
+            const genreName = genreSelect.options[genreSelect.selectedIndex].textContent;
+            const director = document.getElementById("directorInput").value;
+            const runtime = parseInt(document.getElementById("runtimeInput").value);
+            const posterUrl = document.getElementById("posterInput").value;
+            const description = document.getElementById("descriptionInput").value;
+
+            let rating = null;
+            let dateWatched = null;
+
+            const statusSelect = document.getElementById("statusSelect");
+            let status = "Watchlist";
+            if (statusSelect.value === "Watched") {
+                status = "Watched";
+            }
+
+            if (status === "Watched") {
+                rating = parseInt(document.getElementById("rating").value);
+                dateWatched = document.querySelector("#watchedExtra input[type='date']").value;
+            }
+
+            if (!title) {
+                alert("Please enter a year!");
+                return;
+            }
+
+            if (!year) {
+                alert("Please enter a year!");
+                return;
+            }
+
+            if (isNaN(year) || `${year}`.length !== 4) {
+                alert("Please enter a valid 4-digit year!");
+                return;
+            }
+
+            if (!genreName || genreName === "Select genre") {
+                alert("Please select a genre!");
+                return;
+            }
+
+            if (!director) {
+                alert("Please enter the director's name!");
+                return;
+            }
+
+            if (!runtimeInput) {
+                alert("Please enter runtime in minutes!");
+                return;
+            }
+
+            if (isNaN(runtime) || runtime <= 0) {
+                alert("Please enter a valid runtime (positive number)!");
+                return;
+            }
+
+            if (!posterUrl) {
+                alert("Please enter a poster URL!");
+                return;
+            }
+
+            if (!description) {
+                alert("Please write a comment about the movie!");
+                return;
+            }
+
+            const movieData = {
+                title: title,
+                year: year,
+                genre: genreName,
+                director: director,
+                runtime: runtime,
+                posterUrl: posterUrl,
+                description: description,
+                status: status,
+                rating: rating,
+                dateWatched: dateWatched
+            };
+
+            try {
+                const added = await api.createMovie(movieData);
+                if (added) {
+                    window.location.href = "main-page.html";
+                }
+            } catch (error) {
+                self.showErrorMessage(error.message)
+            }
+        })
+    }
+
+    async displayProdileStatistics() {
+        try {
+            const stats = await api.getStatistics();
+
+            const totalMovies = document.getElementById("totalMovies");
+            const watchedCount = document.getElementById("watchedCount");
+            const watchlistCount = document.getElementById("watchlistCount");
+            const avgRating = document.getElementById("avgRating");
+            const totalMin = document.getElementById("totalMin");
+
+            if (totalMovies) totalMovies.textContent = stats.totalMovies || 0;
+            if (watchedCount) watchedCount.textContent = stats.watchedCount || 0;
+            if (watchlistCount) watchlistCount.textContent = stats.watchlistCount || 0;
+            if (avgRating) avgRating.textContent = stats.avgRating || 0;
+            if (totalMin) totalMin.textContent = stats.totalMinutes || 0;
+        } catch (error) {
+            this.showErrorMessage(error.message)
+        }
+    }
+
+    async displayMonthlyStatistics() {
+        try {
+            const monthlyStats = await api.getMonthlyStatistics();
+            const currentYear = new Date().getFullYear();
+            const container = document.getElementById("monthlyBars");
+
+            const yearStats = [];
+            for (let i = 0; i < monthlyStats.length; i++) {
+                const [year] = monthlyStats[i].month.split("-");
+                if (parseInt(year) === currentYear) {
+                    yearStats.push(monthlyStats[i]);
+                }
+            }
+
+            if (yearStats.length === 0) {
+                if (container) {
+                    container.innerHTML = "<p>No movies watched this year</p>";
+                }
+                return;
+            }
+
+            let maxCount = 0;
+            for (let i = 0; i < yearStats.length; i++) {
+                if (yearStats[i].count > maxCount) {
+                    maxCount = yearStats[i].count;
+                }
+            }
+
+            container.innerHTML = "";
+
+            for (let i = 0; i < yearStats.length; i++) {
+                const stat = yearStats[i];
+
+                const [year, month] = stat.month.split("-");
+                const monthNames = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
+                const monthName = `${monthNames[parseInt(month) - 1]} ${year}`;
+
+                let height;
+                if (maxCount > 0) {
+                    height = (stat.count / maxCount) * 150;
+                } else {
+                    height = 20;
+                }
+
+                const barItem = document.createElement("div");
+                barItem.className = "bar-item";
+                barItem.innerHTML = `
+                <div class="bar" style="height: ${height}px;"></div>
+                <div>${stat.count}</div>
+                <div style="font-size: 12px;">${monthName}</div>
+            `;
+
+                container.appendChild(barItem);
+
+            }
+
+        } catch (error) {
+            this.showErrorMessage(error.message)
+        }
+    }
 }
