@@ -425,13 +425,11 @@ class UI {
                 }
 
                 movieCard.innerHTML = `
- <img class="movie-poster" src="${movie.posterUrl}">
- <div class="movie-info">
- <div class="movie-card-title">${movie.title}</div>
- <div class="movie-year-genre">${movie.year} • ${genreName} </div>
- </div>
-
- `
+                  <img class="movie-poster" src="${movie.posterUrl}">
+                  <div class="movie-info">
+                  <div class="movie-card-title">${movie.title}</div>
+                  <div class="movie-year-genre">${movie.year} • ${genreName} </div>
+                 </div>`
 
                 if (movie.status == "Watched") {
                     const ratingContainer = document.createElement("div");
