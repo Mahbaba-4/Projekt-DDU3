@@ -524,6 +524,88 @@ footer {
     margin-left: 10px;
 }
 
+#recentMoviesContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 30px;
+    padding: 40px;
+    max-width: 1500px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.recent-movie-card {
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.recent-movie-card:hover {
+    transform: translateY(-5px);
+    border-color: #db2424;
+}
+
+.recent-movie-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    aspect-ratio: 2 / 3;
+    background: #0f0f0f;
+    display: block;
+    margin-left: 2px;
+}
+
+.recent-movie-info {
+    padding: 12px;
+    flex-grow: 1;
+}
+
+.recent-movie-info h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 6px;
+}
+
+.recent-movie-info p {
+    font-size: 14px;
+    color: #a0a0a0;
+    margin-bottom: 10px;
+}
+
+.recent-movie-info p:last-child {
+    color: #db2424;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+
+
+.movie-poster {
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    position: relative;
+}
+
+.movie-poster img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+
 @media (max-width: 768px) {
     .profile-header {
         flex-direction: column;
@@ -541,5 +623,10 @@ footer {
     .save-btn,
     .cancel-btn {
         width: 100%;
+    }
+    
+    #recentMoviesContainer {
+        gap: 15px;
+        padding: 20px;
     }
 }
