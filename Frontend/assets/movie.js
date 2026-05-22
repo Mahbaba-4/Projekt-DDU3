@@ -249,10 +249,17 @@ class UI {
             }
 
             movieReview.textContent = movie.description;
-            //detta la jag till så att edit knappen skickar med ID så att svaren som redan finns ska vara ifyllda när man går för att edit en film
             const editBtn = document.getElementById("edit-movie-btn");
             if (editBtn && movieId) {
                 editBtn.href = `updateMovie.html?id=${movieId}`;
+            }
+
+            const deleteButton = document.getElementById("delete-movie-btn");
+            if (deleteButton) {
+                deleteButton.addEventListener("click", async (e) => {
+                    e.preventDefault();
+                    await this.deleteMovie();
+                });
             }
 
         } catch (error) {
@@ -1131,6 +1138,34 @@ class UI {
 
         } catch (error) {
             this.showErrorMessage(error.message)
+        }
+    }
+
+    async deleteMovie(){
+        try{
+            const urlParams = new URLSearchParams(window.location.search);
+            const movieId = urlParams.get("id");
+        
+            if (!movieId) {
+                this.showErrorMessage("No movie ID found");
+                return;
+            }
+            const userConfirmed = confirm("Are you sure you want to delete this movie? This action cannot be undone!");
+            if (!userConfirmed) {
+                return;
+            }
+        
+            const success = await this.api.deleteMovie(movieId);
+        
+            if (success) {
+                alert("Movie has been deleted!");
+                window.location.href = "main-page.html";
+            } else {
+                alert("Failed to delete movie. Please try again.");
+            }
+        }catch(error){
+            console.error("Error deleting movie:", error.message);
+            this.showErrorMessage("Could not delete movie. Please try again later.");
         }
     }
 }

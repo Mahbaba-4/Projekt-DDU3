@@ -404,21 +404,6 @@
       "rating": null,
       "dateWatched": null,
       "listId": "1"
-    },
-    {
-      "id": "29",
-      "userId": "2",
-      "title": "test",
-      "year": 2016,
-      "genreId": null,
-      "director": "direktot",
-      "runtime": 120,
-      "posterUrl": "https://i.pinimg.com/736x/77/ba/e9/77bae98c2535ec3d430a776335b3b81e.jpg",
-      "description": "something",
-      "status": "Watchlist",
-      "rating": null,
-      "dateWatched": null,
-      "listId": "3"
     }
   ],
   "genre": [
@@ -526,8 +511,7 @@
       "name": "Want to watch",
       "type": "Watchlist",
       "movieIds": [
-        "28",
-        "29"
+        "28"
       ]
     },
     {
