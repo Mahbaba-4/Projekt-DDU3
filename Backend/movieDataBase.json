@@ -462,6 +462,11 @@
     {
       "id": "15",
       "name": "Mystery"
+    },
+    {
+      "id": "1",
+      "name": "kids",
+      "userId": "1"
     }
   ],
   "lists": [

@@ -293,6 +293,54 @@ class UI {
 
     async getUserGenre() {
         try {
+            
+            const allGenres = await this.api.getGenre();
+            const userGenres = await this.api.getUserGenre();
+
+            const combinedGenres = [];
+
+            for (let i = 0; i < allGenres.length; i++) {
+                combinedGenres.push(allGenres[i]);
+            }
+
+            for (let i = 0; i < userGenres.length; i++) {
+                combinedGenres.push(userGenres[i]);
+            }
+
+            let uniqueGenres = [];
+            let genreTrueOrFalse = {};
+
+            for (let i = 0; i < combinedGenres.length; i++) {
+                let genre = combinedGenres[i];
+
+                if (!genreTrueOrFalse[genre.name]) {
+                    genreTrueOrFalse[genre.name] = true;
+                    uniqueGenres.push(genre);
+                }
+            }
+
+
+            const genreSelect = document.getElementById("genreSelect");
+            genreSelect.innerHTML = '<option value="">Select genre</option>';
+
+            for (let i = 0; i < uniqueGenres.length; i++) {
+                const option = document.createElement("option");
+                option.value = uniqueGenres[i].name;
+                option.textContent = uniqueGenres[i].name;
+                genreSelect.appendChild(option);
+            }
+
+            
+
+        } catch (error) {
+            console.error("Failed to load genres:", error.message);
+            const selectGenre = document.getElementById("genreSelect")
+            selectGenre.innerHTML = `<option value="">Error loading genres</option>`;
+        }
+    }
+
+    async getUserGenreDelete(){
+         try {
 
             const genres = await this.api.getUserGenre();
             const genreDelete = document.getElementById("genreDelete");
@@ -303,13 +351,16 @@ class UI {
                 option.value = genre.id;
                 option.textContent = genre.name;
                 genreDelete.appendChild(option);
+
             }
 
         } catch (error) {
             console.error("Failed to load genres:", error.message);
             const genreDelete = document.getElementById("genreDelete");
-            genreDelete.innerHTML = `<option value="">Error loading generes</option>`;
+            genreDelete.innerHTML = `<option value="">Error loading genres</option>`;
+           
         }
+
     }
 
     async addGenre() {
@@ -671,7 +722,7 @@ class UI {
             if (!container) return;
 
             await this.renderMovies(recentMovies, container);
-            
+
         } catch (error) {
             this.showErrorMessage("Couldn't load movies, please try again later");
         }
@@ -1136,11 +1187,11 @@ class UI {
         }
     }
 
-    async deleteMovie(){
-        try{
+    async deleteMovie() {
+        try {
             const urlParams = new URLSearchParams(window.location.search);
             const movieId = urlParams.get("id");
-        
+
             if (!movieId) {
                 this.showErrorMessage("No movie ID found");
                 return;
@@ -1149,16 +1200,16 @@ class UI {
             if (!userConfirmed) {
                 return;
             }
-        
+
             const success = await this.api.deleteMovie(movieId);
-        
+
             if (success) {
                 alert("Movie has been deleted!");
                 window.location.href = "main-page.html";
             } else {
                 alert("Failed to delete movie. Please try again.");
             }
-        }catch(error){
+        } catch (error) {
             console.error("Error deleting movie:", error.message);
             this.showErrorMessage("Could not delete movie. Please try again later.");
         }

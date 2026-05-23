@@ -1,6 +1,6 @@
 const api = new API();
 const ui = new UI(api);
-ui.getUserGenre();
+ui.getUserGenreDelete();
 
 const addGenreForm = document.getElementById("add-box-genre");
 const deleteGenreForm = document.getElementById("delete-box-genre");
