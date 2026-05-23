@@ -864,11 +864,6 @@ class UI {
                 genreSelect.appendChild(option);
             }
 
-            const statusSelect = document.getElementById("statusSelect");
-            const watchedExtra = document.getElementById("watchedExtra");
-            const stars = document.querySelectorAll(".rating-stars span");
-            const ratingInput = document.getElementById("rating");
-            const dateInput = document.getElementById("dateWatched");
 
             const UpdateForm = document.getElementById("UpdateMovieForm");
             let self = this;
