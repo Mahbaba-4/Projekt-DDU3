@@ -870,30 +870,6 @@ class UI {
             const ratingInput = document.getElementById("rating");
             const dateInput = document.getElementById("dateWatched");
 
-            // if (movie.status === "Watched") {
-            //     statusSelect.value = "Watched";
-            //     watchedExtra.style.display = "block";
-
-            //     ratingInput.value = movie.rating;
-            //     for (let i = 0; i < stars.length; i++) {
-            //         if (i < movie.rating) {
-            //             stars[i].innerHTML = "★";
-            //             stars[i].style.fontSize = "30px";
-            //             stars[i].style.color = "#DB2424";
-            //         } else {
-            //             stars[i].innerHTML = "☆";
-            //             stars[i].style.color = "#DB2424";
-            //         }
-            //     }
-
-            //     if (movie.dateWatched) {
-            //         dateInput.value = movie.dateWatched;
-            //     }
-            // } else {
-            //     statusSelect.value = "Watchlist";
-            //     watchedExtra.style.display = "none";
-            // }
-
             const UpdateForm = document.getElementById("UpdateMovieForm");
             let self = this;
 
