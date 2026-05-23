@@ -335,7 +335,7 @@
       "userId": "1",
       "title": "The Incredibles",
       "year": 2004,
-      "genreId": "13",
+      "genreId": "16",
       "director": "Brad Bird",
       "runtime": 115,
       "posterUrl": "https://i.pinimg.com/1200x/9f/c7/39/9fc739d7ecce5091cad3907734aa1337.jpg",
@@ -365,30 +365,15 @@
       "userId": "2",
       "title": "The Dark Knight",
       "year": 2008,
-      "genreId": "1",
+      "genreId": "10",
       "director": "Christopher Nolan",
       "runtime": 152,
       "posterUrl": "https://i.pinimg.com/1200x/5f/fe/79/5ffe79003530da912a82acac80be1426.jpg",
       "description": "Iconic!",
-      "status": "Watched",
-      "rating": 5,
-      "dateWatched": "2026-03-02",
-      "listId": "4"
-    },
-    {
-      "id": "27",
-      "userId": "2",
-      "title": "Inception",
-      "year": 2010,
-      "genreId": "8",
-      "director": "Christopher Nolan",
-      "runtime": 148,
-      "posterUrl": "https://i.pinimg.com/1200x/b0/ae/a4/b0aea49646879a043ad9f6ec3002e99f.jpg",
-      "description": "Mind-bending masterpiece!",
-      "status": "Watched",
-      "rating": 1,
-      "dateWatched": "2025-05-15",
-      "listId": "4"
+      "status": "Watchlist",
+      "rating": null,
+      "dateWatched": null,
+      "listId": "1"
     },
     {
       "id": "28",
@@ -466,11 +451,6 @@
     {
       "id": "15",
       "name": "Mystery"
-    },
-    {
-      "id": "1",
-      "name": "kids",
-      "userId": "1"
     }
   ],
   "lists": [
@@ -528,10 +508,7 @@
       "userId": "2",
       "name": "Already Watched",
       "type": "Watched",
-      "movieIds": [
-        "26",
-        "27"
-      ]
+      "movieIds": []
     },
     {
       "id": "5",

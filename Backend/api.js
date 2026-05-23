@@ -1126,12 +1126,11 @@ async function postGenres(request) {
 
         let maxId = 0;
         for (let genre of data.genre) {
-            if(genre.userId === userId){
                 const id = parseInt(genre.id);
                 if (id > maxId) {
                     maxId = id;
                 }
-            }
+            
         }
 
         const newId = `${maxId + 1}`;
