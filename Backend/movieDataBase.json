@@ -335,7 +335,7 @@
       "userId": "1",
       "title": "The Incredibles",
       "year": 2004,
-      "genreId": "16",
+      "genreId": "1",
       "director": "Brad Bird",
       "runtime": 115,
       "posterUrl": "https://i.pinimg.com/1200x/9f/c7/39/9fc739d7ecce5091cad3907734aa1337.jpg",
@@ -451,6 +451,11 @@
     {
       "id": "15",
       "name": "Mystery"
+    },
+    {
+      "id": "16",
+      "name": "adults",
+      "userId": "1"
     }
   ],
   "lists": [
