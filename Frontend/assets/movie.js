@@ -496,6 +496,7 @@ class UI {
                 if (currentGenre !== "") genreValue = currentGenre;
                 if (currentStatus !== "all") statusValue = currentStatus;
                 self.getMovies(genreValue, statusValue);
+
             });
         }
 
@@ -513,6 +514,7 @@ class UI {
                 if (currentStatus !== "all") statusValue = currentStatus;
                 self.getMovies(genreValue, statusValue);
             });
+
         }
 
         if (genresSelect) {
@@ -524,6 +526,7 @@ class UI {
                 if (currentGenre !== "") genreValue = currentGenre;
                 if (currentStatus !== "all") statusValue = currentStatus;
                 self.getMovies(genreValue, statusValue);
+
             });
         }
 
@@ -884,7 +887,7 @@ class UI {
         }
     }
 
-    async showMovieInList(listId) {
+    async showMovieInList(listId, genreId = "", status = "") {
         try {
             const container = document.getElementById("movies-container");
 
@@ -895,11 +898,10 @@ class UI {
             container.innerHTML = "";
 
             const movies = await api.getMoviesByListId(listId);
-
             await this.renderMovies(movies, container);
 
         } catch (error) {
-            console.log(error.message);
+            this.showErrorMessage("Could not load movies for this list.");
         }
     }
 
