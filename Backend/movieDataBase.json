@@ -559,7 +559,8 @@
       "id": "2",
       "email": "test2@example.com",
       "passwordHash": "123456",
-      "username": "test2"
+      "username": "test2",
+      "profileImage": "/uploads/44f4c7cb-9389-4f10-9eba-dd4b0590305f.png"
     }
   ]
 }
