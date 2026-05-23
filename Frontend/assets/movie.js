@@ -200,14 +200,34 @@ class UI {
                 return;
             }
             const allGenres = await api.getGenre();
+            const userGenres = await api.getUserGenre();
+
+            const combinedGenres = [];
+            for (let i = 0; i < allGenres.length; i++) {
+                combinedGenres.push(allGenres[i]);
+            }
+            for (let i = 0; i < userGenres.length; i++) {
+                combinedGenres.push(userGenres[i]);
+            }
+
+            let uniqueGenres = [];
+            let genreNames = {};
+            for (let i = 0; i < combinedGenres.length; i++) {
+                let genre = combinedGenres[i];
+                if (!genreNames[genre.name]) {
+                    genreNames[genre.name] = true;
+                    uniqueGenres.push(genre);
+                }
+            }
 
             let genreName = "No genre";
-            for (let genre of allGenres) {
-                if (genre.id == movie.genreId) {
-                    genreName = genre.name;
+            for (let i = 0; i < uniqueGenres.length; i++) {
+                if (uniqueGenres[i].id == movie.genreId) {
+                    genreName = uniqueGenres[i].name;
                     break;
                 }
             }
+
 
             const movieTitle = document.getElementById("movie-title");
             const movieYear = document.getElementById("movie-year");
@@ -225,6 +245,7 @@ class UI {
             movieRuntime.textContent = movie.runtime + " min";
             movieDirector.textContent = "Directed by " + movie.director;
             moviePoster.src = movie.posterUrl;
+            movieGenre.textContent = genreName;
 
             if (movie.status === "Watched" && movie.dateWatched) {
                 watchedDateSpan.innerHTML = "Watched on " + movie.dateWatched;
@@ -293,7 +314,7 @@ class UI {
 
     async getUserGenre() {
         try {
-            
+
             const allGenres = await this.api.getGenre();
             const userGenres = await this.api.getUserGenre();
 
@@ -330,17 +351,17 @@ class UI {
                 genreSelect.appendChild(option);
             }
 
-            
+
 
         } catch (error) {
             console.error("Failed to load genres:", error.message);
-            const selectGenre = document.getElementById("genreSelect")
-            selectGenre.innerHTML = `<option value="">Error loading genres</option>`;
+            const genreSelect = document.getElementById("genreSelect");
+            genreSelect.innerHTML = `<option value="">Error loading genres</option>`;
         }
     }
 
-    async getUserGenreDelete(){
-         try {
+    async getUserGenreDelete() {
+        try {
 
             const genres = await this.api.getUserGenre();
             const genreDelete = document.getElementById("genreDelete");
@@ -358,7 +379,7 @@ class UI {
             console.error("Failed to load genres:", error.message);
             const genreDelete = document.getElementById("genreDelete");
             genreDelete.innerHTML = `<option value="">Error loading genres</option>`;
-           
+
         }
 
     }
@@ -369,8 +390,12 @@ class UI {
             const genreNameInput = document.getElementById("genreInput");
 
             await this.api.postGenre(genreNameInput.value);
+            alert("Genre added!");
+
 
             genreNameInput.value = "";
+
+            window.location.href = "/main-page.html"
 
         } catch (error) {
             alert("Couldn't add genre")
@@ -385,6 +410,14 @@ class UI {
         try {
             await this.api.deleteGenres(genreId);
             alert("Genre deleted successfully!");
+
+            const genreDelete = document.getElementById("genreDelete");
+            if (genreDelete) {
+                genreDelete.value = "";
+            }
+
+            this.getUserGenre();
+
 
             this.getUserGenre();
         } catch (error) {
@@ -1010,6 +1043,8 @@ class UI {
         const form = document.getElementById("movieForm");
 
         let self = this;
+
+        await this.getUserGenre();
 
         form.addEventListener("submit", async function (e) {
             e.preventDefault();
