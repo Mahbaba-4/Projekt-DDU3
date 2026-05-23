@@ -901,23 +901,39 @@ class UI {
     }
 
     showErrorMessage(message) {
+        console.log("showErrorMessage called with:", message);
         let errorContainer = document.getElementById("error-message");
+        console.log("errorContainer exists?", !!errorContainer);
+
 
         if (!errorContainer) {
             errorContainer = document.createElement("div");
             errorContainer.id = "error-message";
             errorContainer.style.color = "red";
             errorContainer.style.textAlign = "center";
-            errorContainer.style.padding = "40px";
+            errorContainer.style.padding = "60px 40px";
             errorContainer.style.fontSize = "18px";
+            errorContainer.style.display = "flex";
 
-            const container = document.getElementById("movie-container");
+
+            let container = document.getElementById("movies-container");
+
+            if (!container) {
+                container = document.getElementById("movie-container");
+            }
             if (!container) {
                 container = document.getElementById("recentMoviesContainer");
             }
             if (container) {
                 container.innerHTML = "";
+                container.style.display = "flex";
+                container.style.justifyContent = "center";
+                container.style.alignItems = "center";
+                container.style.minHeight = "400px";
                 container.appendChild(errorContainer);
+            } else {
+                document.body.appendChild(errorContainer);
+
             }
         }
         errorContainer.innerHTML = `<p>${message}</p>`;
