@@ -292,23 +292,50 @@ class UI {
     async showGenres() {
         try {
 
-            const genres = await this.api.getGenre();
+            const defaultGenres = await this.api.getGenre();
+            const userGenres = await this.api.getUserGenre();
+
+            const combinedGenres = [];
+
+            for (let i = 0; i < defaultGenres.length; i++) {
+                combinedGenres.push(defaultGenres[i]);
+            }
+
+            for (let i = 0; i < userGenres.length; i++) {
+                combinedGenres.push(userGenres[i]);
+            }
+
+            let uniqueGenres = [];
+            let genreNames = {};
+
+            for (let i = 0; i < combinedGenres.length; i++) {
+                let genre = combinedGenres[i];
+                if (!genreNames[genre.name]) {
+                    genreNames[genre.name] = true;
+                    uniqueGenres.push(genre);
+                }
+            }
 
             const genreSelect = document.getElementById("genreSelect");
 
-            genreSelect.innerHTML = `<option value="">Select genre</option>`;
+            if (genreSelect) {
+                genreSelect.innerHTML = `<option value="">Select genre</option>`;
 
-            for (let genre of genres) {
-                const option = document.createElement("option");
-                option.value = genre.id;
-                option.textContent = genre.name;
-                genreSelect.appendChild(option);
+
+                for (let i = 0; i < uniqueGenres.length; i++) {
+                    const option = document.createElement("option");
+                    option.value = uniqueGenres[i].name;
+                    option.textContent = uniqueGenres[i].name;
+                    genreSelect.appendChild(option);
+                }
             }
 
         } catch (error) {
             console.error("Failed to load genres:", error.message);
             const genreSelect = document.getElementById("genreSelect");
-            genreSelect.innerHTML = `<option value="">Error loading genres</option>`;
+            if (genreSelect) {
+                genreSelect.innerHTML = `<option value="">Error loading genres</option>`;
+            }
         }
     }
 
