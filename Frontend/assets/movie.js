@@ -953,7 +953,7 @@ class UI {
         } catch (error) {
             console.log("Failed to load movie data:", error.message);
         }
-    } //not done with this one, måste kolla igenom
+    }
 
     async addMovie() {
         const form = document.getElementById("movieForm");
