@@ -325,10 +325,10 @@
       "runtime": 149,
       "posterUrl": "https://i.pinimg.com/736x/cd/de/46/cdde467bb8d63466c3f0ef8062307215.jpg",
       "description": "Twisted and brilliant wow!",
-      "status": "Watchlist",
-      "rating": null,
-      "dateWatched": null,
-      "listId": "1"
+      "status": "Watched",
+      "rating": 5,
+      "dateWatched": "2026-05-02",
+      "listId": "2"
     },
     {
       "id": "24",
@@ -340,21 +340,6 @@
       "runtime": 115,
       "posterUrl": "https://i.pinimg.com/1200x/9f/c7/39/9fc739d7ecce5091cad3907734aa1337.jpg",
       "description": "Super family! Fun for all ages.",
-      "status": "Watchlist",
-      "rating": null,
-      "dateWatched": null,
-      "listId": "1"
-    },
-    {
-      "id": "25",
-      "userId": "1",
-      "title": "The Maze Runner",
-      "year": 2014,
-      "genreId": "1",
-      "director": "Wes Ball",
-      "runtime": 113,
-      "posterUrl": "https://i.pinimg.com/736x/d0/1e/32/d01e3262050486f36b268ea33aa41637.jpg",
-      "description": "Intense and exciting! Great",
       "status": "Watchlist",
       "rating": null,
       "dateWatched": null,
@@ -473,9 +458,7 @@
         "18",
         "21",
         "22",
-        "23",
-        "24",
-        "25"
+        "24"
       ]
     },
     {
@@ -496,7 +479,8 @@
         "13",
         "15",
         "19",
-        "20"
+        "20",
+        "23"
       ]
     },
     {

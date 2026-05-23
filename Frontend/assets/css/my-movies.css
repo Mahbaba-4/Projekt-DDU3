@@ -105,9 +105,24 @@ div #search-movies {
     max-width: 250px;
 }
  
-#custom-lists, #genreSelect{
+#genreSelect{
     background-color: #1a1a1a;
     border: 1px solid #333;
+    color: #bfbdbd;
+    padding: 8px 30px 8px 15px;
+    border-radius: 25px;
+    font-size: 13px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='white'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+#custom-lists {
+    background-color: #1a1a1a;
+    border: 2px solid #db2424 !important;
     color: #bfbdbd;
     padding: 8px 30px 8px 15px;
     border-radius: 25px;

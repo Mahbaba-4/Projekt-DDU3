@@ -5,14 +5,36 @@ class UI {
 
     async renderMovies(moviesToShow, container) {
         try {
+
+            container.innerHTML = "";
+
             if (!moviesToShow || moviesToShow.length === 0) {
                 container.innerHTML = "<p style='text-align: center; padding: 60px; color: #666;'>No movies found.</p>";
                 return;
             }
 
+            const uniqueMovies = [];
+
+
+            for (let i = 0; i < moviesToShow.length; i++) {
+                let isDuplicate = false;
+
+                for (let j = 0; j < uniqueMovies.length; j++) {
+                    if (moviesToShow[i].id === uniqueMovies[j].id) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+
+                if (!isDuplicate) {
+                    uniqueMovies.push(moviesToShow[i]);
+                }
+            }
+
+
             const allGenres = await this.api.getGenre();
 
-            for (let movie of moviesToShow) {
+            for (let movie of uniqueMovies) {
                 const a = document.createElement("a");
                 a.href = `one-movie.html?id=${movie.id}`;
                 a.style.textDecoration = "none";
@@ -122,33 +144,6 @@ class UI {
             if (!filteredMovies || filteredMovies.length === 0) {
                 this.showErrorMessage("Couldn't find any movies with this filter");
                 return;
-            }
-
-            let allMoviesCount = 0;
-            let watchedMoviesCount = 0;
-            let watchlistMoviesCount = 0;
-
-            for (let i = 0; i < allMovies.length; i++) {
-                allMoviesCount++;
-                if (allMovies[i].status == "Watched") {
-                    watchedMoviesCount++;
-                } else if (allMovies[i].status == "Watchlist") {
-                    watchlistMoviesCount++;
-                }
-
-            }
-
-            if (allCount) {
-                allCount.textContent = allMoviesCount;
-                console.log(allCount.textContent)
-            }
-
-            if (watchedCount) {
-                watchedCount.textContent = watchedMoviesCount;
-            }
-
-            if (watchlistCount) {
-                watchlistCount.textContent = watchlistMoviesCount;
             }
 
             await this.renderMovies(filteredMovies, container);
