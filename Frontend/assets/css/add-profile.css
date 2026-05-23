@@ -611,7 +611,7 @@ footer {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 760px) {
     .profile-header {
         flex-direction: column;
         text-align: center;
@@ -634,4 +634,21 @@ footer {
         gap: 15px;
         padding: 20px;
     }
+
+    #left-nav img{
+        height: 40px;
+    }
+}
+
+@media (max-width: 610px){
+     #left-nav img{
+        height: 40px;
+        display: none;
+        
+    }
+
+    #right-nav a{
+     padding: 4px 7px;
+    }
+
 }
