@@ -324,7 +324,7 @@ class UI {
 
                 for (let i = 0; i < uniqueGenres.length; i++) {
                     const option = document.createElement("option");
-                    option.value = uniqueGenres[i].name;
+                    option.value = uniqueGenres[i].id;
                     option.textContent = uniqueGenres[i].name;
                     genreSelect.appendChild(option);
                 }
@@ -373,7 +373,7 @@ class UI {
 
             for (let i = 0; i < uniqueGenres.length; i++) {
                 const option = document.createElement("option");
-                option.value = uniqueGenres[i].name;
+                option.value = uniqueGenres[i].id;
                 option.textContent = uniqueGenres[i].name;
                 genreSelect.appendChild(option);
             }
@@ -991,7 +991,7 @@ class UI {
 
             for (let i = 0; i < uniqueGenres.length; i++) {
                 const option = document.createElement("option");
-                option.value = uniqueGenres[i].name;
+                option.value = uniqueGenres[i].id;
                 option.textContent = uniqueGenres[i].name;
                 if (uniqueGenres[i].name === genreName) {
                     option.selected = true;
