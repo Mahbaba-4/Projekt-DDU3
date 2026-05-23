@@ -390,8 +390,12 @@ class UI {
             const genreNameInput = document.getElementById("genreInput");
 
             await this.api.postGenre(genreNameInput.value);
+            alert("Genre added!");
+
 
             genreNameInput.value = "";
+
+            window.location.href = "/main-page.html"
 
         } catch (error) {
             alert("Couldn't add genre")
@@ -406,6 +410,14 @@ class UI {
         try {
             await this.api.deleteGenres(genreId);
             alert("Genre deleted successfully!");
+
+            const genreDelete = document.getElementById("genreDelete");
+            if (genreDelete) {
+                genreDelete.value = "";
+            }
+
+            this.getUserGenre();
+
 
             this.getUserGenre();
         } catch (error) {
