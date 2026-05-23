@@ -834,6 +834,7 @@ class UI {
         try {
             const movie = await this.api.getMoviesById(movieId);
             const allGenres = await this.api.getGenre();
+            const userGenres = await this.api.getUserGenre();
 
             document.getElementById("titleInput").value = movie.title;
             document.getElementById("yearInput").value = movie.year;
@@ -851,48 +852,42 @@ class UI {
                 }
             }
 
+            const combinedGenres = [];
+
+            for (let i = 0; i < allGenres.length; i++) {
+                combinedGenres.push(allGenres[i]);
+            }
+
+            for (let i = 0; i < userGenres.length; i++) {
+                combinedGenres.push(userGenres[i]);
+            }
+
+            let uniqueGenres = [];
+            let genreTrueOrFalse = {};
+
+            for (let i = 0; i < combinedGenres.length; i++) {
+                let genre = combinedGenres[i];
+
+                if (!genreTrueOrFalse[genre.name]) {
+                    genreTrueOrFalse[genre.name] = true;
+                    uniqueGenres.push(genre);
+                }
+            }
+
+
             const genreSelect = document.getElementById("genreSelect");
             genreSelect.innerHTML = '<option value="">Select genre</option>';
 
-            for (let i = 0; i < allGenres.length; i++) {
+            for (let i = 0; i < uniqueGenres.length; i++) {
                 const option = document.createElement("option");
-                option.value = allGenres[i].id;
-                option.textContent = allGenres[i].name;
-                if (allGenres[i].name === genreName) {
+                option.value = uniqueGenres[i].name;
+                option.textContent = uniqueGenres[i].name;
+                if (uniqueGenres[i].name === genreName) {
                     option.selected = true;
                 }
                 genreSelect.appendChild(option);
             }
 
-            const statusSelect = document.getElementById("statusSelect");
-            const watchedExtra = document.getElementById("watchedExtra");
-            const stars = document.querySelectorAll(".rating-stars span");
-            const ratingInput = document.getElementById("rating");
-            const dateInput = document.getElementById("dateWatched");
-
-            if (movie.status === "Watched") {
-                statusSelect.value = "Watched";
-                watchedExtra.style.display = "block";
-
-                ratingInput.value = movie.rating;
-                for (let i = 0; i < stars.length; i++) {
-                    if (i < movie.rating) {
-                        stars[i].innerHTML = "★";
-                        stars[i].style.fontSize = "30px";
-                        stars[i].style.color = "#DB2424";
-                    } else {
-                        stars[i].innerHTML = "☆";
-                        stars[i].style.color = "#DB2424";
-                    }
-                }
-
-                if (movie.dateWatched) {
-                    dateInput.value = movie.dateWatched;
-                }
-            } else {
-                statusSelect.value = "Watchlist";
-                watchedExtra.style.display = "none";
-            }
 
             const UpdateForm = document.getElementById("UpdateMovieForm");
             let self = this;
@@ -958,7 +953,7 @@ class UI {
         } catch (error) {
             console.log("Failed to load movie data:", error.message);
         }
-    } //not done with this one, måste kolla igenom
+    }
 
     async addMovie() {
         const form = document.getElementById("movieForm");

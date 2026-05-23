@@ -67,7 +67,14 @@ function getMovieById(request, id) {
 function getGenres(request) {
     try {
         const data = readData();
-        let genres = data.genre;
+
+        let genres = [];
+
+        for(let genre of data.genre){
+            if(!genre.userId){
+                genres.push(genre); 
+            }
+        }
 
         return new Response(JSON.stringify(genres), {
             status: 200,

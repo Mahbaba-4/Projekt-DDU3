@@ -3,6 +3,7 @@ const ui = new UI(api);
 ui.filteredMovies();
 ui.logOut();
 ui.showGenres();
+ui.getUserGenre();
 
 async function select () {
     const listsSelect = document.getElementById("custom-lists");

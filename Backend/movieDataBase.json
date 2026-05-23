@@ -386,8 +386,8 @@
       "posterUrl": "https://i.pinimg.com/1200x/b0/ae/a4/b0aea49646879a043ad9f6ec3002e99f.jpg",
       "description": "Mind-bending masterpiece!",
       "status": "Watched",
-      "rating": 5,
-      "dateWatched": "2026-03-01",
+      "rating": 1,
+      "dateWatched": "2025-05-15",
       "listId": "4"
     },
     {
@@ -578,7 +578,7 @@
       "email": "test@example.com",
       "passwordHash": "123456",
       "username": "testuser",
-      "profileImage": "/uploads/1c9879be-7029-49f8-8238-73e68440c3b1.jpg"
+      "profileImage": "/uploads/9ea5f380-d08c-4d60-8598-790956aa1f31.jpg"
     },
     {
       "id": "2",
