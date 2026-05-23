@@ -53,22 +53,6 @@ async function handler(request) {
         return monthlyStatistics(request);
     }
 
-    /* if (request.method === "GET") {
-         if (request.headers.get("Accept") !== "application/json") {
-             return new Response(JSON.stringify({}), {
-                 status: 406,
-             })
-         }
-     }
- 
-     if (request.method === "POST") {
-          if (request.headers.get("Content-Type") !== "application/json") {
-              return new Response(JSON.stringify({}), {
-                  status: 406,
-              })
-          }
-      }*/
-
     if (url.pathname === "/user/lists" && request.method === "GET") {
         if (request.headers.get("Accept") !== "application/json") {
             return new Response(JSON.stringify({}), {
@@ -194,7 +178,7 @@ async function handler(request) {
         let id = movieMatch.pathname.groups.id;
         return patchMovieById(request, id);
     }
-    //route for localhost//
+
     if (url.pathname == "/") {
         const userId = authorization(request);
         let filePath;
@@ -209,7 +193,7 @@ async function handler(request) {
             headers: { "Content-Type": "text/html" }
         })
     }
-    //file frontend serves// 
+  
     const frontendResponse = serveDir(request, { fsRoot: "../Frontend" })
     if (frontendResponse.status !== 404) {
         return frontendResponse;

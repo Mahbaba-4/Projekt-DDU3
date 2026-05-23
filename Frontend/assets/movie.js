@@ -720,7 +720,7 @@ class UI {
             chooseImageBtn.addEventListener("click", function () {
                 document.getElementById("editImageUpload").click();
             });
-            //Visa filnamn 
+          
             const imageUpload = document.getElementById('editImageUpload');
             if (imageUpload) {
                 imageUpload.addEventListener('change', function (event) {
