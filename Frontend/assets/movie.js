@@ -438,10 +438,8 @@ class UI {
                 genreDelete.value = "";
             }
 
-            this.getUserGenre();
+            await this.getUserGenreDelete();
 
-
-            this.getUserGenre();
         } catch (error) {
             alert("Failed to delete genre");
         }
