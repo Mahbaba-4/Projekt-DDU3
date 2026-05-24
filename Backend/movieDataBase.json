@@ -540,13 +540,15 @@
       "id": "1",
       "email": "test@example.com",
       "passwordHash": "123456",
-      "username": "testuser"
+      "username": "testuser",
+      "profileImage": "/uploads/0c7ec5dd-3168-4732-9d68-30753e40869a.jpg"
     },
     {
       "id": "2",
       "email": "test2@example.com",
       "passwordHash": "123456",
-      "username": "test2"
+      "username": "test2",
+      "profileImage": "/uploads/c68a7019-eaeb-41c7-b792-64e16b04c9ac.png"
     }
   ]
 }
