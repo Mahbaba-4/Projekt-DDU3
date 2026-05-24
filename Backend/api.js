@@ -1228,50 +1228,6 @@ function getUserGenre(request){
     }
 }
 
-function getUserMovieTitles(request) {
-    try {
-        const data = readData();
-        const userId = getUserIdFromSession(request);
-
-        if (!userId) {
-            return new Response(JSON.stringify({}), {
-                status: 401,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
-
-        }
-
-        const movieTitles = [];
-        for (let i = 0; i < data.movies.length; i++) {
-            const movie = data.movies[i];
-            if (movie.userId === userId) {
-                movieTitles.push({
-                    id: movie.id,
-                    title: movie.title
-                });
-            }
-        }
-
-        return new Response(JSON.stringify(movieTitles), {
-            status: 200,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-
-    } catch (error) {
-        return new Response(JSON.stringify({}), {
-            status: 500,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-    }
-
-}
-
 async function createCustomList(request) {
     try {
         const data = readData();
@@ -1494,6 +1450,6 @@ function getMoviesByListId(request, listId) {
     }
 }
 
-export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, getUserIdFromSession, getUserGenre };
+export { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, postGenres, deleteGenre, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, getUserIdFromSession, getUserGenre };
 
 

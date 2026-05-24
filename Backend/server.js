@@ -1,6 +1,6 @@
 
 import { serveDir } from "jsr:@std/http/file-server";
-import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, getUserMovieTitles, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, postGenres, deleteGenre, sessions, getUserIdFromSession, getUserGenre } from "./api.js";
+import { createMovieReview, getGenres, getMovieById, getMovies, deleteMovieById, patchMovieById, searchFilterMovies, postSignUp, postLogIn, postLogOut, getUserProfile, patchUserProfile, postProfileImage, getUsersStatistics, monthlyStatistics, createCustomList, getAllCustomLists, deleteCustomList, getMoviesByListId, postGenres, deleteGenre, getUserIdFromSession, getUserGenre } from "./api.js";
 
 const movieByIdRoute = new URLPattern({ pathname: "/user/movies/:id" });
 const genreByIdRoute = new URLPattern({ pathname: "/movies/genre/:id" })
@@ -87,15 +87,6 @@ async function handler(request) {
     if (listMatch && request.method === "DELETE") {
         let id = listMatch.pathname.groups.id;
         return deleteCustomList(request, id);
-    }
-
-    if (url.pathname === "/user/movies/title" && request.method === "GET") {
-        if (request.headers.get("Accept") !== "application/json") {
-            return new Response(JSON.stringify({}), {
-                status: 406,
-            })
-        }
-        return getUserMovieTitles(request);
     }
 
     if (url.pathname === "/movies/genre" && request.method === "GET") {

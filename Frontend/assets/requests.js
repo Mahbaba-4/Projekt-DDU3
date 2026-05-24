@@ -541,28 +541,5 @@ class API {
         }
     }
 
-    async getUserMovieTitles() {
-        try {
-            const response = await fetch("/user/movies/title", {
-                method: "GET",
-                headers: {
-                    "Accept": "application/json",
-                },
-                credentials: "include"
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                return data;
-            } else {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-        } catch (error) {
-            console.log(error.message);
-            return [];
-        }
-    }
-
 }
 
