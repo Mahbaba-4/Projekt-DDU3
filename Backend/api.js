@@ -6,7 +6,6 @@ function readData() {
     return JSON.parse(Deno.readTextFileSync("./movieDataBase.json"));
 }
 
-//Det är enklare att använda en funktion som skriver över datan vid PATCH OCH POST :)
 function writeData(data) {
     Deno.writeTextFileSync("./movieDataBase.json", JSON.stringify(data, null, 2));
 }
@@ -927,16 +926,8 @@ async function postProfileImage(request) {
             }
         }
 
-        if (user.profileImage && user.profileImage.substring(0, 9) === "/uploads/") {
-            const oldPath = `../Frontend${user.profileImage}`;
-            try {
-                await Deno.remove(oldPath);
-            } catch (error) {
-                console.log("Error deleting old image:", error);
-            }
-        }
-
         user.profileImage = `/uploads/${newFilename}`;
+        
         writeData(data);
 
         return new Response(JSON.stringify({ message: "Image uploaded", path: user.profileImage }), {
