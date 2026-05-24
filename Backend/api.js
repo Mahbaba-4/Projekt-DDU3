@@ -927,7 +927,6 @@ async function postProfileImage(request) {
         }
 
         user.profileImage = `/uploads/${newFilename}`;
-        
         writeData(data);
 
         return new Response(JSON.stringify({ message: "Image uploaded", path: user.profileImage }), {
@@ -1032,7 +1031,6 @@ function monthlyStatistics(request) {
             if (movie.userId == userId) {
                 if (movie.status == "Watched") {
                     let allParts = movie.dateWatched.split("-");
-                    //måste dubbelkolla att vår type="date" i html skickar in år-månad-dag
                     let year = allParts[0];
                     let month = allParts[1];
                     let monthkey = year + "-" + month;
