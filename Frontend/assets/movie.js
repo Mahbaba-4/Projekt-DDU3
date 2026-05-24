@@ -1207,7 +1207,8 @@ class UI {
 
             const yearStats = [];
             for (let i = 0; i < monthlyStats.length; i++) {
-                const [year] = monthlyStats[i].month.split("-");
+                const parts = monthlyStats[i].month.split("-");
+                const year = parts[0];
                 if (parseInt(year) === currentYear) {
                     yearStats.push(monthlyStats[i]);
                 }
@@ -1232,7 +1233,9 @@ class UI {
             for (let i = 0; i < yearStats.length; i++) {
                 const stat = yearStats[i];
 
-                const [year, month] = stat.month.split("-");
+                const parts = stat.month.split("-");
+                const year = parts[0];
+                const month = parts[1];
                 const monthNames = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
                 const monthName = `${monthNames[parseInt(month) - 1]} ${year}`;
 
