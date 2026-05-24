@@ -880,7 +880,7 @@ class UI {
         }
     }
 
-    async showMovieInList(listId, genreId = "", status = "") {
+    async showMovieInList(listId) {
         try {
             const container = document.getElementById("movies-container");
 

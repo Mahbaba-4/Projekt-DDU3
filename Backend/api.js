@@ -63,7 +63,7 @@ function getMovieById(request, id) {
     }
 }
 
-function getGenres(request) {
+function getGenres() {
     try {
         const data = readData();
 
@@ -194,7 +194,7 @@ async function createMovieReview(request) {
     }
 }
 
-function deleteMovieById(request, id) {
+function deleteMovieById(id) {
     try {
         const data = readData();
         let found = false;
@@ -1150,7 +1150,7 @@ async function postGenres(request) {
     }
 }
 
-function deleteGenre(request, id) {
+function deleteGenre(id) {
     try {
         const data = readData();
 

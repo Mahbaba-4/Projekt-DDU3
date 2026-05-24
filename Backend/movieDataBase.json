@@ -316,21 +316,6 @@
       "listId": "1"
     },
     {
-      "id": "23",
-      "userId": "1",
-      "title": "Gone Girl",
-      "year": 2014,
-      "genreId": "5",
-      "director": "David Fincher",
-      "runtime": 149,
-      "posterUrl": "https://i.pinimg.com/736x/cd/de/46/cdde467bb8d63466c3f0ef8062307215.jpg",
-      "description": "Twisted and brilliant wow!",
-      "status": "Watchlist",
-      "rating": null,
-      "dateWatched": null,
-      "listId": "1"
-    },
-    {
       "id": "24",
       "userId": "1",
       "title": "The Incredibles",
@@ -340,6 +325,21 @@
       "runtime": 115,
       "posterUrl": "https://i.pinimg.com/1200x/9f/c7/39/9fc739d7ecce5091cad3907734aa1337.jpg",
       "description": "Super family! Fun for all ages.",
+      "status": "Watchlist",
+      "rating": null,
+      "dateWatched": null,
+      "listId": "1"
+    },
+    {
+      "id": "23",
+      "userId": "1",
+      "title": "Gone Girl",
+      "year": 2014,
+      "genreId": "5",
+      "director": "David Fincher",
+      "runtime": 149,
+      "posterUrl": "https://i.pinimg.com/736x/cd/de/46/cdde467bb8d63466c3f0ef8062307215.jpg",
+      "description": "Twisted and brilliant wow!",
       "status": "Watchlist",
       "rating": null,
       "dateWatched": null,
@@ -484,8 +484,7 @@
         "18",
         "21",
         "22",
-        "23",
-        "24"
+        "23"
       ]
     },
     {

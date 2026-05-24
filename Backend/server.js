@@ -95,7 +95,7 @@ async function handler(request) {
                 status: 406,
             })
         }
-        return getGenres(request);
+        return getGenres();
     }
 
     if (url.pathname === "/movies/genre" && request.method === "POST") {
@@ -137,7 +137,7 @@ async function handler(request) {
     let genreMatch = genreByIdRoute.exec(request.url);
     if (genreMatch && request.method === "DELETE") {
         let id = genreMatch.pathname.groups.id;
-        return deleteGenre(request, id);
+        return deleteGenre(id);
     }
 
     if (url.pathname == "/movies/user/genre" && request.method == "GET") {
@@ -162,7 +162,7 @@ async function handler(request) {
 
     if (movieMatch && request.method === "DELETE") {
         let id = movieMatch.pathname.groups.id;
-        return deleteMovieById(request, id);
+        return deleteMovieById(id);
     }
 
     if (movieMatch && request.method === "PATCH") {
