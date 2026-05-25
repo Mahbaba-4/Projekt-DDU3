@@ -546,10 +546,12 @@ class UI {
 
             const allGenres = await api.getGenre();
             const movies = await api.searchMovies(query);
+
             if (!movies || movies.length === 0) {
                 this.showErrorMessage("No movies found matching your search");
                 return;
             }
+
 
             for (let movie of movies) {
                 const a = document.createElement("a");
@@ -1000,7 +1002,7 @@ class UI {
                 if (dateWatchedInput && movie.dateWatched) {
                     dateWatchedInput.value = movie.dateWatched;
                 }
-                
+
             } else {
                 if (watchedExtra) {
                     watchedExtra.style.display = "none";
