@@ -796,6 +796,11 @@
     {
       "id": "15",
       "name": "Mystery"
+    },
+    {
+      "id": "16",
+      "name": "kids",
+      "userId": "1"
     }
   ],
   "lists": [
@@ -879,6 +884,32 @@
         "26",
         "27"
       ]
+    },
+    {
+      "id": "5",
+      "userId": "3",
+      "name": "Want to watch",
+      "type": "Watchlist",
+      "movieIds": []
+    },
+    {
+      "id": "6",
+      "userId": "3",
+      "name": "Already Watched",
+      "type": "Watched",
+      "movieIds": []
+    },
+    {
+      "id": "7",
+      "userId": "1",
+      "name": "Travel",
+      "type": "custom",
+      "movieIds": [
+        "5",
+        "7",
+        "8",
+        "9"
+      ]
     }
   ],
   "users": [
@@ -895,6 +926,12 @@
       "passwordHash": "123456",
       "username": "test2",
       "profileImage": "/uploads/c68a7019-eaeb-41c7-b792-64e16b04c9ac.png"
+    },
+    {
+      "id": "3",
+      "email": "janetta@gmail.com",
+      "passwordHash": "jane",
+      "username": "Janette"
     }
   ]
 }
