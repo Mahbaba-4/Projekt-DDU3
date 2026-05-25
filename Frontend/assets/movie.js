@@ -720,7 +720,7 @@ class UI {
             chooseImageBtn.addEventListener("click", function () {
                 document.getElementById("editImageUpload").click();
             });
-          
+
             const imageUpload = document.getElementById('editImageUpload');
             if (imageUpload) {
                 imageUpload.addEventListener('change', function (event) {
@@ -965,6 +965,47 @@ class UI {
             document.getElementById("posterInput").value = movie.posterUrl;
             document.getElementById("commetInput").value = movie.description;
 
+            // Sätt status i dropdown
+            const statusSelect = document.getElementById("statusSelect");
+            if (statusSelect) {
+                statusSelect.value = movie.status;
+            }
+
+            // Hantera watchedExtra sektionen
+            const watchedExtra = document.getElementById("watchedExtra");
+            const ratingInput = document.getElementById("rating");
+            const dateWatchedInput = document.getElementById("dateWatched");
+
+            if (movie.status === "Watched") {
+                if (watchedExtra) {
+                    watchedExtra.style.display = "block";
+                }
+
+                if (ratingInput && movie.rating) {
+                    ratingInput.value = movie.rating;
+
+                    const stars = document.querySelectorAll(".rating-stars span");
+                    for (let i = 0; i < stars.length; i++) {
+                        if (i < movie.rating) {
+                            stars[i].innerHTML = "★";
+                            stars[i].style.fontSize = "30px";
+                            stars[i].style.color = "#DB2424";
+                        } else {
+                            stars[i].innerHTML = "☆";
+                            stars[i].style.color = "#DB2424";
+                        }
+                    }
+                }
+
+                if (dateWatchedInput && movie.dateWatched) {
+                    dateWatchedInput.value = movie.dateWatched;
+                }
+                
+            } else {
+                if (watchedExtra) {
+                    watchedExtra.style.display = "none";
+                }
+            }
 
             let genreName = "";
             for (let i = 0; i < allGenres.length; i++) {

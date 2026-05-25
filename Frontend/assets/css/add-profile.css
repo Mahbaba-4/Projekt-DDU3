@@ -85,6 +85,10 @@ input::placeholder {
     color: #DB2424;
 }
 
+.rating-stars span:hover {
+    cursor: pointer;
+}
+
 .button-group {
     display: flex;
     justify-content: space-between;
