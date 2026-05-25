@@ -1277,7 +1277,7 @@ class UI {
                 const parts = stat.month.split("-");
                 const year = parts[0];
                 const month = parts[1];
-                const monthNames = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
+                const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"];
                 const monthName = `${monthNames[parseInt(month) - 1]} ${year}`;
 
                 let height;
