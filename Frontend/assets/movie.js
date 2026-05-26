@@ -802,7 +802,6 @@ class UI {
             await api.createCustomList(listName, selectedMovieIds);
             await this.showMoviesAndLists();
 
-            this.showSuccessMessage(`List "${listName}" created!!`)
 
         } catch (error) {
             console.log(error.message);

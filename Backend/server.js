@@ -191,7 +191,7 @@ async function handler(request) {
     }
 
     return new Response(JSON.stringify({}), {
-        status: 404,
+        status: 404
     })
 
 }

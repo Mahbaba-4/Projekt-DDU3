@@ -708,7 +708,7 @@
     {
       "id": "50",
       "userId": "1",
-      "title": "Ready or Nor",
+      "title": "Ready or Not",
       "year": 2019,
       "genreId": "5",
       "director": " Matt Bettinelli-Olpin & Tyler Gillett",
@@ -733,6 +733,21 @@
       "status": "Watched",
       "rating": 5,
       "dateWatched": "2026-05-25",
+      "listId": "2"
+    },
+    {
+      "id": "52",
+      "userId": "1",
+      "title": "Ratatouille",
+      "year": 2007,
+      "genreId": "3",
+      "director": "Brad Bird",
+      "runtime": 111,
+      "posterUrl": "https://i.pinimg.com/736x/3d/58/72/3d587270e84d3440386555934fbf24ac.jpg",
+      "description": "Great movie",
+      "status": "Watched",
+      "rating": 4,
+      "dateWatched": "2026-05-14",
       "listId": "2"
     }
   ],
@@ -863,7 +878,8 @@
         "48",
         "49",
         "50",
-        "51"
+        "51",
+        "52"
       ]
     },
     {
@@ -905,10 +921,10 @@
       "name": "Travel",
       "type": "custom",
       "movieIds": [
+        "4",
         "5",
         "7",
-        "8",
-        "9"
+        "8"
       ]
     }
   ],
@@ -918,7 +934,7 @@
       "email": "test@example.com",
       "passwordHash": "123456",
       "username": "testuser",
-      "profileImage": "/uploads/0c7ec5dd-3168-4732-9d68-30753e40869a.jpg"
+      "profileImage": "/uploads/1f9ab3c2-0f8f-4480-80d1-3180e61eb0b2.jpg"
     },
     {
       "id": "2",
