@@ -119,8 +119,7 @@ async function createMovieReview(request) {
                 headers: {
                     "Content-Type": "application/json"
                 }
-            });
-
+            }); 
         }
 
         let maxId = 0;
@@ -135,7 +134,7 @@ async function createMovieReview(request) {
         for (let genre of data.genre) {
             if (genre.name === body.genre) {
                 genreId = genre.id;
-                break;
+                break; 
             }
         }
 
@@ -147,7 +146,6 @@ async function createMovieReview(request) {
                 break;
             }
         }
-
         let listId = null;
         if (targetList) {
             listId = targetList.id;

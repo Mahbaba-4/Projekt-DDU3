@@ -634,7 +634,6 @@ class UI {
             }
         } catch (error) {
             this.showErrorMessage("Oops! Something went wrong. Please try again later.");
-
         }
     }
 
@@ -735,7 +734,6 @@ class UI {
                         fileNameSpan.textContent = "No file chosen";
                     }
                 });
-
             }
 
             const saveBtn = document.getElementById("saveProfileBtn");
